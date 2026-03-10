@@ -11,13 +11,13 @@
       "title": "Untitled Sculpture",
       "category": "Sculpture",
       "year": "2024",
-      "description": "Add your description here. What is this work about? Materials, process, context.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/sculpture/01.jpeg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/sculpture/02.jpeg",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/scu-01",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/scu-02",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/sculpture/01.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/sculpture/02.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/sculpture/03.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/scu-01",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/scu-02",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/scu-03"
       ],
       "videoUrl": null,
       "videoThumb": null
@@ -28,14 +28,14 @@
       "category": "Projection",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/projection/01.jpeg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/projection/02.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pro-01",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pro-02",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/projection/01.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/projection/02.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/projection/03.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/projection/04.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/projection/05.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pro-01",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pro-02",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pro-03",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pro-04",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pro-05"
       ],
       "videoUrl": null,
       "videoThumb": null
@@ -46,18 +46,18 @@
       "category": "Model Making",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/01.jpeg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/02.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-01",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-02",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/01.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/02.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/03.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/04.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/05.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/06.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/07.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/08.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/model/09.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-01",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-02",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-03",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-04",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-05",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-06",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-07",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-08",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/mod-09"
       ],
       "videoUrl": null,
       "videoThumb": null
@@ -68,18 +68,18 @@
       "category": "Photography",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/01.jpeg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/02.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-01",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-02",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/01.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/02.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/03.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/04.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/05.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/06.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/07.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/08.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/photo/09.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-01",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-02",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-03",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-04",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-05",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-06",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-07",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-08",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/pho-09"
       ],
       "videoUrl": null,
       "videoThumb": null
@@ -90,14 +90,14 @@
       "category": "Ceramics",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ceramics/01.jpeg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ceramics/02.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cer-01",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cer-02",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ceramics/01.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ceramics/02.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ceramics/03.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ceramics/04.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ceramics/05.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cer-01",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cer-02",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cer-03",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cer-04",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cer-05"
       ],
       "videoUrl": null,
       "videoThumb": null
@@ -108,13 +108,13 @@
       "category": "3D Print",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dprint/01.jpeg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dprint/02.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dp-01",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dp-02",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dprint/01.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dprint/02.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dprint/03.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dprint/04.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dp-01",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dp-02",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dp-03",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/3dp-04"
       ],
       "videoUrl": null,
       "videoThumb": null
@@ -125,11 +125,11 @@
       "category": "CNC",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cnc/01.jpeg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cnc/02.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cnc-01",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cnc-02",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cnc/01.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cnc/02.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cnc-01",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/cnc-02"
       ],
       "videoUrl": null,
       "videoThumb": null
@@ -140,10 +140,10 @@
       "category": "Animation",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/animation/01.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ani-01",
       "hoverImage": null,
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/animation/01.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ani-01"
       ],
       "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
       "videoThumb": null
@@ -154,10 +154,10 @@
       "category": "AR / XR",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ar/01.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ar-01",
       "hoverImage": null,
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ar/01.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/ar-01"
       ],
       "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
       "videoThumb": null
@@ -168,11 +168,11 @@
       "category": "VR",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/vr/01.jpeg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/vr/02.jpeg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/vr-01",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/vr-02",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/vr/01.jpeg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/vr/02.jpeg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/vr-01",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/portfolio/vr-02"
       ],
       "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
       "videoThumb": null
