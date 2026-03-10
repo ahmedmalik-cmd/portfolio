@@ -1,0 +1,181 @@
+{
+  "site": {
+    "name": "YOUR NAME",
+    "tagline": "Art & Making",
+    "bio": "An interdisciplinary practice spanning sculpture, digital fabrication, ceramics, projection, and photography.",
+    "email": "you@example.com"
+  },
+  "projects": [
+    {
+      "id": "sculpture-01",
+      "title": "Untitled Sculpture",
+      "category": "Sculpture",
+      "year": "2024",
+      "description": "Add your description here. What is this work about? Materials, process, context.",
+      "thumbnail": "/images/sculpture/01.jpeg",
+      "hoverImage": "/images/sculpture/02.jpeg",
+      "images": [
+        "/images/sculpture/01.jpeg",
+        "/images/sculpture/02.jpeg",
+        "/images/sculpture/03.jpeg"
+      ],
+      "videoUrl": null,
+      "videoThumb": null
+    },
+    {
+      "id": "projection-01",
+      "title": "Projection Work",
+      "category": "Projection",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/projection/01.jpeg",
+      "hoverImage": "/images/projection/02.jpeg",
+      "images": [
+        "/images/projection/01.jpeg",
+        "/images/projection/02.jpeg",
+        "/images/projection/03.jpeg",
+        "/images/projection/04.jpeg",
+        "/images/projection/05.jpeg"
+      ],
+      "videoUrl": null,
+      "videoThumb": null
+    },
+    {
+      "id": "model-01",
+      "title": "Model Making",
+      "category": "Model Making",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/model/01.jpeg",
+      "hoverImage": "/images/model/02.jpeg",
+      "images": [
+        "/images/model/01.jpeg",
+        "/images/model/02.jpeg",
+        "/images/model/03.jpeg",
+        "/images/model/04.jpeg",
+        "/images/model/05.jpeg",
+        "/images/model/06.jpeg",
+        "/images/model/07.jpeg",
+        "/images/model/08.jpeg",
+        "/images/model/09.jpeg"
+      ],
+      "videoUrl": null,
+      "videoThumb": null
+    },
+    {
+      "id": "photo-01",
+      "title": "Photography",
+      "category": "Photography",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/photo/01.jpeg",
+      "hoverImage": "/images/photo/02.jpeg",
+      "images": [
+        "/images/photo/01.jpeg",
+        "/images/photo/02.jpeg",
+        "/images/photo/03.jpeg",
+        "/images/photo/04.jpeg",
+        "/images/photo/05.jpeg",
+        "/images/photo/06.jpeg",
+        "/images/photo/07.jpeg",
+        "/images/photo/08.jpeg",
+        "/images/photo/09.jpeg"
+      ],
+      "videoUrl": null,
+      "videoThumb": null
+    },
+    {
+      "id": "ceramics-01",
+      "title": "Ceramics",
+      "category": "Ceramics",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/ceramics/01.jpeg",
+      "hoverImage": "/images/ceramics/02.jpeg",
+      "images": [
+        "/images/ceramics/01.jpeg",
+        "/images/ceramics/02.jpeg",
+        "/images/ceramics/03.jpeg",
+        "/images/ceramics/04.jpeg",
+        "/images/ceramics/05.jpeg"
+      ],
+      "videoUrl": null,
+      "videoThumb": null
+    },
+    {
+      "id": "3dprint-01",
+      "title": "3D Print",
+      "category": "3D Print",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/3dprint/01.jpeg",
+      "hoverImage": "/images/3dprint/02.jpeg",
+      "images": [
+        "/images/3dprint/01.jpeg",
+        "/images/3dprint/02.jpeg",
+        "/images/3dprint/03.jpeg",
+        "/images/3dprint/04.jpeg"
+      ],
+      "videoUrl": null,
+      "videoThumb": null
+    },
+    {
+      "id": "cnc-01",
+      "title": "CNC",
+      "category": "CNC",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/cnc/01.jpeg",
+      "hoverImage": "/images/cnc/02.jpeg",
+      "images": [
+        "/images/cnc/01.jpeg",
+        "/images/cnc/02.jpeg"
+      ],
+      "videoUrl": null,
+      "videoThumb": null
+    },
+    {
+      "id": "animation-01",
+      "title": "Animation",
+      "category": "Animation",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/animation/01.jpeg",
+      "hoverImage": null,
+      "images": [
+        "/images/animation/01.jpeg"
+      ],
+      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
+      "videoThumb": "/images/animation/01.jpeg"
+    },
+    {
+      "id": "ar-01",
+      "title": "AR / XR",
+      "category": "AR / XR",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/ar/01.jpeg",
+      "hoverImage": null,
+      "images": [
+        "/images/ar/01.jpeg"
+      ],
+      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
+      "videoThumb": "/images/ar/01.jpeg"
+    },
+    {
+      "id": "vr-01",
+      "title": "VR",
+      "category": "VR",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "/images/vr/01.jpeg",
+      "hoverImage": "/images/vr/02.jpeg",
+      "images": [
+        "/images/vr/01.jpeg",
+        "/images/vr/02.jpeg"
+      ],
+      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
+      "videoThumb": "/images/vr/01.jpeg"
+    }
+  ]
+}
