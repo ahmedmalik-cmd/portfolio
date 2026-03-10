@@ -1,7 +1,7 @@
 // Loads content.json and renders the homepage
 
 async function init() {
-  const res = await fetch('/content.json');
+  const res = await fetch('/public/content.json');
   const data = await res.json();
 
   // Site meta
