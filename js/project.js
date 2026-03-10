@@ -4,7 +4,7 @@ async function init() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
 
-  const res = await fetch('/content.json');
+  const res = await fetch('/public/content.json');
   const data = await res.json();
 
   // Site meta
