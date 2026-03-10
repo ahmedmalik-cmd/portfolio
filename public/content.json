@@ -84,32 +84,15 @@
       "videoUrl": null,
       "videoThumb": null
     },
-    {
-      "id": "ceramics-01",
-      "title": "Ceramics",
-      "category": "Ceramics",
-      "year": "2024",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-03.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-04.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-05.jpg"
-      ],
-      "videoUrl": null,
-      "videoThumb": null
-    },
+
     {
       "id": "3dprint-01",
       "title": "3D Print",
       "category": "3D Print",
       "year": "2024",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-01.jpg",
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-01.jpg",
         "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
@@ -175,6 +158,24 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
       ],
       "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
+      "videoThumb": null
+    }
+        {
+      "id": "ceramics-01",
+      "title": "Ceramics",
+      "category": "Ceramics",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-03.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-04.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-05.jpg"
+      ],
+      "videoUrl": null,
       "videoThumb": null
     }
   ]
