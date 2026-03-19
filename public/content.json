@@ -176,6 +176,37 @@
       ],
       "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
       "videoThumb": null
+    },
+    {
+      "id": "Video",
+      "title": "Video",
+      "category": "Video",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773861381/vid-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773861749/vid-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
+      ],
+      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
+      "videoThumb": null
+    },
+    {
+      "id": "Music",
+      "title": "Music",
+      "category": "Music",
+      "year": "2024",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773864804/msc-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773861749/vid-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
+      ],
+      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
+      "videoThumb": null
     }
+
   ]
 }
