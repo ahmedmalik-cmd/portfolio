@@ -1,4 +1,4 @@
-// Loads content.json and renders the homepage
+// main.js — renders the homepage grid
 
 async function init() {
   const res = await fetch('/public/content.json');
@@ -24,12 +24,19 @@ function cardHTML(p) {
   const hasHover = !!p.hoverImage;
   const hasVideo = !!p.videoUrl;
 
+  // Support both old "category" string and new "categories" array
+  const cats = p.categories
+    ? p.categories
+    : (p.category ? [p.category] : []);
+
+  const categoryLabel = cats.join(', ');
+
   return `
     <a class="card ${hasHover ? '' : 'no-hover'}" href="/project.html?id=${p.id}">
       <img class="card-img primary-img" src="${p.thumbnail}" alt="${p.title}" loading="lazy">
       ${hasHover ? `<img class="card-img hover-img" src="${p.hoverImage}" alt="${p.title}" loading="lazy">` : ''}
       <div class="card-overlay">
-        <div class="card-category">${p.category}</div>
+        <div class="card-category">${categoryLabel}</div>
         <div class="card-title">${p.title}</div>
         <div class="card-year">${p.year}</div>
       </div>

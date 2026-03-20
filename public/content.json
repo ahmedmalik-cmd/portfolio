@@ -7,44 +7,85 @@
   },
   "projects": [
     {
-      "id": "sculpture-01",
-      "title": "Untitled Sculpture",
-      "category": "Sculpture",
-      "year": "2024",
+      "id": "sampling",
+      "title": "Sampling",
+      "categories": ["Music"],
+      "year": "2022",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg",
+      "hoverImage": null,
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-03.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg"
       ],
       "videoUrl": null,
-      "videoThumb": null
+      "audioUrl": null
     },
     {
-      "id": "projection-01",
-      "title": "Projection Work",
-      "category": "Projection",
-      "year": "2024",
+      "id": "intro-to-video",
+      "title": "Intro to Video",
+      "categories": ["Video"],
+      "year": "2022",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-03.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-04.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-05.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg"
       ],
       "videoUrl": null,
-      "videoThumb": null
+      "audioUrl": null
     },
     {
-      "id": "model-01",
-      "title": "Model Making",
-      "category": "Model Making",
-      "year": "2024",
+      "id": "media-items",
+      "title": "Media Items",
+      "categories": ["Video", "Photography"],
+      "year": "2022",
+      "description": "Internship work. Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "animation-vr",
+      "title": "Animation",
+      "categories": ["Animation", "VR"],
+      "year": "2022",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg",
+      "hoverImage": null,
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "3d-printing-modelling",
+      "title": "3D Printing & Modelling",
+      "categories": ["3D Print", "Model Making"],
+      "year": "2022",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-03.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-04.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "paper-modelling",
+      "title": "Paper Modelling",
+      "categories": ["Model Making"],
+      "year": "2022",
       "description": "Add your description here.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
@@ -60,13 +101,105 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/mod-09.jpg"
       ],
       "videoUrl": null,
-      "videoThumb": null
+      "audioUrl": null
     },
     {
-      "id": "photo-01",
-      "title": "Photography",
-      "category": "Photography",
-      "year": "2024",
+      "id": "advanced-proj-vr",
+      "title": "Advanced Projection VR",
+      "categories": ["VR", "Projection"],
+      "year": "2023",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "intermediate-vid",
+      "title": "Intermediate Video",
+      "categories": ["Video"],
+      "year": "2023",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "water-dialogues",
+      "title": "Water Dialogues",
+      "categories": ["Video"],
+      "year": "2023",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
+      "hoverImage": null,
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "electronics-for-sound",
+      "title": "Ultrasonic Drum Machine",
+      "categories": ["Music", "Electronics"],
+      "year": "2023",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg",
+      "hoverImage": null,
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "doll-house",
+      "title": "Doll House",
+      "categories": ["Model Making", "Animation"],
+      "year": "2023",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-03.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "wood-firing-kiln",
+      "title": "Wood Firing Kiln",
+      "categories": ["Ceramics", "Animation"],
+      "year": "2023",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-03.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-04.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-05.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "analog-photo",
+      "title": "Foundation of Analog Photography",
+      "categories": ["Photography"],
+      "year": "2023",
       "description": "Add your description here.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg",
@@ -82,49 +215,106 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/pho-09.jpg"
       ],
       "videoUrl": null,
-      "videoThumb": null
+      "audioUrl": null
     },
     {
-      "id": "ceramics-01",
-      "title": "Ceramics",
-      "category": "Ceramics",
-      "year": "2024",
+      "id": "projections",
+      "title": "Projections",
+      "categories": ["Projection"],
+      "year": "2023",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-03.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-04.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cer-05.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-03.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-04.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-05.jpg"
       ],
       "videoUrl": null,
-      "videoThumb": null
+      "audioUrl": null
     },
     {
-      "id": "3dprint-01",
-      "title": "3D Print",
-      "category": "3D Print",
-      "year": "2024",
+      "id": "art-production",
+      "title": "Art Production",
+      "categories": ["Video"],
+      "year": "2023",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
+      "hoverImage": null,
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-03.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-04.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg"
       ],
       "videoUrl": null,
-      "videoThumb": null
+      "audioUrl": null
     },
     {
-      "id": "cnc-01",
-      "title": "CNC",
-      "category": "CNC",
+      "id": "directed-projects-photo",
+      "title": "Backstage Projection",
+      "categories": ["Photography", "Projection"],
       "year": "2024",
       "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-03.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "gis",
+      "title": "GIS",
+      "categories": ["Digital", "Photography"],
+      "year": "2024",
+      "description": "Map work. Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
+      "hoverImage": null,
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "cuss",
+      "title": "CUSS",
+      "categories": ["Sculpture"],
+      "year": "2024",
+      "description": "Essay to assignment, wall pieces. Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-03.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "projects-in-immersion",
+      "title": "Projects in Immersion",
+      "categories": ["VR", "AR / XR", "Music"],
+      "year": "2024",
+      "description": "Walkable stem player and Qamali / King Lionel 5.1 min spatial audio piece. Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg",
+      "hoverImage": null,
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "metalchop",
+      "title": "Metalchop",
+      "categories": ["Sculpture", "Fabrication"],
+      "year": "2024",
+      "description": "Box and welding work. Add your description here.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg",
       "images": [
@@ -132,81 +322,39 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg"
       ],
       "videoUrl": null,
-      "videoThumb": null
+      "audioUrl": null
     },
     {
-      "id": "animation-01",
-      "title": "Animation",
-      "category": "Animation",
+      "id": "sculpture-advanced",
+      "title": "Sculpture Advanced Practice",
+      "categories": ["Sculpture"],
       "year": "2024",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg",
-      "hoverImage": null,
+      "description": "Wall piece and work in progress. Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-03.jpg"
       ],
-      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
-      "videoThumb": null
+      "videoUrl": null,
+      "audioUrl": null
     },
     {
-      "id": "ar-01",
-      "title": "AR / XR",
-      "category": "AR / XR",
-      "year": "2024",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg",
-      "hoverImage": null,
+      "id": "creating-local-models",
+      "title": "Creating Local Models",
+      "categories": ["Sculpture", "Music", "Model Making"],
+      "year": "2025",
+      "description": "Sound piece, visual perception, work in progress. Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-03.jpg"
       ],
-      "videoUrl": "https://youtube.com/embed/NmvKqCQoDxY",
-      "videoThumb": null
-    },
-    {
-      "id": "vr-01",
-      "title": "VR",
-      "category": "VR",
-      "year": "2024",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
-      ],
-      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
-      "videoThumb": null
-    },
-    {
-      "id": "Video",
-      "title": "Video",
-      "category": "Video",
-      "year": "2024",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773861381/vid-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773861749/vid-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
-      ],
-      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
-      "videoThumb": null
-    },
-    {
-      "id": "Music",
-      "title": "Music",
-      "category": "Music",
-      "year": "2024",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773864804/msc-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773861749/vid-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
-      ],
-      "videoUrl": "https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID",
-      "videoThumb": null
+      "videoUrl": null,
+      "audioUrl": null
     }
-
   ]
 }
