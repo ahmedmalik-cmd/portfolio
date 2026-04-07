@@ -63,6 +63,7 @@ async function init() {
     ${buildGallery(project.images)}
     ${buildVideo(videoUrl)}
     ${buildAudio(project.audioUrl)}
+    ${buildLinks(project.links)}
   `;
 
   buildLightbox();
@@ -138,7 +139,28 @@ function buildAudio(audioUrl) {
   `;
 }
 
-function buildLightbox() {
+function buildLinks(links) {
+  if (!links || links.length === 0) return '';
+  const items = links.filter(l => l.url && l.label);
+  if (!items.length) return '';
+  return `
+    <div class="project-media-block">
+      <div class="project-media-label">Links</div>
+      <div class="project-links">
+        ${items.map(l => `
+          <a class="project-link" href="${l.url}" target="_blank" rel="noopener">
+            ${l.label}
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+
   const lb = document.createElement('div');
   lb.id = 'lightbox';
   lb.setAttribute('role', 'dialog');
