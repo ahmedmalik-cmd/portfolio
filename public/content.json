@@ -23,6 +23,23 @@
     },
     
     {
+      "id": "FragToAug",
+      "title": "Fragment to Augment",
+      "categories": ["Projection" , "Analog Film" , "Wood"],
+      "year": "2025",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-03.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-04.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-05.jpg"
+      ],
+      "videoUrl": "https://youtu.be/E_eJxZv_szE",
+      "audioUrl": null
+    },
+
+    {
       "id": "sampling",
       "title": "Sampling",
       "categories": ["Music"],
@@ -233,24 +250,7 @@
       "videoUrl": null,
       "audioUrl": null
     },
-    {
-      "id": "projections",
-      "title": "Projections",
-      "categories": ["Projection"],
-      "year": "2023",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-03.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-04.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-05.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
+    
     {
       "id": "art-production",
       "title": "Art Production",
