@@ -3,7 +3,12 @@
     "name": "Ahmed J Malik",
     "tagline": "Art & <em>Construction</em>",
     "bio": "An interdisciplinary practice spanning sculpture, digital fabrication, ceramics, projection, and photography.",
-    "email": "ahmedmalik@bennington.edu"
+    "email": "ahmedmalik@bennington.edu",
+    "links": [
+      { "label": "Instagram", "url": "" },
+      { "label": "SoundCloud", "url": "" },
+      { "label": "Vimeo", "url": "" }
+    ]
   },
   "projects": [
     {
@@ -11,21 +16,22 @@
       "title": "Sampling",
       "categories": ["Music"],
       "year": "2022",
-      "description": "Add your description here.",
+      "description": "Original compositions built entirely from sampled material — field recordings, found sounds, and existing musical fragments reassembled into new sonic structures. The work treats the sample not as a shortcut but as a primary material, examining what is preserved and what is transformed when sound is lifted from its original context.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg",
       "hoverImage": null,
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "intro-to-video",
       "title": "Intro to Video",
       "categories": ["Video"],
       "year": "2022",
-      "description": "Add your description here.",
+      "description": "An introductory body of video work investigating the moving image through exercises in framing, duration, and editing. Attention is paid to the relationship between the camera and its subject — to what is included in the frame and what falls just outside it.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg",
       "images": [
@@ -33,14 +39,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "media-items",
       "title": "Media Items",
       "categories": ["Video", "Photography"],
       "year": "2022",
-      "description": "Internship work. Add your description here.",
+      "description": "Photographs and video produced during an internship — event documentation, promotional imagery, and behind-the-scenes recording. The work sits at the intersection of commissioned media and personal observation, navigating the demands of institutional visibility while finding space for a considered eye.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg",
       "images": [
@@ -48,28 +55,30 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "animation-vr",
       "title": "Animation",
       "categories": ["Animation", "VR"],
       "year": "2022",
-      "description": "Add your description here.",
+      "description": "Early animation work exploring movement, form, and temporal structure through digital tools. The project moves between 2D and spatial environments, treating animation as a way of thinking through change — how things shift, distort, and resolve over time.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg",
       "hoverImage": null,
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "3d-printing-modelling",
       "title": "3D Printing & Modelling",
       "categories": ["3D Print", "Model Making"],
       "year": "2022",
-      "description": "Add your description here.",
+      "description": "A series of objects designed in 3D modeling software and output through additive manufacturing. The work investigates the translation between the virtual and the physical — how a form conceived on screen becomes something you can hold, and what is gained or lost in that passage.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
       "images": [
@@ -79,14 +88,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-04.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "paper-modelling",
       "title": "Paper Modelling",
       "categories": ["Model Making"],
       "year": "2022",
-      "description": "Add your description here.",
+      "description": "Handmade models constructed from paper, card, and found materials. Working at small scales, the project explores architectural space, structural logic, and the economy of material — how much a surface can hold before it collapses, and how little it takes to suggest a room.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
       "images": [
@@ -101,14 +111,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/mod-09.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "advanced-proj-vr",
       "title": "Advanced Projection VR",
       "categories": ["VR", "Projection"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "Site-specific projection work developed through VR planning — using virtual environments to rehearse spatial interventions before committing them to physical space. The project blurs the boundary between simulation and site, asking what it means to inhabit an image projected onto an architecture.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg",
       "images": [
@@ -116,14 +127,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "intermediate-vid",
       "title": "Intermediate Video",
       "categories": ["Video"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "A more developed body of video work pushing into sound design, nonlinear editing, and conceptual framing. The pieces move away from documentation toward constructed situations — scenes that exist only to be filmed.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg",
       "images": [
@@ -131,42 +143,45 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "water-dialogues",
       "title": "Water Dialogues",
       "categories": ["Video"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "A durational video work centered on water as material and metaphor — rivers, rain, pooled surfaces. The camera holds still while the water moves, or follows the water while everything else holds still. The work is interested in what sustained attention to a single element reveals over time.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
       "hoverImage": null,
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "electronics-for-sound",
       "title": "Ultrasonic Drum Machine",
       "categories": ["Music", "Electronics"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "A custom percussion instrument built from ultrasonic distance sensors, microcontrollers, and speakers. The instrument reads the position of hands and objects in space, converting proximity into rhythmic events. Playing it is less like performing and more like conducting air.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg",
       "hoverImage": null,
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "doll-house",
       "title": "Doll House",
       "categories": ["Model Making", "Animation"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "A handbuilt scale model of a domestic interior, animated to reveal the hidden life of enclosed spaces. The camera moves through rooms that are too small to enter, finding in miniature the uncanny familiarity of home — furniture arranged just so, light falling on nothing in particular.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
       "images": [
@@ -175,14 +190,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/mod-03.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "wood-firing-kiln",
       "title": "Wood Firing Kiln",
       "categories": ["Ceramics", "Animation"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "Ceramic vessels fired in a wood-burning anagama kiln over several days, alongside an animated document of the process. The work is interested in transformation through heat — how clay becomes stone, how ash becomes glaze, how time and labor leave their marks on a surface. The animation traces what the photographs cannot: the slow accumulation of fire.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
       "images": [
@@ -193,14 +209,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/cer-05.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "analog-photo",
       "title": "Foundation of Analog Photography",
       "categories": ["Photography"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "Film-based photographs developed and printed in the darkroom. The course built a foundation in analog process — exposure, development, dodging and burning — while opening up larger questions about what it means to fix light onto a surface. The work considers the photograph as a physical object as much as an image.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg",
       "images": [
@@ -215,14 +232,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/pho-09.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "projections",
       "title": "Projections",
       "categories": ["Projection"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "A series of site-specific projection installations that use architectural surfaces as screens — walls, floors, and ceilings becoming fields for light, shadow, and moving image. The work asks what happens when an image is inseparable from the space it inhabits, and how the building itself becomes part of the composition.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
       "images": [
@@ -233,28 +251,30 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/pro-05.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "art-production",
       "title": "Art Production",
       "categories": ["Video"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "Video work made in the context of a broader art production process — exploring how artworks are realized, staged, documented, and circulated. The pieces move between production and documentation, asking where the work ends and its record begins.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
       "hoverImage": null,
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "directed-projects-photo",
       "title": "Backstage Projection",
       "categories": ["Photography", "Projection"],
       "year": "2024",
-      "description": "Add your description here.",
+      "description": "Photographs taken in the offstage spaces of a projection performance — rigging, cables, operators, and the blank reverse face of screens. The work documents the invisible infrastructure that makes a projected image possible, finding in the backstage its own kind of theatre.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
       "images": [
@@ -263,28 +283,30 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/pro-03.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "gis",
       "title": "GIS",
       "categories": ["Digital", "Photography"],
       "year": "2024",
-      "description": "Map work. Add your description here.",
+      "description": "Geographic information systems used as a tool for artistic inquiry. The project produces map-based works that layer spatial data, satellite imagery, and personal cartography — investigating how the act of mapping constructs rather than simply records a territory.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
       "hoverImage": null,
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "cuss",
       "title": "CUSS",
       "categories": ["Sculpture"],
       "year": "2024",
-      "description": "Essay to assignment, wall pieces. Add your description here.",
+      "description": "Wall-mounted sculptures that began as an essay — a research process translated directly into material form. The works carry the marks of their argument: words embedded in surfaces, structures that quote the logic of text. Between the essay and the object something is lost in translation, and the sculptures make a subject of that loss.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
       "images": [
@@ -293,28 +315,30 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/scu-03.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "projects-in-immersion",
       "title": "Projects in Immersion",
       "categories": ["VR", "AR / XR", "Music"],
       "year": "2024",
-      "description": "Walkable stem player and Qamali / King Lionel 5.1 min spatial audio piece. Add your description here.",
+      "description": "Two immersive works developed in parallel: a walkable stem player that lets the listener physically navigate a multitrack mix, moving through space to isolate or combine instruments; and Qamali / King Lionel, a 5.1-channel spatial audio piece in which the listener's position determines what they hear. Together the works ask whether music can be a place.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg",
       "hoverImage": null,
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "metalchop",
       "title": "Metalchop",
       "categories": ["Sculpture", "Fabrication"],
       "year": "2024",
-      "description": "Box and welding work. Add your description here.",
+      "description": "Fabricated metal sculptures made through cutting, bending, and welding — a box and a series of chopped forms that bear the evidence of how they were made. The work treats industrial process as sculptural language: the cut edge, the weld bead, and the bend radius as marks as deliberate as any brushstroke.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg",
       "images": [
@@ -322,14 +346,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "sculpture-advanced",
       "title": "Sculpture Advanced Practice",
       "categories": ["Sculpture"],
       "year": "2024",
-      "description": "Wall piece and work in progress. Add your description here.",
+      "description": "Advanced sculptural work including a large wall piece and several works in progress. The practice moves toward greater material and conceptual resolution, returning to recurring questions about surface, structure, and the relationship between an object and the wall it inhabits or leans against.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
       "images": [
@@ -338,14 +363,15 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/scu-03.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     },
     {
       "id": "creating-local-models",
       "title": "Creating Local Models",
       "categories": ["Sculpture", "Music", "Model Making"],
       "year": "2025",
-      "description": "Sound piece, visual perception, work in progress. Add your description here.",
+      "description": "Ongoing investigations into what it means to model the local — the near, the habitual, the already known. The work produces scores, sound pieces, and physical models that attempt to map personal environments through the act of making them again. At stake is a question about perception: whether making a model of something changes how you see it.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
       "images": [
@@ -354,7 +380,8 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/mod-03.jpg"
       ],
       "videoUrl": null,
-      "audioUrl": null
+      "audioUrl": null,
+      "links": []
     }
   ]
 }

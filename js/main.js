@@ -1,5 +1,8 @@
 // main.js — renders the homepage grid
 
+let allProjects = [];
+let activeFilter = 'All';
+
 async function init() {
   const res = await fetch('/public/content.json');
   const data = await res.json();
@@ -15,9 +18,50 @@ async function init() {
   document.getElementById('footer-name').textContent = data.site.name;
   document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
 
-  // Grid
+  // Social links
+  const siteLinks = (data.site.links || []).filter(l => l.url);
+  if (siteLinks.length) {
+    const linksEl = document.getElementById('about-links');
+    linksEl.innerHTML = siteLinks
+      .map(l => `<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`)
+      .join('');
+  }
+
+  allProjects = data.projects;
+
+  // Build category filter
+  const categories = ['All'];
+  allProjects.forEach(p => {
+    const cats = p.categories ? p.categories : (p.category ? [p.category] : []);
+    cats.forEach(c => { if (!categories.includes(c)) categories.push(c); });
+  });
+
+  const filterBar = document.getElementById('filter-bar');
+  filterBar.innerHTML = categories.map(c => `
+    <button class="filter-btn ${c === 'All' ? 'active' : ''}" data-cat="${c}">${c}</button>
+  `).join('');
+
+  filterBar.addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.cat;
+    renderGrid();
+  });
+
+  renderGrid();
+}
+
+function renderGrid() {
   const grid = document.getElementById('project-grid');
-  grid.innerHTML = data.projects.map(project => cardHTML(project)).join('');
+  const filtered = activeFilter === 'All'
+    ? allProjects
+    : allProjects.filter(p => {
+        const cats = p.categories ? p.categories : (p.category ? [p.category] : []);
+        return cats.includes(activeFilter);
+      });
+  grid.innerHTML = filtered.map(p => cardHTML(p)).join('');
 }
 
 function cardHTML(p) {
