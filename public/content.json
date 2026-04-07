@@ -6,6 +6,22 @@
     "email": "ahmedmalik@bennington.edu"
   },
   "projects": [
+        {
+      "id": "virtualreality",
+      "title": "VR",
+      "categories": ["Virtual Reality", "Installation"],
+      "year": "2025",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157890/vr-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157890/vr-02.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775586684/vr-03.jpg" ,
+        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775586739/vr-04.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+    
     {
       "id": "sampling",
       "title": "Sampling",
