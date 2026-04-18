@@ -18,13 +18,26 @@ async function init() {
   // Grid
   const grid = document.getElementById('project-grid');
   grid.innerHTML = data.projects.map(project => cardHTML(project)).join('');
+
+  // Touch tap-to-reveal — must run AFTER grid is built
+  if ('ontouchstart' in window) {
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', e => {
+        const isOpen = card.classList.contains('tapped');
+        document.querySelectorAll('.card.tapped').forEach(c => c.classList.remove('tapped'));
+        if (!isOpen) {
+          e.preventDefault();
+          card.classList.add('tapped');
+        }
+      });
+    });
+  }
 }
 
 function cardHTML(p) {
   const hasHover = !!p.hoverImage;
   const hasVideo = !!p.videoUrl;
 
-  // Support both old "category" string and new "categories" array
   const cats = p.categories
     ? p.categories
     : (p.category ? [p.category] : []);
@@ -47,16 +60,5 @@ function cardHTML(p) {
     </a>
   `;
 }
-if ('ontouchstart' in window) {
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', e => {
-      const isOpen = card.classList.contains('tapped');
-      document.querySelectorAll('.card.tapped').forEach(c => c.classList.remove('tapped'));
-      if (!isOpen) {
-        e.preventDefault();
-        card.classList.add('tapped');
-      }
-    });
-  });
-}
+
 init();
