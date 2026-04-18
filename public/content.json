@@ -35,23 +35,23 @@
         "https://res.cloudinary.com/dai8e5gww/image/upload/pro-04.jpg",
         "https://res.cloudinary.com/dai8e5gww/image/upload/pro-05.jpg"
       ],
-      "videoUrl": "https://youtu.be/embed/E_eJxZv_szE",
+      "videoUrl": "https://youtube-nocookie.com/embed//E_eJxZv_szE",
       "audioUrl": null
     },
 
     {
-      "id": "PaperModelling",
+      "id": "PaperModeling",
       "title": "Bin Laden Compound",
       "categories": ["Model Making" , "Thomas Demand" , "Dollhouse"],
       "year": "2023",
       "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157901/mod-03.jpg" ,
-        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775591260/mod-10.jpg" ,
-        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775591302/mod-11.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/v1775593499/mod-12.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-03.jpg" ,
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-10.jpg" ,
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-11.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-12.jpg"
       ],
       "videoUrl": null,
       "audioUrl": null
@@ -166,41 +166,64 @@
 
     {
       "id": "sampling",
-      "title": "Sampling",
-      "categories": ["Music"],
+      "title": "Music Production with Samples",
+      "categories": ["Music", "Sampling"],
       "year": "2022",
       "description": "Add your description here.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg",
-      "hoverImage": null,
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-02.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg"
+        
+      ],
+      "videoUrl": null,
+      "audioUrl": "https://res.cloudinary.com/dai8e5gww/video/upload/msc-03.mp3"
+    },
+
+    {
+      "id": "doll-house",
+      "title": "Paper Modeling",
+      "categories": ["Model Making", "Paper"],
+      "year": "2023",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-04.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-08.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-05.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-06.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-07.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-09.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-15.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-16.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-13.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-14.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-17.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-18.jpg"
       ],
       "videoUrl": null,
       "audioUrl": null
     },
 
     {
-      "id": "intro-to-video",
-      "title": "Intro to Video",
+      "id": "video",
+      "title": "Perspectives",
       "categories": ["Video"],
-      "year": "2022",
+      "year": "2023",
       "description": "Add your description here.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg"
+      
       ],
-      "videoUrl": null,
+      "videoUrl": "https://youtu.be/embed/wtqlamXkfI8",
       "audioUrl": null
     },
 
     {
-      "id": "media-items",
-      "title": "Media Items",
-      "categories": ["Video", "Photography"],
-      "year": "2022",
-      "description": "Internship work. Add your description here.",
+      "id": "projection",
+      "title": "Projections",
+      "categories": ["Video", "Projection"],
+      "year": "2024",
+      "description": "Add your description here.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg",
       "images": [
@@ -211,6 +234,21 @@
       "audioUrl": null
     },
     
+    {
+      "id": "neuralnet sculpture",
+      "title": "Neural Net Sculpture",
+      "categories": ["Sculpture", "Neural Networks", "AI"],
+      "year": "2025",
+      "description": "Add your description here.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
+      "hoverImage": null,
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    },
+
     {
       "id": "advanced-proj-vr",
       "title": "Advanced Projection VR",
@@ -272,38 +310,7 @@
       "videoUrl": null,
       "audioUrl": null
     },
-
-    {
-      "id": "doll-house",
-      "title": "Doll House",
-      "categories": ["Model Making", "Animation"],
-      "year": "2023",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-03.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
     
-    {
-      "id": "art-production",
-      "title": "Art Production",
-      "categories": ["Video"],
-      "year": "2023",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
-      "hoverImage": null,
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
 
     {
       "id": "directed-projects-photo",
