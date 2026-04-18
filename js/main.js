@@ -19,15 +19,33 @@ async function init() {
   const grid = document.getElementById('project-grid');
   grid.innerHTML = data.projects.map(project => cardHTML(project)).join('');
 
-  // Touch tap-to-reveal — must run AFTER grid is built
+  // Touch swipe-to-reveal — must run AFTER grid is built
   if ('ontouchstart' in window) {
     document.querySelectorAll('.card').forEach(card => {
+      let startX = 0;
+      let startY = 0;
+      let didSwipe = false;
+
+      card.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        didSwipe = false;
+      }, { passive: true });
+
+      card.addEventListener('touchmove', e => {
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        // Only count horizontal swipe, ignore vertical scroll
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 20) {
+          didSwipe = true;
+          card.classList.toggle('tapped', dx < 0); // swipe left = reveal, swipe right = hide
+        }
+      }, { passive: true });
+
       card.addEventListener('click', e => {
-        const isOpen = card.classList.contains('tapped');
-        document.querySelectorAll('.card.tapped').forEach(c => c.classList.remove('tapped'));
-        if (!isOpen) {
+        if (didSwipe) {
           e.preventDefault();
-          card.classList.add('tapped');
+          didSwipe = false;
         }
       });
     });
