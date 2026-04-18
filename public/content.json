@@ -127,6 +127,7 @@
 
     {
       "id": "mohenjo-daro animation",
+      "mediaFirst": true,
       "title": "Mohenjo Daro - A Space In Time",
       "categories": ["Ceramics", "Animation", "Wood Firing Kiln"],
       "year": "2024",
@@ -363,8 +364,8 @@
     },
     
     {
-      "id": "metalchop",
-      "title": "Metalchop",
+      "id": "metalshop",
+      "title": "Metalshop",
       "categories": ["Sculpture", "Fabrication"],
       "year": "2024",
       "description": "Box and welding work. Add your description here.",
