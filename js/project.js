@@ -10,7 +10,6 @@ async function init() {
   const res = await fetch('/public/content.json');
   const data = await res.json();
 
-  // Site meta
   document.getElementById('site-name').textContent = data.site.name;
   document.getElementById('footer-name').textContent = data.site.name;
   document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
@@ -25,19 +24,24 @@ async function init() {
   document.title = project.title + ' — ' + data.site.name;
   galleryImages = project.images || [];
 
-  // Support both old "category" string and new "categories" array
   const cats = project.categories
     ? project.categories
     : (project.category ? [project.category] : []);
 
-  // Fix YouTube URLs to nocookie
   const videoUrl = project.videoUrl
     ? project.videoUrl
         .replace('https://www.youtube.com/embed', 'https://www.youtube-nocookie.com/embed')
         .replace('https://youtube.com/embed', 'https://www.youtube-nocookie.com/embed')
+        .replace('https://youtu.be/embed', 'https://www.youtube-nocookie.com/embed')
     : null;
 
+  const mediaFirst = project.mediaFirst === true;
+
   const detail = document.getElementById('project-detail');
+
+  const galleryHTML = buildGallery(project.images, mediaFirst);
+  const videoHTML = buildVideo(videoUrl);
+  const audioHTML = buildAudio(project.audioUrl);
 
   detail.innerHTML = `
     <a class="project-back" href="/">
@@ -60,9 +64,10 @@ async function init() {
       </div>
     </div>
 
-    ${buildGallery(project.images)}
-    ${buildVideo(videoUrl)}
-    ${buildAudio(project.audioUrl)}
+    ${mediaFirst
+      ? videoHTML + audioHTML + galleryHTML
+      : galleryHTML + videoHTML + audioHTML
+    }
   `;
 
   buildLightbox();
@@ -72,21 +77,73 @@ async function init() {
   });
 }
 
-function buildGallery(images) {
+function buildGallery(images, mediaFirst = false) {
   if (!images || images.length === 0) return '';
 
-  const items = images.map((src, i) => `
-    <div class="gallery-item ${i === 0 ? 'gallery-item--hero' : ''}" data-index="${i}">
-      <img
-        src="${src}"
-        alt="Image ${i + 1}"
-        loading="${i === 0 ? 'eager' : 'lazy'}"
-        onclick="openLightbox(${i})"
-      />
-    </div>
-  `).join('');
+  if (mediaFirst) {
+    let rowsHTML = '';
+    for (let i = 0; i < images.length; i += 2) {
+      const a = images[i];
+      const b = images[i + 1];
+      if (b) {
+        rowsHTML += `
+          <div class="gallery-row">
+            <div class="gallery-item" data-index="${i}">
+              <img src="${a}" alt="Image ${i + 1}" loading="lazy" onclick="openLightbox(${i})" />
+            </div>
+            <div class="gallery-item" data-index="${i + 1}">
+              <img src="${b}" alt="Image ${i + 2}" loading="lazy" onclick="openLightbox(${i + 1})" />
+            </div>
+          </div>`;
+      } else {
+        rowsHTML += `
+          <div class="gallery-row gallery-row--single">
+            <div class="gallery-item" data-index="${i}">
+              <img src="${a}" alt="Image ${i + 1}" loading="lazy" onclick="openLightbox(${i})" />
+            </div>
+          </div>`;
+      }
+    }
+    return `<div class="project-gallery"><div class="gallery-rows">${rowsHTML}</div></div>`;
+  }
 
-  return `<div class="project-gallery" data-count="${images.length}">${items}</div>`;
+  const [hero, ...rest] = images;
+  const heroHTML = `
+    <div class="gallery-item gallery-item--hero" data-index="0">
+      <img src="${hero}" alt="Image 1" loading="eager" onclick="openLightbox(0)" />
+    </div>`;
+
+  if (rest.length === 0) {
+    return `<div class="project-gallery project-gallery--single">${heroHTML}</div>`;
+  }
+
+  let rowsHTML = '';
+  for (let i = 0; i < rest.length; i += 2) {
+    const a = rest[i];
+    const b = rest[i + 1];
+    const indexA = i + 1;
+    const indexB = i + 2;
+    if (b) {
+      rowsHTML += `
+        <div class="gallery-row">
+          <div class="gallery-item" data-index="${indexA}">
+            <img src="${a}" alt="Image ${indexA + 1}" loading="lazy" onclick="openLightbox(${indexA})" />
+          </div>
+          <div class="gallery-item" data-index="${indexB}">
+            <img src="${b}" alt="Image ${indexB + 1}" loading="lazy" onclick="openLightbox(${indexB})" />
+          </div>
+        </div>`;
+    } else {
+      rowsHTML += `
+        <div class="gallery-row gallery-row--single">
+          <div class="gallery-item" data-index="${indexA}">
+            <img src="${a}" alt="Image ${indexA + 1}" loading="lazy" onclick="openLightbox(${indexA})" />
+          </div>
+        </div>`;
+    }
+  }
+
+  return `<div class="project-gallery">${heroHTML}<div class="gallery-rows">${rowsHTML}</div></div>`;
 }
 
 function buildVideo(videoUrl) {
