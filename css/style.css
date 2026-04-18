@@ -499,6 +499,11 @@ footer {
 
   .about { padding: 80px 20px; }
   footer { padding: 24px 20px; }
+  
+  .card-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
 }
 
 @media (max-width: 560px) {
