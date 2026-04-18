@@ -47,5 +47,16 @@ function cardHTML(p) {
     </a>
   `;
 }
-
+if ('ontouchstart' in window) {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', e => {
+      const isOpen = card.classList.contains('tapped');
+      document.querySelectorAll('.card.tapped').forEach(c => c.classList.remove('tapped'));
+      if (!isOpen) {
+        e.preventDefault();
+        card.classList.add('tapped');
+      }
+    });
+  });
+}
 init();

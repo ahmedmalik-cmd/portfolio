@@ -500,10 +500,22 @@ footer {
   .about { padding: 80px 20px; }
   footer { padding: 24px 20px; }
   
-  .card-overlay {
+ .card.tapped .card-overlay {
   opacity: 1;
   transform: translateY(0);
 }
+.card.tapped .card-img.primary-img {
+  opacity: 0;
+  transform: scale(1.04);
+}
+.card.tapped .card-img.hover-img {
+  opacity: 1;
+  transform: scale(1.04);
+}
+.card.tapped .card-video-badge {
+  opacity: 1;
+}
+
 }
 
 @media (max-width: 560px) {
