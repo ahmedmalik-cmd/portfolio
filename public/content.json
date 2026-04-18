@@ -65,12 +65,13 @@
       "description": "Add your description here.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775591799/ani-02.jpg",
+      "videoUrl": "https://www.youtube-nocookie.com/embed/NmvKqCQoDxY?autoplay=1&mute=1&playsinline=1",
+      "audioUrl": null,
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg" ,
         "https://res.cloudinary.com/dai8e5gww/image/upload/v1775592053/ani-03.jpg"
-      ],
-      "videoUrl": "https://www.youtube-nocookie.com/embed/NmvKqCQoDxY?autoplay=1&mute=1&playsinline=1",
-      "audioUrl": null
+      ]
+      
     },
 
     {
