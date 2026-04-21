@@ -11,7 +11,7 @@
       "title": "VR",
       "categories": ["Virtual Reality", "Installation"],
       "year": "2025",
-      "description": "Add your description here.",
+      "description": "An interactive virtual reality installation exploring human relations with tools, and their abilitiy to extend/augment skills. Built in Unity, the piece places the viewer in a un/familiar space that is created in real time as a 3D point cloud using an Xbox kinect. It allows the user to walk around in a virtual space and observe oneself from a view that would physically be impossible, while also allowing their friends/other viewers to communicate and affect their experience in the virtual.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157890/vr-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157890/vr-02.jpg",
       "images": [
@@ -27,7 +27,7 @@
       "title": "Fragment to Augment",
       "categories": ["Projection" , "Analog Film" , "Wood"],
       "year": "2025",
-      "description": "Add your description here.",
+      "description": "Inspired heavily by Stan Brakhage, this project aimed to bring my obsession with augemented/holographic technologies to a more analog nature. With the restriction of only wood and cloth as materials for this project, I set to augment these film projections i.e add another dimension/depth, to take these flat 2D images into another plane. The complete installed experience allowed viewers to get into a dark room and observe the images from multiple viewing angles, while also having agency over focus to bring the image onto closer planes or further back. The work explores how projection transforms an object's presence — augmenting rather than replacing its material reality.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
       "images": [
@@ -44,7 +44,7 @@
       "title": "Bin Laden Compound",
       "categories": ["Model Making" , "Thomas Demand" , "Dollhouse"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "This work came together as the result of a team project, with my wonderful parter Tisa Shrestha. We were tasked to create a model based off the work of Thomas Demand; since his work is so politically and historically charged we decided to replicate the compound where Osama Bin Laden was killed. This idea came to me while looking at his work because Bin Laden was shot in the same city that I was born in, about 10-15 mins from my grandmas house. I remembered multiple memories from this event, yet none of them were fully formed. Even though there was a lot of media coverage about the news, there were not a lot of resources about the house itself. Same with all the other Demand pieces, the process started with a single image, followed by a lot of research to fill in the gaps and recreate the room. It was an amazing joint effort that would not have been possible without such an amazing friend as a partner. ",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
       "images": [
@@ -63,7 +63,7 @@
       "title": "Infinite Loop Prison",
       "categories": ["Animation", "Stop-Motion"],
       "year": "2024",
-      "description": "Add your description here.",
+      "description": "This stop-motion animation aims to showcase the humor in the bleak surreality of a clay figurine stuck in a towering prison.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ani-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775591799/ani-02.jpg",
       "images": [
@@ -79,7 +79,7 @@
       "title": "3D Reconstruction with Film",
       "categories": ["Analog" , "Film" , "Reconstruction"],
       "year": "2024",
-      "description": "Add your description here.",
+      "description": "Analog photographs used as source material for photogrammetric 3D construction of a new space through sampling. The work puts film's grain, distortion, and chemical imprecision into dialogue with the precision demands of computational reconstruction — the resulting models carry the artifacts of their medium",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773157895/pho-04.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773157899/pho-07.jpg",
       "images": [
@@ -96,7 +96,7 @@
       "title": "3D Printing & Modelling",
       "categories": ["3D Print", "Model Making"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "A body of work in digital fabrication — objects designed in Blender and produced through 3D printing. The pieces investigate what gets lost and gained in the translation from screen to physical object, and what kinds of forms only become possible through the machine.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-02.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/3dp-03.jpg",
       "images": [
@@ -115,7 +115,7 @@
       "title": "Venn-ish Diagram",
       "categories": ["VR", "AR / XR", "Real"],
       "year": "2025",
-      "description": "",
+      "description": "An augmented reality wall piece that layers digital geometry over a physical surface. The work plays on the Venn diagram as a conceptual form — overlapping categories, contested boundaries — while collapsing/coalescing the distinction between the real and its digital annotation.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/ar-02.jpg",
       "images": [
@@ -131,7 +131,7 @@
       "title": "Mohenjo Daro - A Space In Time",
       "categories": ["Ceramics", "Animation", "Wood Firing Kiln"],
       "year": "2024",
-      "description": "Add your description here.",
+      "description": "Hand-built ceramics referencing the architectural and figural forms of Mohenjo-daro, fired in a wood kiln, paired with an animation that brings back to life a part of the ancient city from its ruins. The interaction between the two figurines showcases the untimely dissolution of a civilization, with the characters stuck in space and time.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-04.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cer-02.jpg",
       "images": [
@@ -151,7 +151,7 @@
       "title": "Augmenting Film",
       "categories": ["Photography", "Film", "Analog"],
       "year": "2024",
-      "description": "Add your description here.",
+      "description": "Earlier into my practice of augmenting onto analog forms, this project served as an exercise into film and formation. Extruding images out of analog photographs that have been physically or digitally intervened upon — scratched, layered, rephotographed, or otherwise augmented after processing. The series asks what happens to the photographic index when the image is treated as raw material rather than final record.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg",
       "images": [
@@ -171,7 +171,7 @@
       "title": "Music Production with Samples",
       "categories": ["Music", "Sampling"],
       "year": "2022",
-      "description": "Add your description here.",
+      "description": "Tracks produced from sampled source material — found recordings, provided sources and field recordings. The work treats sampling as both compositional method and critical practice, asking who owns sound and what it means to remake from something that already exists.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-02.jpg",
       "images": [
@@ -186,7 +186,7 @@
       "title": "Paper Modeling",
       "categories": ["Model Making", "Paper"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "Architectural and structural models built from paper, card, and found materials. The series explores model-making as a discipline in its own right — not representation of a building but the construction of a parallel spatial logic at a different scale.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-04.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-08.jpg",
       "images": [
@@ -210,7 +210,7 @@
       "title": "Perspectives",
       "categories": ["Video"],
       "year": "2023",
-      "description": "Add your description here.",
+      "description": "A video work exploring the perspective of a ghostly mouse through shifting camera positions or points of views. This video was in collaboration with Jose Ruben.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg",
       "images": [
@@ -225,7 +225,7 @@
       "title": "Projections",
       "categories": ["Video", "Projection"],
       "year": "2024",
-      "description": "Add your description here.",
+      "description": "Video works designed for projection — attending to the relationship between image, surface, and space.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg",
       "images": [
@@ -241,7 +241,7 @@
       "title": "Neural Net Sculpture",
       "categories": ["Sculpture", "Neural Networks", "AI"],
       "year": "2025",
-      "description": "Add your description here.",
+      "description": "A physical sculpture derived from/in dialogue with neural network architectures, machine learning and AI. The piece materializes something typically invisible — the weighted connections, layers, and feedback loops of a machine learning system — into a three-dimensional form.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
       "hoverImage": null,
       "images": [
