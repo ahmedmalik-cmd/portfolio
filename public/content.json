@@ -15,8 +15,11 @@
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157890/vr-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157890/vr-02.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775586684/vr-03.jpg" ,
-        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775586739/vr-04.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775586684/vr-02.jpg" ,
+        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1775586739/vr-04.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157890/vr-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/q_auto/f_auto/v1773157890/vr-03.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776804253/vr-05.jpg"
       ],
       "videoUrl": null,
       "audioUrl": null
@@ -24,6 +27,7 @@
     
     {
       "id": "FragToAug",
+      "mediaFirst": true,
       "title": "Fragment to Augment",
       "categories": ["Projection" , "Analog Film" , "Wood"],
       "year": "2025",
@@ -119,6 +123,7 @@
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/ar-02.jpg",
       "images": [
+        "https://res.cloudinary.com/dai8e5gww/image/upload/ar-02.jpg",
         "https://res.cloudinary.com/dai8e5gww/image/upload/ar-01.jpg"
       ],
       "videoUrl": null,
@@ -178,7 +183,12 @@
         
       ],
       "videoUrl": null,
-      "audioUrl": "https://res.cloudinary.com/dai8e5gww/video/upload/msc-03.mp3"
+      "audioUrl": "https://res.cloudinary.com/dai8e5gww/video/upload/msc-03.mp3",
+"extraAudio": [
+  "https://res.cloudinary.com/dai8e5gww/video/upload/v1776804480/msc-04.mp3",
+  "https://res.cloudinary.com/dai8e5gww/video/upload/v1776804559/msc-06.mp3",
+  "https://res.cloudinary.com/dai8e5gww/video/upload/v1776804596/msc-05.mp3"
+]
     },
 
     {
@@ -211,8 +221,8 @@
       "categories": ["Video"],
       "year": "2023",
       "description": "A video work exploring the perspective of a ghostly mouse through shifting camera positions or points of views. This video was in collaboration with Jose Ruben.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776806031/vid-04.png",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776806034/vid-03.png",
       "images": [
       
       ],
@@ -226,11 +236,12 @@
       "categories": ["Video", "Projection"],
       "year": "2024",
       "description": "Video works designed for projection — attending to the relationship between image, surface, and space.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776806487/proj-02.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776806577/proj-03.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pho-02.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776806440/proj-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776806674/proj-04.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776806674/proj-05.jpg"
       ],
       "videoUrl": null,
       "audioUrl": null
@@ -242,28 +253,29 @@
       "categories": ["Sculpture", "Neural Networks", "AI"],
       "year": "2025",
       "description": "A physical sculpture derived from/in dialogue with neural network architectures, machine learning and AI. The piece materializes something typically invisible — the weighted connections, layers, and feedback loops of a machine learning system — into a three-dimensional form.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
-      "hoverImage": null,
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773157907/scu-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1773157908/scu-02.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1773157908/scu-03.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776805650/scu-05.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776805639/scu-04.jpg"
       ],
       "videoUrl": null,
       "audioUrl": null
     },
 
     {
-      "id": "advanced-proj-vr",
-      "title": "Advanced Projection VR",
-      "categories": ["VR", "Projection"],
+      "id": "game/environment development in vr",
+      "title": "Saif-ul-Malook: A VR Experience",
+      "categories": ["VR", "Game Design", "3D Environment"],
       "year": "2023",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg",
+      "description": "This experience was built to bring a one of the most beautiful lakes and pieces of heaven on earth in Pakistan, into VR to be viewed by anyone, anywhere and to get a chance to experience the place and its folk legends.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776807633/vr-06.png",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776807633/vr-07.png",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vr-02.jpg"
+        
       ],
-      "videoUrl": null,
+      "videoUrl": "https://www.youtube-nocookie.com/embed/uV6_f3jDlFY?autoplay=1&mute=1&playsinline=1",
       "audioUrl": null
     },
 
@@ -331,85 +343,26 @@
       "audioUrl": null
     },
 
-    {
-      "id": "gis",
-      "title": "GIS",
-      "categories": ["Digital", "Photography"],
-      "year": "2024",
-      "description": "Map work. Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg",
-      "hoverImage": null,
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pho-01.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
 
-    {
-      "id": "cuss",
-      "title": "CUSS",
-      "categories": ["Sculpture"],
-      "year": "2024",
-      "description": "Essay to assignment, wall pieces. Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-03.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
+   
     
     {
-      "id": "metalshop",
-      "title": "Metalshop",
-      "categories": ["Sculpture", "Fabrication"],
-      "year": "2024",
-      "description": "Box and welding work. Add your description here.",
+      "id": "wood/metalshop",
+      "title": "Wood & Metal Shop",
+      "categories": ["Sculpture", "Fabrication", "CNC", "Welding"],
+      "year": "2025",
+      "description": "Work in wood and metalshop with specialized equipment.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg",
       "images": [
         "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
-
-    {
-      "id": "sculpture-advanced",
-      "title": "Sculpture Advanced Practice",
-      "categories": ["Sculpture"],
-      "year": "2024",
-      "description": "Wall piece and work in progress. Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/scu-03.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
-    {
-      "id": "creating-local-models",
-      "title": "Creating Local Models",
-      "categories": ["Sculpture", "Music", "Model Making"],
-      "year": "2025",
-      "description": "Sound piece, visual perception, work in progress. Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/mod-03.jpg"
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776808837/cnc-03.jpg"
       ],
       "videoUrl": null,
       "audioUrl": null
     }
+
+    
   ]
 }
