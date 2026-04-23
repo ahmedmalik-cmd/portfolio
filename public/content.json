@@ -295,71 +295,6 @@
       "audioUrl": null
     },
 
-    {
-      "id": "intermediate-vid",
-      "title": "Intermediate Video",
-      "categories": ["Video"],
-      "year": "2023",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-02.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
-
-    {
-      "id": "water-dialogues",
-      "title": "Water Dialogues",
-      "categories": ["Video"],
-      "year": "2023",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg",
-      "hoverImage": null,
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/vid-01.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
-
-    {
-      "id": "electronics-for-sound",
-      "title": "Ultrasonic Drum Machine",
-      "categories": ["Music", "Electronics"],
-      "year": "2023",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg",
-      "hoverImage": null,
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/msc-01.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
-    
-
-    {
-      "id": "directed-projects-photo",
-      "title": "Backstage Projection",
-      "categories": ["Photography", "Projection"],
-      "year": "2024",
-      "description": "Add your description here.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
-      "images": [
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/pro-03.jpg"
-      ],
-      "videoUrl": null,
-      "audioUrl": null
-    },
-
-
    
     
     {
@@ -382,6 +317,25 @@
       "audioUrl": null
     }
 
-    
+    {
+      "id": "misc",
+      "title": "miscellaneous",
+      "categories": ["Sculpture", "Fabrication", "CNC", "Welding"],
+      "year": "2025",
+      "description": "Work in wood and metalshop with specialized equipment as part of internship and project work.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776808837/cnc-03.jpg",
+      "images": [
+        "https://res.cloudinary.com/dai8e5gww/video/upload/v1776968328/cnc-04.mov",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776968674/cnc-05.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776968729/cnc-06.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg",
+        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776808837/cnc-03.jpg"
+      ],
+      "videoUrl": null,
+      "audioUrl": null
+    }
+
   ]
 }
