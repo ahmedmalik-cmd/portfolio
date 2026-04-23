@@ -307,9 +307,9 @@
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776808837/cnc-03.jpg",
       "images": [
         {
-      "type": "video",
-      "src": "https://res.cloudinary.com/dai8e5gww/video/upload/v1776968328/cnc-04.mov"
-    },
+  "type": "video",
+  "src": "https://res.cloudinary.com/dai8e5gww/video/upload/f_mp4,q_auto/v1776968328/cnc-04.mov"
+},
         "https://res.cloudinary.com/dai8e5gww/image/upload/v1776968674/cnc-05.jpg",
         "https://res.cloudinary.com/dai8e5gww/image/upload/v1776968729/cnc-06.jpg",
         "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
@@ -319,8 +319,6 @@
 
         
       ],
-      
-      
 
       "videoUrl": null,
       "audioUrl": null

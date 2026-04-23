@@ -22,7 +22,7 @@ async function init() {
   }
 
   document.title = project.title + ' — ' + data.site.name;
-  galleryImages = project.images || [];
+  galleryImages = (project.images || []).filter(item => typeof item === 'string');
 
   const cats = project.categories
     ? project.categories
@@ -80,6 +80,83 @@ async function init() {
 function buildGallery(images, mediaFirst = false) {
   if (!images || images.length === 0) return '';
 
+  function renderMedia(item, index) {
+    if (typeof item === 'string') {
+      const imageIndex = galleryImages.indexOf(item);
+      return `
+        <div class="gallery-item" data-index="${imageIndex}">
+          <img src="${item}" alt="Image ${imageIndex + 1}" loading="lazy" onclick="openLightbox(${imageIndex})" />
+        </div>
+      `;
+    }
+
+    if (item && item.type === 'video') {
+      return `
+        <div class="gallery-item gallery-item--video">
+          <video controls playsinline preload="metadata" style="display:block; width:100%; height:auto;">
+            <source src="${item.src}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      `;
+    }
+
+    return '';
+  }
+
+  function makeRow(a, b) {
+    if (b !== undefined) {
+      return `
+        <div class="gallery-row">
+          ${renderMedia(a)}
+          ${renderMedia(b)}
+        </div>
+      `;
+    }
+
+    return `
+      <div class="gallery-row gallery-row--single">
+        ${renderMedia(a)}
+      </div>
+    `;
+  }
+
+  if (mediaFirst) {
+    let rowsHTML = '';
+    for (let i = 0; i < images.length; i += 2) {
+      rowsHTML += makeRow(images[i], images[i + 1]);
+    }
+    return `<div class="project-gallery"><div class="gallery-rows">${rowsHTML}</div></div>`;
+  }
+
+  const [hero, ...rest] = images;
+
+  const heroHTML = `
+    <div class="gallery-item gallery-item--hero">
+      ${typeof hero === 'string'
+        ? `<img src="${hero}" alt="Image 1" loading="eager" onclick="openLightbox(${galleryImages.indexOf(hero)})" />`
+        : hero && hero.type === 'video'
+          ? `<video controls playsinline preload="metadata" style="display:block; width:100%; height:auto;">
+               <source src="${hero.src}" type="video/mp4">
+               Your browser does not support the video tag.
+             </video>`
+          : ''
+      }
+    </div>`;
+
+  if (rest.length === 0) {
+    return `<div class="project-gallery project-gallery--single">${heroHTML}</div>`;
+  }
+
+  let rowsHTML = '';
+  for (let i = 0; i < rest.length; i += 2) {
+    rowsHTML += makeRow(rest[i], rest[i + 1]);
+  }
+
+  return `<div class="project-gallery">${heroHTML}<div class="gallery-rows">${rowsHTML}</div></div>`;
+}
+  if (!images || images.length === 0) return '';
+
   function makeRow(a, indexA, b, indexB) {
     if (b !== undefined) {
       return `
@@ -127,7 +204,7 @@ function buildGallery(images, mediaFirst = false) {
   }
 
   return `<div class="project-gallery">${heroHTML}<div class="gallery-rows">${rowsHTML}</div></div>`;
-}
+
 
 function buildVideo(videoUrl) {
   if (!videoUrl || videoUrl.includes('REPLACE_WITH_VIDEO_ID')) return '';
