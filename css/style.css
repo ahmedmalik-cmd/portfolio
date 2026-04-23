@@ -308,7 +308,7 @@ h1 em { font-style: italic; color: var(--accent); }
 .gallery-item video,
 .gallery-item--hero video {
   display: block;
-  width: 50%;
+  width: auto;
   height: auto;
 }
 
