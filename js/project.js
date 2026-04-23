@@ -100,7 +100,7 @@ function buildGallery(images, mediaFirst = false) {
     if (item && item.type === 'video' && item.src) {
       return `
         <div class="gallery-item gallery-item--video">
-          <video controls playsinline preload="metadata">
+          <video autoplay muted loop playsinline preload="metadata">
             <source src="${item.src}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -152,7 +152,7 @@ function buildGallery(images, mediaFirst = false) {
           `
           : hero && hero.type === 'video' && hero.src
             ? `
-              <video controls playsinline preload="metadata">
+              <video autoplay muted loop playsinline preload="metadata">
                 <source src="${hero.src}" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
