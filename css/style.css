@@ -305,6 +305,13 @@ h1 em { font-style: italic; color: var(--accent); }
   filter: brightness(1);
 }
 
+.gallery-item video,
+.gallery-item--hero video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .gallery-rows {
   display: flex;
   flex-direction: column;
