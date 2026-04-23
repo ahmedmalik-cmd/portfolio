@@ -327,20 +327,21 @@
     {
       "id": "misc",
       "title": "Miscellaneous",
-      "categories": ["Sculpture", "Fabrication", "CNC", "Welding"],
+      "categories": ["Electronics", "Photo", "Immersive Sound"],
       "year": "2025",
-      "description": "Work in wood and metalshop with specialized equipment as part of internship and project work.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776808837/cnc-03.jpg",
+      "description": "Miscellaneous excerpts from various projects and exercises.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776978035/misc-01.jpg",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776980326/misc-05.jpg",
       "images": [
-        "https://res.cloudinary.com/dai8e5gww/video/upload/v1776968328/cnc-04.mov",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776968674/cnc-05.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776968729/cnc-06.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-01.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/cnc-02.jpg",
-        "https://res.cloudinary.com/dai8e5gww/image/upload/v1776808837/cnc-03.jpg"
+        {
+  "type": "video",
+  "src": "https://res.cloudinary.com/dai8e5gww/video/upload/v1776978045/misc-02.mp4"
+},
+
+          "https://res.cloudinary.com/dai8e5gww/image/upload/v1776978636/misc-04.jpg",
+          "https://res.cloudinary.com/dai8e5gww/image/upload/v1776978392/misc-03.jpg"
       ],
-      "videoUrl": null,
+      "videoUrl": "https://www.youtube-nocookie.com/embed/mDo2asP_zRw?autoplay=1&mute=1&playsinline=1",
       "audioUrl": null
     }
 
