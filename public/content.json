@@ -114,6 +114,22 @@
       "audioUrl": null
     },
 
+{
+      "id": "liminality",
+      "mediaFirst": true,
+      "title": "liminality",
+      "categories": ["Animation", "Unity"],
+      "year": "2025",
+      "description": "A computer animation that explores a liminal space as a replication of the physical withing the digital.",
+      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776967188/ani-05.png",
+      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/v1776967182/ani-04.png",
+      "images": [
+        
+      ],
+      "videoUrl": "https://www.youtube-nocookie.com/embed/cL2GEGwQF1s?autoplay=1&mute=1&playsinline=1",
+      "audioUrl": null
+    },
+
     {
       "id": "Augmented Reality Wall Piece",
       "title": "Venn-ish Diagram",
