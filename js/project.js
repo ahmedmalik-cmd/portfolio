@@ -41,7 +41,7 @@ async function init() {
 
   const galleryHTML = buildGallery(project.images, mediaFirst);
   const videoHTML = buildVideo(videoUrl);
-  const audioHTML = buildAudio(project.audioUrl);
+  const audioHTML = buildAudio(project.audioUrl, project.extraAudio);
 
   detail.innerHTML = `
     <a class="project-back" href="/">
@@ -80,29 +80,31 @@ async function init() {
 function buildGallery(images, mediaFirst = false) {
   if (!images || images.length === 0) return '';
 
+  function makeRow(a, indexA, b, indexB) {
+    if (b !== undefined) {
+      return `
+        <div class="gallery-row">
+          <div class="gallery-item" data-index="${indexA}">
+            <img src="${a}" alt="Image ${indexA + 1}" loading="lazy" onclick="openLightbox(${indexA})" />
+          </div>
+          <div class="gallery-item" data-index="${indexB}">
+            <img src="${b}" alt="Image ${indexB + 1}" loading="lazy" onclick="openLightbox(${indexB})" />
+          </div>
+        </div>`;
+    } else {
+      return `
+        <div class="gallery-row gallery-row--single">
+          <div class="gallery-item" data-index="${indexA}">
+            <img src="${a}" alt="Image ${indexA + 1}" loading="lazy" onclick="openLightbox(${indexA})" />
+          </div>
+        </div>`;
+    }
+  }
+
   if (mediaFirst) {
     let rowsHTML = '';
     for (let i = 0; i < images.length; i += 2) {
-      const a = images[i];
-      const b = images[i + 1];
-      if (b) {
-        rowsHTML += `
-          <div class="gallery-row">
-            <div class="gallery-item" data-index="${i}">
-              <img src="${a}" alt="Image ${i + 1}" loading="lazy" onclick="openLightbox(${i})" />
-            </div>
-            <div class="gallery-item" data-index="${i + 1}">
-              <img src="${b}" alt="Image ${i + 2}" loading="lazy" onclick="openLightbox(${i + 1})" />
-            </div>
-          </div>`;
-      } else {
-        rowsHTML += `
-          <div class="gallery-row gallery-row--single">
-            <div class="gallery-item" data-index="${i}">
-              <img src="${a}" alt="Image ${i + 1}" loading="lazy" onclick="openLightbox(${i})" />
-            </div>
-          </div>`;
-      }
+      rowsHTML += makeRow(images[i], i, images[i + 1], i + 1);
     }
     return `<div class="project-gallery"><div class="gallery-rows">${rowsHTML}</div></div>`;
   }
@@ -119,28 +121,9 @@ function buildGallery(images, mediaFirst = false) {
 
   let rowsHTML = '';
   for (let i = 0; i < rest.length; i += 2) {
-    const a = rest[i];
-    const b = rest[i + 1];
     const indexA = i + 1;
     const indexB = i + 2;
-    if (b) {
-      rowsHTML += `
-        <div class="gallery-row">
-          <div class="gallery-item" data-index="${indexA}">
-            <img src="${a}" alt="Image ${indexA + 1}" loading="lazy" onclick="openLightbox(${indexA})" />
-          </div>
-          <div class="gallery-item" data-index="${indexB}">
-            <img src="${b}" alt="Image ${indexB + 1}" loading="lazy" onclick="openLightbox(${indexB})" />
-          </div>
-        </div>`;
-    } else {
-      rowsHTML += `
-        <div class="gallery-row gallery-row--single">
-          <div class="gallery-item" data-index="${indexA}">
-            <img src="${a}" alt="Image ${indexA + 1}" loading="lazy" onclick="openLightbox(${indexA})" />
-          </div>
-        </div>`;
-    }
+    rowsHTML += makeRow(rest[i], indexA, rest[i + 1], indexB);
   }
 
   return `<div class="project-gallery">${heroHTML}<div class="gallery-rows">${rowsHTML}</div></div>`;
@@ -162,14 +145,14 @@ function buildVideo(videoUrl) {
   `;
 }
 
-function buildAudio(audioUrl) {
-  if (!audioUrl) return '';
+function buildAudio(audioUrl, extraAudio) {
+  const allUrls = [audioUrl, ...(extraAudio || [])].filter(Boolean);
+  if (allUrls.length === 0) return '';
 
-  if (audioUrl.includes('soundcloud.com')) {
-    const encoded = encodeURIComponent(audioUrl);
-    return `
-      <div class="project-media-block">
-        <div class="project-media-label">Listen</div>
+  function playerHTML(url) {
+    if (url.includes('soundcloud.com')) {
+      const encoded = encodeURIComponent(url);
+      return `
         <div class="audio-wrapper">
           <iframe
             scrolling="no"
@@ -177,20 +160,21 @@ function buildAudio(audioUrl) {
             allow="autoplay"
             src="https://w.soundcloud.com/player/?url=${encoded}&color=%23b8966e&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
           ></iframe>
-        </div>
-      </div>
-    `;
+        </div>`;
+    }
+    return `
+      <div class="audio-native-wrapper">
+        <audio controls preload="metadata">
+          <source src="${url}">
+          Your browser does not support audio playback.
+        </audio>
+      </div>`;
   }
 
   return `
     <div class="project-media-block">
       <div class="project-media-label">Listen</div>
-      <div class="audio-native-wrapper">
-        <audio controls preload="metadata">
-          <source src="${audioUrl}">
-          Your browser does not support audio playback.
-        </audio>
-      </div>
+      ${allUrls.map(playerHTML).join('')}
     </div>
   `;
 }

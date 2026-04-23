@@ -104,6 +104,9 @@ h1 em { font-style: italic; color: var(--accent); }
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--border);
+  .gallery-row--single .gallery-item {
+  grid-column: 1 / -1;
+}
 }
 
 /* ── PROJECT CARD ─────────────────────────────────────────────────────────── */
