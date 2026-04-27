@@ -21,11 +21,36 @@
 
   <main>
     <section class="hero">
+
+      <!-- Hero video/gif — swap src when ready, remove poster if using gif -->
+      <div class="hero-media">
+        <video https://res.cloudinary.com/dai8e5gww/video/upload/v1777317292/mov2025.mov
+          class="hero-video"
+          src=""
+          poster=""
+          autoplay
+          muted
+          loop
+          playsinline
+          aria-hidden="true"
+        ></video>
+        <div class="hero-media-overlay"></div>
+      </div>
+
       <div class="hero-text">
         <p class="eyebrow">Portfolio</p>
         <h1 id="hero-title">—</h1>
+        <!-- Tagline: replace placeholder below with your line -->
+        <p class="hero-tagline"><em id="hero-tagline-text">— your tagline here —</em></p>
         <p id="hero-bio" class="bio">—</p>
       </div>
+
+      <a href="/#work" class="hero-scroll-hint" aria-label="Scroll to work">
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none">
+          <path d="M6 1v18M1 13l5 6 5-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
     </section>
 
     <section class="work" id="work">

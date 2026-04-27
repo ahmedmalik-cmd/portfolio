@@ -22,9 +22,7 @@ async function init() {
   }
 
   document.title = project.title + ' — ' + data.site.name;
-
-  // Only keep actual image strings for the lightbox
-  galleryImages = (project.images || []).filter(item => typeof item === 'string');
+  galleryImages = project.images || [];
 
   const cats = project.categories
     ? project.categories
@@ -41,7 +39,7 @@ async function init() {
 
   const detail = document.getElementById('project-detail');
 
-  const galleryHTML = buildGallery(project.images || [], mediaFirst);
+  const galleryHTML = buildGallery(project.images, mediaFirst);
   const videoHTML = buildVideo(videoUrl);
   const audioHTML = buildAudio(project.audioUrl, project.extraAudio);
 
@@ -82,85 +80,40 @@ async function init() {
 function buildGallery(images, mediaFirst = false) {
   if (!images || images.length === 0) return '';
 
-  function renderMedia(item) {
-    if (typeof item === 'string') {
-      const imageIndex = galleryImages.indexOf(item);
-      return `
-        <div class="gallery-item" data-index="${imageIndex}">
-          <img
-            src="${item}"
-            alt="Image ${imageIndex + 1}"
-            loading="lazy"
-            onclick="openLightbox(${imageIndex})"
-          />
-        </div>
-      `;
-    }
-
-    if (item && item.type === 'video' && item.src) {
-      return `
-        <div class="gallery-item gallery-item--video">
-          <video autoplay muted loop playsinline preload="metadata">
-            <source src="${item.src}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      `;
-    }
-
-    return '';
-  }
-
-  function makeRow(a, b) {
+  function makeRow(a, indexA, b, indexB) {
     if (b !== undefined) {
       return `
         <div class="gallery-row">
-          ${renderMedia(a)}
-          ${renderMedia(b)}
-        </div>
-      `;
+          <div class="gallery-item" data-index="${indexA}">
+            <img src="${a}" alt="Image ${indexA + 1}" loading="lazy" onclick="openLightbox(${indexA})" />
+          </div>
+          <div class="gallery-item" data-index="${indexB}">
+            <img src="${b}" alt="Image ${indexB + 1}" loading="lazy" onclick="openLightbox(${indexB})" />
+          </div>
+        </div>`;
+    } else {
+      return `
+        <div class="gallery-row gallery-row--single">
+          <div class="gallery-item" data-index="${indexA}">
+            <img src="${a}" alt="Image ${indexA + 1}" loading="lazy" onclick="openLightbox(${indexA})" />
+          </div>
+        </div>`;
     }
-
-    return `
-      <div class="gallery-row gallery-row--single">
-        ${renderMedia(a)}
-      </div>
-    `;
   }
 
   if (mediaFirst) {
     let rowsHTML = '';
     for (let i = 0; i < images.length; i += 2) {
-      rowsHTML += makeRow(images[i], images[i + 1]);
+      rowsHTML += makeRow(images[i], i, images[i + 1], i + 1);
     }
     return `<div class="project-gallery"><div class="gallery-rows">${rowsHTML}</div></div>`;
   }
 
   const [hero, ...rest] = images;
-
   const heroHTML = `
-    <div class="gallery-item gallery-item--hero">
-      ${
-        typeof hero === 'string'
-          ? `
-            <img
-              src="${hero}"
-              alt="Image 1"
-              loading="eager"
-              onclick="openLightbox(${galleryImages.indexOf(hero)})"
-            />
-          `
-          : hero && hero.type === 'video' && hero.src
-            ? `
-              <video autoplay muted loop playsinline preload="metadata">
-                <source src="${hero.src}" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-            `
-            : ''
-      }
-    </div>
-  `;
+    <div class="gallery-item gallery-item--hero" data-index="0">
+      <img src="${hero}" alt="Image 1" loading="eager" onclick="openLightbox(0)" />
+    </div>`;
 
   if (rest.length === 0) {
     return `<div class="project-gallery project-gallery--single">${heroHTML}</div>`;
@@ -168,7 +121,9 @@ function buildGallery(images, mediaFirst = false) {
 
   let rowsHTML = '';
   for (let i = 0; i < rest.length; i += 2) {
-    rowsHTML += makeRow(rest[i], rest[i + 1]);
+    const indexA = i + 1;
+    const indexB = i + 2;
+    rowsHTML += makeRow(rest[i], indexA, rest[i + 1], indexB);
   }
 
   return `<div class="project-gallery">${heroHTML}<div class="gallery-rows">${rowsHTML}</div></div>`;
@@ -225,9 +180,6 @@ function buildAudio(audioUrl, extraAudio) {
 }
 
 function buildLightbox() {
-  const existing = document.getElementById('lightbox');
-  if (existing) existing.remove();
-
   const lb = document.createElement('div');
   lb.id = 'lightbox';
   lb.setAttribute('role', 'dialog');
@@ -260,8 +212,7 @@ function buildLightbox() {
   });
 
   document.addEventListener('keydown', e => {
-    const lightbox = document.getElementById('lightbox');
-    if (!lightbox || !lightbox.classList.contains('open')) return;
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') stepLightbox(-1);
     if (e.key === 'ArrowRight') stepLightbox(1);
@@ -269,7 +220,6 @@ function buildLightbox() {
 }
 
 function openLightbox(index) {
-  if (!galleryImages.length) return;
   currentLightboxIndex = index;
   updateLightboxImage();
   document.getElementById('lightbox').classList.add('open');
@@ -277,14 +227,11 @@ function openLightbox(index) {
 }
 
 function closeLightbox() {
-  const lightbox = document.getElementById('lightbox');
-  if (!lightbox) return;
-  lightbox.classList.remove('open');
+  document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
 }
 
 function stepLightbox(dir) {
-  if (!galleryImages.length) return;
   currentLightboxIndex = (currentLightboxIndex + dir + galleryImages.length) % galleryImages.length;
   updateLightboxImage();
 }
@@ -292,25 +239,15 @@ function stepLightbox(dir) {
 function updateLightboxImage() {
   const img = document.getElementById('lightbox-img');
   const counter = document.getElementById('lightbox-counter');
-  const prevBtn = document.querySelector('.lightbox-prev');
-  const nextBtn = document.querySelector('.lightbox-next');
-
-  if (!img || !counter || !galleryImages.length) return;
-
   img.style.opacity = '0';
-
   setTimeout(() => {
     img.src = galleryImages[currentLightboxIndex];
-    img.onload = () => {
-      img.style.opacity = '1';
-    };
+    img.onload = () => { img.style.opacity = '1'; };
     if (img.complete) img.style.opacity = '1';
   }, 120);
-
   counter.textContent = (currentLightboxIndex + 1) + ' / ' + galleryImages.length;
-
-  if (prevBtn) prevBtn.style.display = galleryImages.length > 1 ? '' : 'none';
-  if (nextBtn) nextBtn.style.display = galleryImages.length > 1 ? '' : 'none';
+  document.querySelector('.lightbox-prev').style.display = galleryImages.length > 1 ? '' : 'none';
+  document.querySelector('.lightbox-next').style.display = galleryImages.length > 1 ? '' : 'none';
 }
 
 init();
