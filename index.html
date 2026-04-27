@@ -8,6 +8,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    .hero {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-text {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
 
@@ -21,6 +41,9 @@
 
   <main>
     <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/v1777317292/mov2025.mov" type="video/mp4">
+      </video>
       <div class="hero-text">
         <p class="eyebrow">Portfolio</p>
         <h1 id="hero-title">—</h1>
