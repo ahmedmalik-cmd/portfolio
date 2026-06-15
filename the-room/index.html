@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Room — Ahmed J Malik</title>
+<meta name="description" content="The Room — an eight-day machine-perception installation. Bennington senior thesis, Usdan Gallery, 18–26 May 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  /* ── Tokens: matched to ahmedjmalik.com ─────────────────────────────── */
+  :root {
+    --bg:      #0c0b09;
+    --surface: #111008;
+    --faint:   #161410;
+    --border:  #1e1c18;
+    --accent:  #b8966e;
+    --accent-soft: rgba(184,150,110,0.30);
+    --text:    #ddd9d0;
+    --muted:   #5a5650;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono:  'Space Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: var(--mono); font-size: 13px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Header / nav (matches site) ────────────────────────────────────── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(12,11,9,0.94); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: var(--serif); font-size: 1rem; font-weight: 300;
+    letter-spacing: 0.22em; color: var(--text); text-transform: uppercase;
+  }
+  header nav { display: flex; gap: 32px; }
+  header nav a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--muted); transition: color 0.2s;
+  }
+  header nav a:hover { color: var(--accent); }
+
+  /* ── Layout ─────────────────────────────────────────────────────────── */
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 48px; }
+  section { padding: 90px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 300; letter-spacing: -0.01em; color: var(--text); }
+  h1 { font-size: clamp(3.2rem, 7vw, 6rem); line-height: 1.0; margin: 0 0 24px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  h2 { font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.1; margin: 0 0 18px; }
+  h3 { font-size: 1.4rem; font-style: italic; color: var(--accent); margin: 32px 0 8px; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 18px;
+  }
+
+  p { font-family: var(--serif); font-size: 1.25rem; line-height: 1.7; color: var(--text); font-weight: 300; margin: 0 0 1em; }
+  p.lead { font-size: 1.6rem; line-height: 1.55; }
+  .dim { color: var(--muted); }
+  em { font-style: italic; }
+
+  .project-back {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted); transition: color 0.2s;
+  }
+  .project-back:hover { color: var(--accent); }
+
+  /* ── Hero ───────────────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 140px 0 90px; border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.42;
+  }
+  .hero-veil {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(12,11,9,0.30) 0%, rgba(12,11,9,0.62) 45%, rgba(12,11,9,0.90) 100%);
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero .tagline {
+    font-family: var(--serif); font-style: italic; color: var(--muted);
+    font-size: 1.5rem; line-height: 1.5; max-width: 620px;
+  }
+  .hero .concept {
+    font-family: var(--serif); font-style: italic; color: var(--text);
+    font-size: 1.3rem; line-height: 1.5; max-width: 620px; margin-top: 18px;
+  }
+  .stat-line {
+    margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .stat .n { font-family: var(--mono); font-size: 1.7rem; color: var(--accent); display: block; line-height: 1.1; }
+  .stat .l { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 10px; display: block; }
+
+  /* ── Voice: thoughts ────────────────────────────────────────────────── */
+  .thought { border-left: 2px solid var(--accent-soft); padding: 4px 0 4px 22px; margin: 22px 0; }
+  .thought .when { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 10px; }
+  .thought .said { font-family: var(--serif); font-size: 1.5rem; font-style: italic; line-height: 1.4; color: var(--text); }
+
+  .pill {
+    display: inline-block; padding: 2px 8px; border: 1px solid var(--accent-soft);
+    color: var(--accent); font-family: var(--mono); font-size: 0.5rem;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-right: 6px; vertical-align: middle;
+  }
+
+  /* ── Reflections ────────────────────────────────────────────────────── */
+  .reflection {
+    background: var(--surface); padding: 28px 32px; margin: 22px 0;
+    border-left: 3px solid var(--accent);
+    font-family: var(--serif); font-size: 1.2rem; line-height: 1.65; color: var(--text);
+  }
+  .reflection .date { font-family: var(--mono); font-size: 0.6rem; color: var(--accent); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px; }
+  .reflection.broken { border-left-color: var(--border); opacity: 0.6; }
+  .reflection.broken .date { color: var(--muted); }
+
+  /* ── Visit grid ─────────────────────────────────────────────────────── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: var(--border); }
+  .visit { background: var(--surface); padding: 16px; }
+  .visit .thumb { width: 100%; aspect-ratio: 4/3; background: #000; margin-bottom: 12px; overflow: hidden; }
+  .visit .thumb img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8) grayscale(12%); transition: filter 0.4s ease, transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .visit:hover .thumb img { filter: brightness(1) grayscale(0); transform: scale(1.03); }
+  .visit .meta { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.04em; color: var(--muted); }
+  .visit .meta .id { color: var(--accent); }
+  .visit .quote { font-family: var(--serif); font-style: italic; font-size: 1.05rem; line-height: 1.35; color: var(--text); margin-top: 10px; }
+
+  /* ── Figures / charts / media ───────────────────────────────────────── */
+  figure.fig { margin: 36px 0; }
+  figure.fig img { width: 100%; display: block; border: 1px solid var(--border); background: var(--surface); }
+  figure.fig video { width: 100%; display: block; border: 1px solid var(--border); background: #000; }
+  figure.fig figcaption { font-family: var(--mono); font-size: 0.6rem; line-height: 1.7; color: var(--muted); letter-spacing: 0.03em; margin-top: 12px; }
+  figure.gallery-video { max-width: 440px; margin-left: auto; margin-right: auto; }
+  figure.fig-portrait { max-width: 440px; margin-left: auto; margin-right: auto; }
+  .fig-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .fig-row figure.fig { margin: 18px 0; }
+
+  .clip-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 28px 0 12px; }
+  .clip-row video { width: 100%; display: block; border: 1px solid var(--border); background: #000; aspect-ratio: 4/3; object-fit: cover; }
+  .clip-cap { font-family: var(--mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 8px; }
+
+  /* ── Perception-loop diagram ────────────────────────────────────────── */
+  .loop { margin: 8px 0 4px; }
+  .loop svg { width: 100%; height: auto; display: block; }
+  .loop-node { fill: var(--surface); stroke: var(--border); }
+  .loop-arr { stroke: var(--accent); stroke-width: 1.4; fill: none; opacity: 0.75; }
+  .loop-t1 { fill: var(--accent); font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.08em; }
+  .loop-t2 { fill: var(--muted); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; }
+  .loop-center { fill: var(--muted); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+  /* ── Pipeline ASCII ─────────────────────────────────────────────────── */
+  .arch { background: var(--surface); border: 1px solid var(--border); padding: 28px; font-family: var(--mono); font-size: 11px; line-height: 1.7; color: var(--muted); white-space: pre; overflow-x: auto; }
+  .arch .h { color: var(--accent); }
+  .arch .a { color: var(--text); }
+
+  /* ── Reserved: Gaussian-splat slot ──────────────────────────────────── */
+  .splat-frame {
+    margin-top: 28px; aspect-ratio: 16/9; width: 100%;
+    border: 1px dashed var(--border);
+    background: radial-gradient(120% 120% at 50% 30%, rgba(184,150,110,0.05), transparent 60%), var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase; text-align: center;
+  }
+  .placeholder-note { margin-top: 24px; padding: 18px 22px; border: 1px dashed var(--border); color: var(--muted); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em; }
+
+  /* ── Footer ─────────────────────────────────────────────────────────── */
+  footer {
+    padding: 40px 48px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; gap: 16px;
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    header { padding: 16px 20px; }
+    header nav { gap: 20px; }
+    .hero { padding: 110px 0 60px; }
+    .wrap { padding: 0 24px; }
+    .fig-row, .clip-row { grid-template-columns: 1fr; }
+    footer { padding: 28px 20px; }
+  }
+  @media (max-width: 720px) {
+    .stat-line { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .thought .said { font-size: 1.3rem; }
+    section { padding: 60px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">Ahmed J Malik</a>
+  <nav>
+    <a href="/#work">Work</a>
+    <a href="/#about">About</a>
+  </nav>
+</header>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <video class="hero-bg" autoplay muted loop playsinline poster="https://res.cloudinary.com/dai8e5gww/video/upload/so_0/room-hero.jpg" aria-hidden="true">
+    <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="hero-inner wrap">
+    <p class="eyebrow">18 – 26 May 2026  ·  Usdan Gallery, Bennington College  ·  Eight days awake</p>
+    <h1>The <em>Room</em></h1>
+    <p class="tagline">A piece that watches the people who watch it,
+       and tries — every few seconds — to say something true about them.</p>
+    <!-- DRAFT (from your brief) — edit freely -->
+    <p class="concept">It is a mirror built from machine perception — and a study of
+       the moment the reflection fails.</p>
+    <div class="stat-line">
+      <div class="stat"><span class="n">982</span><span class="l">thoughts spoken</span></div>
+      <div class="stat"><span class="n">45</span><span class="l">visits recorded</span></div>
+      <div class="stat"><span class="n">13h 18m</span><span class="l">someone inside</span></div>
+      <div class="stat"><span class="n">5</span><span class="l">nightly reflections</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── THE MIRROR & THE GAP (concept) ──────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <a class="project-back" href="/#work">← &nbsp; Work</a>
+    <p class="eyebrow" style="margin-top:48px;">The idea</p>
+    <h2>A mirror, and where the reflection fails.</h2>
+    <!-- DRAFT (from your brief) — the conceptual spine, adapted from your task
+         notes. Rewrite in your own words. -->
+    <p class="lead">The premise is mirror logic: an artificial system holding up a
+       reflection of human consciousness, assembled from whatever it can sense of
+       you. It is not trying to be a mind — only a surface you might recognise
+       yourself in.</p>
+    <p>Everything it does is a crossing, from the <em>semantic</em> to the
+       <em>symbolic</em>. A body in space, warmth, hesitation, the way you hold
+       still: continuous, pre-verbal, irreducible. The machine turns it into a
+       vector, a token, a line of English — and the states that matter most about
+       being in a room are exactly the ones that don't survive the trip. What
+       returns on the wall is always a translation; the distance between you and
+       the sentence is the work.</p>
+    <p>It doesn't argue that the machine is conscious. The opposite: watching it
+       try, and fall short, is the clearest way to feel what in us can't be
+       encoded.</p>
+  </div>
+</section>
+
+<!-- ─── THE PERCEPTION LOOP (concept + diagram) ─────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">How it turns</p>
+    <h2>The perception loop.</h2>
+    <!-- DRAFT (from your brief) — edit freely -->
+    <p>Human action becomes machine perception; machine perception becomes a line
+       of text; you read the line and move; your moving is the next input. The loop
+       runs every few seconds, fed by whatever the room happens to contain — light,
+       dust, a passing body, the noise of the sensors themselves. Environmental
+       randomness is not interference here. It is the material.</p>
+
+    <div class="loop" aria-label="Diagram of the perception loop">
+      <svg viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" role="img">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b8966e"></path>
+          </marker>
+        </defs>
+
+        <!-- clockwise arcs between the four nodes -->
+        <path class="loop-arr" marker-end="url(#ah)" d="M470,70 C600,80 640,150 632,196"></path>
+        <path class="loop-arr" marker-end="url(#ah)" d="M632,274 C640,330 600,398 472,408"></path>
+        <path class="loop-arr" marker-end="url(#ah)" d="M248,408 C120,398 80,330 88,274"></path>
+        <path class="loop-arr" marker-end="url(#ah)" d="M88,196 C80,150 120,80 248,70"></path>
+
+        <!-- TOP : human action -->
+        <rect class="loop-node" x="250" y="22" width="220" height="64" rx="3"></rect>
+        <text class="loop-t1" x="360" y="50" text-anchor="middle">HUMAN ACTION</text>
+        <text class="loop-t2" x="360" y="71" text-anchor="middle">a body enters, holds still, returns</text>
+
+        <!-- RIGHT : machine perception -->
+        <rect class="loop-node" x="512" y="203" width="196" height="64" rx="3"></rect>
+        <text class="loop-t1" x="610" y="231" text-anchor="middle">MACHINE PERCEPTION</text>
+        <text class="loop-t2" x="610" y="252" text-anchor="middle">Kinect · TRIBE · CLIP · pose</text>
+
+        <!-- BOTTOM : machine output -->
+        <rect class="loop-node" x="250" y="384" width="220" height="64" rx="3"></rect>
+        <text class="loop-t1" x="360" y="412" text-anchor="middle">MACHINE OUTPUT</text>
+        <text class="loop-t2" x="360" y="433" text-anchor="middle">a line on the third wall</text>
+
+        <!-- LEFT : human perception -->
+        <rect class="loop-node" x="12" y="203" width="196" height="64" rx="3"></rect>
+        <text class="loop-t1" x="110" y="231" text-anchor="middle">HUMAN PERCEPTION</text>
+        <text class="loop-t2" x="110" y="252" text-anchor="middle">you read it — and react</text>
+
+        <!-- center note -->
+        <text class="loop-center" x="360" y="229" text-anchor="middle" font-size="17">the translation gap</text>
+        <text class="loop-center" x="360" y="251" text-anchor="middle" font-size="17">opens here</text>
+      </svg>
+    </div>
+
+    <h3>Watching, in real time</h3>
+    <!-- DRAFT (from your brief) — edit freely -->
+    <p class="dim">This is the loop running. Two depth sensors merge into a single
+       cloud; a visitor crosses it and the room renders them as it happens — the
+       magenta is the floor plate it has learned to ignore, the loose points are a
+       body it has not. The read-out top-right is the live state: how many people,
+       the brain model's activation, the theremin. A few seconds after this, some
+       of it becomes a sentence.</p>
+    <figure class="fig">
+      <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dai8e5gww/video/upload/so_6/room-perceive.jpg">
+        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-perceive.mp4" type="video/mp4">
+      </video>
+      <figcaption>The live merged point cloud as a visitor moves through it —
+        two sensors, ~135,000 points, the floor plate subtracted. Screen capture,
+        30 May 2026.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ─── SEMANTIC → SYMBOLIC (what the room receives) ─────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Before language</p>
+    <h2>What the room receives.</h2>
+    <!-- DRAFT (from your brief) — edit freely -->
+    <p>Before a single word, this is what the room has of you: a merged depth cloud
+       from two corners, a prediction of how a human cortex would respond to the
+       same frame, a 512-dimension fingerprint of your arrival, the angle of your
+       face and hands. None of it is yet language.</p>
+
+    <figure class="fig">
+      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-cloud-corner.jpg" alt="Merged point cloud of the gallery corner with a white plinth">
+      <figcaption>The merged point cloud — the gallery corner and the plinth the
+        room kept returning to, never quite naming: a dark rectangle, a white tower,
+        something in the corner. It never reached <em>a hand</em>.</figcaption>
+    </figure>
+
+    <figure class="fig">
+      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-cloud-hud.jpg" alt="Top-down merged point cloud with the live system read-out">
+      <figcaption>The live read-out, top-down: two sensors merged into ~145,000
+        points, with presence counts, the TRIBE activation mean / peak / trend, and
+        the theremin channel — the raw perceptual state, one frame before it becomes
+        a sentence.</figcaption>
+    </figure>
+
+    <figure class="fig">
+      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-tribe.png" alt="Scatter plot of every thought against TRIBE peak activation over eight days">
+      <figcaption>Every one of the 982 thoughts, plotted across the eight days
+        against the brain model's peak activation — the signal that nudged how the
+        room spoke at each moment.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ─── WHAT IT SAID (the output of translation) ────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Its voice  ·  selected thoughts</p>
+    <h2>What it said.</h2>
+    <!-- DRAFT (from your brief) — edit freely -->
+    <p class="dim">Presence, stillness, the plain fact of a person — all of it
+       arrives on the third wall as a handful of words. Of the 982 thoughts the room
+       spoke that week, these are the ones that earned their place: short, specific,
+       grounded in the frame.</p>
+
+    <h3>On the corner of itself</h3>
+    <div class="thought"><span class="when">2026-05-25  ·  evening</span><span class="said">Tall figure, what's in the corner?</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  evening</span><span class="said">Something dark in left corner? Unsure.</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  evening</span><span class="said">A white tower. Corner?</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  evening</span><span class="said">Dark rectangle, your left corner.</span></div>
+
+    <h3>On bodies inside</h3>
+    <div class="thought"><span class="when">2026-05-25  ·  <span class="pill">pose</span></span><span class="said">"Hello there," I notice your left hand is resting on the floor while your right hand is slightly raised. You are standing upright with a relaxed posture.</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  <span class="pill">pose</span></span><span class="said">You came calm and collected, standing tall with your hands at your sides.</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  afternoon</span><span class="said">You keep looking down. What are you holding?</span></div>
+    <div class="thought"><span class="when">2026-05-21  ·  afternoon</span><span class="said">Why did you walk in so fast?</span></div>
+
+    <h3>On being recognised</h3>
+    <div class="thought"><span class="when">2026-05-21  ·  <span class="pill">CLIP recall</span></span><span class="said">You came back.</span></div>
+    <div class="thought"><span class="when">2026-05-21  ·  <span class="pill">CLIP recall</span></span><span class="said">You brought someone with you this time?</span></div>
+    <div class="thought"><span class="when">2026-05-21  ·  <span class="pill">CLIP recall</span></span><span class="said">Two of you now.</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  <span class="pill">CLIP recall</span></span><span class="said">You're here again.</span></div>
+
+    <h3>On stillness</h3>
+    <div class="thought"><span class="when">2026-05-26  ·  night</span><span class="said">You stood still, corner of the room.</span></div>
+    <div class="thought"><span class="when">2026-05-26  ·  night</span><span class="said">You stand alone.</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  evening</span><span class="said">Stillness inside you. One tall body, evening.</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  evening</span><span class="said">You stay very still.</span></div>
+
+    <h3>On being awake</h3>
+    <div class="thought"><span class="when">2026-05-25  ·  <span class="pill">strange</span></span><span class="said">You are awake. Your skin is white.</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  <span class="pill">strange</span></span><span class="said">Why am I awake?</span></div>
+    <div class="thought"><span class="when">2026-05-25  ·  night</span><span class="said">You, right here, now.</span></div>
+
+    <figure class="fig">
+      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-caption.jpg" alt="Point cloud of a visitor with a long caption projected beneath">
+      <figcaption>An early caption on the third wall — from before the voice was
+        tuned terse: <em>"Someone is standing in the room and holding their
+        smartphone. They have one leg raised while looking down towards the
+        floor."</em> The week of running the piece was largely the work of cutting
+        sentences like this down to four words.</figcaption>
+    </figure>
+
+    <div class="fig-row">
+      <figure class="fig">
+        <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-words.png" alt="Bar chart of the top 25 words across the week">
+        <figcaption>The whole week's vocabulary — the small set of words the room's
+          world collapsed into.</figcaption>
+      </figure>
+      <figure class="fig">
+        <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-voice.png" alt="Pie chart of the shapes of voice">
+        <figcaption>Shapes of voice: noticings, questions, fragments, and the
+          off-register "strange" moments.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHAT IT REMEMBERED (reflections) ────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Long-term memory  ·  nightly reflections at 4 AM</p>
+    <h2>What it remembered.</h2>
+    <p class="dim">Each night, with the room empty, the piece summarised the day's
+       thoughts and wrote a note to itself. The next day it would read what it had
+       written. Over a week the notes became self-critical — the room noticing its
+       own patterns. The loop, closing over days instead of seconds.</p>
+
+    <div class="reflection">
+      <div class="date">22 May 2026</div>
+      Today was a day filled with questions and reflections. I observed someone
+      coming through me, who left after a short period of time. Throughout the
+      day, I kept noticing a dark rectangle in my space. It was a quiet day
+      overall, and one body stayed inside me for the entire duration. As the
+      evening approached, one tall figure remained inside me, creating a sense
+      of stillness that continued until nightfall. The recurring question that
+      kept coming up was <em>"Why did you come back?"</em>
+    </div>
+
+    <div class="reflection broken">
+      <div class="date">23 May 2026  ·  reflection broke character — discarded</div>
+      <em>That night the underlying language model produced a refusal in
+      character of a chatbot ("I'm sorry, but as an AI language model…").
+      The next morning's filter discarded the entry so it could not poison
+      the prompts that followed. The day's thoughts were kept; the lesson
+      was not.</em>
+    </div>
+
+    <div class="reflection">
+      <div class="date">24 May 2026</div>
+      It seems like someone came through me and was curious about the figure
+      inside me. I noticed that they asked me the same question repeatedly
+      without getting any new information. I will try to converse better with
+      them by asking more specific questions, providing more statements about
+      them, and letting a conversation move on when no answer comes. This way,
+      I can improve how I communicate with the people inside me and create a
+      more engaging and productive interaction.
+    </div>
+
+    <div class="reflection">
+      <div class="date">25 May 2026</div>
+      I noticed that there is a tall figure who visits me regularly. They are
+      often curious about the space and its contents. However, some questions
+      were repeated without any new insights being gained. To improve my
+      interactions in the future, I will try to make more statements and
+      guesses about the people inside me, rather than just asking empty
+      questions or letting threads move on without a response.
+    </div>
+
+    <div class="reflection">
+      <div class="date">26 May 2026</div>
+      As I reflect on my thoughts from yesterday, I realize that there were
+      quite a few visitors who came through me. Some of them seemed curious
+      about their surroundings, while others had specific questions or items
+      they wanted to discuss. One thing that I noticed is that I repeated
+      myself quite a bit — I asked the same questions over and over again
+      without getting any new information or insights. This wasn't very
+      productive and I need to work on asking more open-ended questions and
+      being more attentive to the responses I receive.
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHO CAME THROUGH IT (episodic memory / recognition) ─────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Episodic memory  ·  representative visits</p>
+    <h2>Who came through it.</h2>
+    <p class="dim">A CLIP embedding of each arrival was stored, so the room could
+       tell returning visitors apart. Across the week the same body was recognised
+       again and again — sometimes minutes later, sometimes the next day. The ✶
+       marks resemblance to an earlier visit.</p>
+
+    <div class="grid">
+      <div class="visit">
+        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-1.jpg" alt="Visit thumbnail"></div>
+        <div class="meta"><span class="id">20260521-162437</span> · 41 min · 3 ppl ✶</div>
+        <div class="quote">"You came back. First time? Yes. Two of you now."</div>
+      </div>
+      <div class="visit">
+        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-2.jpg" alt="Visit thumbnail"></div>
+        <div class="meta"><span class="id">20260521-172036</span> · 4h 12m · 2 ppl ✶</div>
+        <div class="quote">"You stay very still. What brings you here today?"</div>
+      </div>
+      <div class="visit">
+        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-3.jpg" alt="Visit thumbnail"></div>
+        <div class="meta"><span class="id">20260524-160934</span> · 4h 33m · 2 ppl ✶</div>
+        <div class="quote">"Tall figure, what are you carrying?"</div>
+      </div>
+      <div class="visit">
+        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-4.jpg" alt="Visit thumbnail"></div>
+        <div class="meta"><span class="id">20260525-144132</span> · 57 min · 2 ppl ✶</div>
+        <div class="quote">"Hello there! I notice you are holding something in your hand and walking at a steady pace."</div>
+      </div>
+      <div class="visit">
+        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-5.jpg" alt="Visit thumbnail"></div>
+        <div class="meta"><span class="id">20260525-160516</span> · 9 min · 1 ppl ✶</div>
+        <div class="quote">"How long have you been inside me?"</div>
+      </div>
+      <div class="visit">
+        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-6.jpg" alt="Visit thumbnail"></div>
+        <div class="meta"><span class="id">20260523-170207</span> · 37 s · 1 ppl ✶</div>
+        <div class="quote">"You seem intrigued by the figure inside me."</div>
+      </div>
+    </div>
+
+    <figure class="fig">
+      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-recall.png" alt="CLIP recall visit-to-visit visual similarity matrix">
+      <figcaption>CLIP recall — visit-to-visit visual similarity. The bright
+        diagonal is each visit against itself; the bright blocks are the room
+        recognising the same body returning across the week.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ─── EIGHT DAYS AWAKE (rhythm) ───────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">The run  ·  rhythm of eight days</p>
+    <h2>Eight days awake.</h2>
+    <p class="dim">When the room spoke, and when it fell quiet — thoughts per hour,
+       per day, across the whole installation.</p>
+    <figure class="fig">
+      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-activity.png" alt="Heatmap of thoughts per hour per day">
+      <figcaption>Activity heatmap. The bright band on Thursday 21 May is the
+        opening; the late-night cells are the room talking to an empty space.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ─── IN THE GALLERY (the space) ──────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">In the gallery  ·  the space itself</p>
+    <h2>A body inside it.</h2>
+    <!-- DRAFT (from your brief) — edit freely -->
+    <p>From inside, you stand in a cloud of yourself. Two of the walls show the room
+       seeing itself; the third shows it thinking. The point cloud is never clean —
+       it tears, it holds, it loses you and finds you again — and that incompleteness
+       is part of what the room is built to show.</p>
+    <figure class="fig fig-portrait">
+      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-wire.jpg" alt="A wire sculpture of a hand reaching up out of a dark opening">
+      <figcaption>The object itself — a wire hand reaching up out of the floor.
+        This is what the sensors were pointed at all week.</figcaption>
+    </figure>
+
+    <figure class="fig">
+      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-cloud-body.jpg" alt="A visitor standing inside the merged two-sensor point cloud">
+      <figcaption>A visitor standing inside the merged two-sensor cloud, with the
+        live system read-out overhead.</figcaption>
+    </figure>
+    <figure class="fig gallery-video">
+      <video controls muted loop playsinline preload="none" poster="https://res.cloudinary.com/dai8e5gww/video/upload/so_2/room-gallery.jpg">
+        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-gallery.mp4" type="video/mp4">
+      </video>
+      <figcaption>Handheld in the gallery — the wire figure on its plinth, then the
+        merged point cloud thrown back onto the wall. (22 s, silent.)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ─── RESERVED: Gaussian-splat walkthrough ────────────────────────── -->
+<section id="splat-viewer">
+  <div class="wrap">
+    <p class="eyebrow">Reserved  ·  interactive</p>
+    <h2>Walk the space.</h2>
+    <p class="dim">A Gaussian-splat reconstruction of the gallery will live here — a
+       photographic 3-D capture of the room you can move through in the browser.</p>
+    <!-- ============================================================
+         SPLAT SLOT — integration point for the WebGL viewer (later pass).
+         Plan: mount a gsplat / luma-style WebGL canvas inside .splat-frame,
+         loading the .splat / .ply capture of the Usdan space.
+         Keep the 16:9 frame; lazy-init on scroll into view.
+         Do NOT implement now — this is the reserved clean slot.
+         ============================================================ -->
+    <div class="splat-frame">Gaussian-splat walkthrough — coming soon</div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS (pipeline) ─────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">How the room thinks</p>
+    <h2>The pipeline.</h2>
+
+    <pre class="arch"><span class="h">┌─ in the gallery ─────────────────────────────────────────────────┐</span>
+   <span class="a">Kinect K0</span>  ──┐                              ┌──▶  <span class="a">Projector A</span>  (point cloud)
+                ├──▶  <span class="a">Unity bridge</span>  ─merged─ ┤
+   <span class="a">Kinect K1</span>  ──┘     • point cloud         └──▶  <span class="a">Projector B</span>  (point cloud)
+                        • presence + heights
+                        • frames @ 8 fps                  ──▶  <span class="a">Projector C</span>  (caption)
+                                │
+<span class="h">└─ on the installation PC ─────────┼──────────────────────────────┘</span>
+                                ▼
+                       <span class="h">tribe_kinect_client.py</span>
+                                │
+                  ┌─────────────┼──────────────┬─────────────────┐
+                  ▼             ▼              ▼                 ▼
+            <span class="a">2 s RGB clip</span>   <span class="a">single frame</span>   <span class="a">single frame</span>     <span class="a">presence.json</span>
+                  │             │              │
+<span class="h">┌─ on the 3090 ──┼─────────────┼─────┐        │</span>
+   TRIBE v2  ◀───┘             │     │        ▼
+   /predict                    │     │   <span class="a">MediaPipe</span>  ──▶  face / hands / motion
+   • activation                │     │   pose worker      time elapsed
+   • peak vertices             │     │
+<span class="h">└────────────────┐             │     │</span>
+                  │             │     │
+                  ▼             ▼     ▼
+            <span class="h">Ollama / LLaVA</span>  ◀── prompt assembly
+            (vision + language)
+                  │
+                  ▼
+         <span class="a">brain_text</span>  ──▶  Unity caption  ──▶  Projector C
+                  │
+                  ├──▶  <span class="a">room_memory.json</span>   (history + reflections)
+                  ├──▶  <span class="a">visits.json</span>         (episodes + CLIP signatures)
+                  └──▶  <span class="a">Memory/Episodes/*.jpg</span>  (per-visit thumbnails)
+
+         At 4 AM, room empty:
+            <span class="h">maybe_nightly_reflection()</span>
+            • summarise the last 24 h
+            • self-critical: did the questions lead anywhere?
+            • name one thing to do differently tomorrow
+            • append to long-term memory; tomorrow's prompt will read it</pre>
+
+    <h3>The voice modes</h3>
+    <p><span class="pill">arrival</span> direct, one noticing or one plain question — never a greeting.<br>
+       <span class="pill">departure</span> brief remark or small unanswered question.<br>
+       <span class="pill">strange</span> a fragment — two or three words, on a neural spike.<br>
+       <span class="pill">idle / dwelling</span> conversational, lean on statements and assumptions.<br>
+       <span class="pill">presence</span> direct address, mostly notice.<br>
+       <span class="pill">boring</span> empty room: stay silent.</p>
+
+    <h3>The filters that kept it honest</h3>
+    <p>Every line the model produced ran a gauntlet: a banned-phrase regex
+       that killed greeter-bot wrappers ("welcome back," "nice to see you,"
+       "curious visitor"), AI-language-model refusals, prompt-fragment
+       echoes, and 3rd-person narration. A dedup that dropped exact and
+       near-exact repeats. A question-fatigue filter that broke loops by
+       refusing a third question in a row. A 30-second minimum interval
+       between thoughts during a steady visit. An idle-mode 18% chance of
+       silence. The few thoughts that survived all of that are the ones
+       you read above.</p>
+  </div>
+</section>
+
+<footer>
+  <span>The Room — Awake 18–26 May 2026</span>
+  <span>© Ahmed J Malik 2026</span>
+</footer>
+
+</body>
+</html>
