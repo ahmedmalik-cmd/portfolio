@@ -7,19 +7,6 @@
   },
   "projects": [
         {
-      "id": "the-room",
-      "title": "The Room",
-      "categories": ["Installation", "Machine Perception", "Projection"],
-      "year": "2026",
-      "description": "An eight-day machine-perception installation at the Usdan Gallery. Two depth sensors, a brain-encoding model, and a vision-language pipeline give a gallery a voice — turning each visitor's presence into a live point-cloud projection and short, spoken \"perceptions.\" It stages the mirror between human consciousness and the machine, and the translation gap where irreducibly human, pre-cognitive states fail to survive symbolic processing. Senior thesis, Bennington College.",
-      "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/ar_3:4,c_fill,g_auto/room-cloud-corner.jpg",
-      "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/ar_3:4,c_fill,g_auto/room-wire.jpg",
-      "url": "/the-room/",
-      "images": [],
-      "videoUrl": null,
-      "audioUrl": null
-    },
-        {
       "id": "VirtualReality",
       "title": "VR",
       "categories": ["Virtual Reality", "Installation"],
