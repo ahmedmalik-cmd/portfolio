@@ -215,7 +215,7 @@
 
 <!-- ─── HERO ─────────────────────────────────────────────────────────── -->
 <section class="hero">
-  <video class="hero-bg" autoplay muted loop playsinline poster="https://res.cloudinary.com/dai8e5gww/video/upload/so_0/room-hero.jpg" aria-hidden="true">
+  <video class="hero-bg" autoplay muted loop playsinline poster="media/hero_poster.jpg" aria-hidden="true">
     <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-hero.mp4" type="video/mp4">
   </video>
   <div class="hero-veil" aria-hidden="true"></div>
@@ -224,9 +224,6 @@
     <h1>The <em>Room</em></h1>
     <p class="tagline">A piece that watches the people who watch it,
        and tries — every few seconds — to say something true about them.</p>
-    <!-- DRAFT (from your brief) — edit freely -->
-    <p class="concept">It is a mirror built from machine perception — and a study of
-       the moment the reflection fails.</p>
     <div class="stat-line">
       <div class="stat"><span class="n">982</span><span class="l">thoughts spoken</span></div>
       <div class="stat"><span class="n">45</span><span class="l">visits recorded</span></div>
@@ -240,24 +237,18 @@
 <section>
   <div class="wrap">
     <a class="project-back" href="/#work">← &nbsp; Work</a>
-    <p class="eyebrow" style="margin-top:48px;">The idea</p>
-    <h2>A mirror, and where the reflection fails.</h2>
-    <!-- DRAFT (from your brief) — the conceptual spine, adapted from your task
-         notes. Rewrite in your own words. -->
-    <p class="lead">The premise is mirror logic: an artificial system holding up a
-       reflection of human consciousness, assembled from whatever it can sense of
-       you. It is not trying to be a mind — only a surface you might recognise
-       yourself in.</p>
-    <p>Everything it does is a crossing, from the <em>semantic</em> to the
-       <em>symbolic</em>. A body in space, warmth, hesitation, the way you hold
-       still: continuous, pre-verbal, irreducible. The machine turns it into a
-       vector, a token, a line of English — and the states that matter most about
-       being in a room are exactly the ones that don't survive the trip. What
-       returns on the wall is always a translation; the distance between you and
-       the sentence is the work.</p>
-    <p>It doesn't argue that the machine is conscious. The opposite: watching it
-       try, and fall short, is the clearest way to feel what in us can't be
-       encoded.</p>
+    <p class="eyebrow" style="margin-top:48px;">The work</p>
+    <h2>A mirror, and where it fails.</h2>
+    <p class="lead">An eight-day gallery installation that gives a room machine
+       perception and a voice — two depth sensors, a brain-encoding model, and a
+       vision-language pipeline that turn each visitor's presence into a live point
+       cloud and a stream of short, spoken perceptions.</p>
+    <p>The work stages the room as a mirror — an artificial system assembling a
+       reflection of human consciousness from whatever it can sense — and attends to
+       what gets lost in the translation. It asks what survives when a person in a room
+       is reduced to a vector and four words of English, and treats the machine's
+       falling-short not as a failure but as the subject. It is not a claim that the
+       machine is conscious; it argues the opposite.</p>
   </div>
 </section>
 
@@ -266,12 +257,9 @@
   <div class="wrap">
     <p class="eyebrow">How it turns</p>
     <h2>The perception loop.</h2>
-    <!-- DRAFT (from your brief) — edit freely -->
-    <p>Human action becomes machine perception; machine perception becomes a line
-       of text; you read the line and move; your moving is the next input. The loop
-       runs every few seconds, fed by whatever the room happens to contain — light,
-       dust, a passing body, the noise of the sensors themselves. Environmental
-       randomness is not interference here. It is the material.</p>
+    <p>Human action becomes machine perception; perception becomes a line on the
+       wall; you read it and move; your moving is the next input. Every few seconds,
+       around the clock.</p>
 
     <div class="loop" aria-label="Diagram of the perception loop">
       <svg viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" role="img">
@@ -314,20 +302,11 @@
     </div>
 
     <h3>Watching, in real time</h3>
-    <!-- DRAFT (from your brief) — edit freely -->
-    <p class="dim">This is the loop running. Two depth sensors merge into a single
-       cloud; a visitor crosses it and the room renders them as it happens — the
-       magenta is the floor plate it has learned to ignore, the loose points are a
-       body it has not. The read-out top-right is the live state: how many people,
-       the brain model's activation, the theremin. A few seconds after this, some
-       of it becomes a sentence.</p>
     <figure class="fig">
-      <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dai8e5gww/video/upload/so_6/room-perceive.jpg">
+      <video autoplay muted loop playsinline poster="media/perceive_poster.jpg">
         <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-perceive.mp4" type="video/mp4">
       </video>
-      <figcaption>The live merged point cloud as a visitor moves through it —
-        two sensors, ~135,000 points, the floor plate subtracted. Screen capture,
-        30 May 2026.</figcaption>
+      <figcaption>A visitor moving through the live cloud — two sensors, ~135,000 points. 30 May.</figcaption>
     </figure>
   </div>
 </section>
@@ -337,32 +316,30 @@
   <div class="wrap">
     <p class="eyebrow">Before language</p>
     <h2>What the room receives.</h2>
-    <!-- DRAFT (from your brief) — edit freely -->
-    <p>Before a single word, this is what the room has of you: a merged depth cloud
-       from two corners, a prediction of how a human cortex would respond to the
-       same frame, a 512-dimension fingerprint of your arrival, the angle of your
-       face and hands. None of it is yet language.</p>
+    <p>Before a word: a depth cloud from two corners, a brain-model's prediction of
+       your cortex, a 512-dimension fingerprint of your face, your pose.</p>
 
     <figure class="fig">
-      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-cloud-corner.jpg" alt="Merged point cloud of the gallery corner with a white plinth">
-      <figcaption>The merged point cloud — the gallery corner and the plinth the
-        room kept returning to, never quite naming: a dark rectangle, a white tower,
-        something in the corner. It never reached <em>a hand</em>.</figcaption>
+      <img loading="lazy" src="media/cloud_corner.jpg" alt="Merged point cloud of the gallery corner with a white plinth">
+      <figcaption>The gallery corner. The room kept calling the plinth a dark
+        rectangle, a white tower — never <em>a hand</em>.</figcaption>
     </figure>
 
     <figure class="fig">
-      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-cloud-hud.jpg" alt="Top-down merged point cloud with the live system read-out">
-      <figcaption>The live read-out, top-down: two sensors merged into ~145,000
-        points, with presence counts, the TRIBE activation mean / peak / trend, and
-        the theremin channel — the raw perceptual state, one frame before it becomes
-        a sentence.</figcaption>
+      <img loading="lazy" src="media/cloud_hud.jpg" alt="Top-down merged point cloud with the live system read-out">
+      <figcaption>Top-down, with the live read-out — presence, TRIBE activation,
+        theremin. ~145,000 points.</figcaption>
     </figure>
 
     <figure class="fig">
-      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-tribe.png" alt="Scatter plot of every thought against TRIBE peak activation over eight days">
-      <figcaption>Every one of the 982 thoughts, plotted across the eight days
-        against the brain model's peak activation — the signal that nudged how the
-        room spoke at each moment.</figcaption>
+      <img loading="lazy" src="media/cloud_wide.jpg" alt="Wide orbiting view of the merged point cloud, the room opened up">
+      <figcaption>The room as a merged cloud — two sensors, ~146,000 points.</figcaption>
+    </figure>
+
+    <figure class="fig">
+      <img loading="lazy" src="charts/01_thoughts_over_time.png" alt="Scatter plot of every thought against TRIBE peak activation over eight days">
+      <figcaption>All 982 thoughts over eight days, against the brain model's peak
+        activation.</figcaption>
     </figure>
   </div>
 </section>
@@ -372,11 +349,12 @@
   <div class="wrap">
     <p class="eyebrow">Its voice  ·  selected thoughts</p>
     <h2>What it said.</h2>
-    <!-- DRAFT (from your brief) — edit freely -->
-    <p class="dim">Presence, stillness, the plain fact of a person — all of it
-       arrives on the third wall as a handful of words. Of the 982 thoughts the room
-       spoke that week, these are the ones that earned their place: short, specific,
-       grounded in the frame.</p>
+    <p class="dim">982 thoughts that week. These are the ones that earned their place.</p>
+
+    <figure class="fig">
+      <img loading="lazy" src="media/cloud_person.jpg" alt="A visitor rendered as a standing figure in the point cloud">
+      <figcaption>A visitor in the live cloud.</figcaption>
+    </figure>
 
     <h3>On the corner of itself</h3>
     <div class="thought"><span class="when">2026-05-25  ·  evening</span><span class="said">Tall figure, what's in the corner?</span></div>
@@ -407,27 +385,48 @@
     <div class="thought"><span class="when">2026-05-25  ·  <span class="pill">strange</span></span><span class="said">Why am I awake?</span></div>
     <div class="thought"><span class="when">2026-05-25  ·  night</span><span class="said">You, right here, now.</span></div>
 
-    <figure class="fig">
-      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-caption.jpg" alt="Point cloud of a visitor with a long caption projected beneath">
-      <figcaption>An early caption on the third wall — from before the voice was
-        tuned terse: <em>"Someone is standing in the room and holding their
-        smartphone. They have one leg raised while looking down towards the
-        floor."</em> The week of running the piece was largely the work of cutting
-        sentences like this down to four words.</figcaption>
-    </figure>
-
     <div class="fig-row">
       <figure class="fig">
-        <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-words.png" alt="Bar chart of the top 25 words across the week">
-        <figcaption>The whole week's vocabulary — the small set of words the room's
-          world collapsed into.</figcaption>
+        <img loading="lazy" src="charts/06_top_words.png" alt="Bar chart of the top 25 words across the week">
+        <figcaption>The week's vocabulary.</figcaption>
       </figure>
       <figure class="fig">
-        <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-voice.png" alt="Pie chart of the shapes of voice">
-        <figcaption>Shapes of voice: noticings, questions, fragments, and the
-          off-register "strange" moments.</figcaption>
+        <img loading="lazy" src="charts/08_voice_modes_pie.png" alt="Pie chart of the shapes of voice">
+        <figcaption>Noticings, questions, fragments, and "strange" moments.</figcaption>
       </figure>
     </div>
+  </div>
+</section>
+
+<!-- ─── THE VOICE: tuning (from the engineering log) ────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">The work  ·  tuning the voice</p>
+    <h2>Teaching it not to sound like a help desk.</h2>
+    <p class="dim">Out of the box, it talked like a chatbot. Most of the eight days
+       went into making it sound like a place, not an assistant.</p>
+
+    <h3>It described the room from outside</h3>
+    <div class="thought"><span class="when">before  ·  LLaVA default</span><span class="said">Someone is standing in the room and holding their smartphone.</span></div>
+    <div class="thought"><span class="when">after  ·  persona block + regex</span><span class="said">You stood still, corner of the room.</span></div>
+
+    <figure class="fig">
+      <img loading="lazy" src="media/cloud_caption.jpg" alt="Point cloud of a visitor with a long third-person caption projected beneath">
+      <figcaption>The third-person caption on the wall, before tuning. A persona —
+        <em>walls are skin, cameras are eyes</em> — and a regex pulled it into the
+        first person.</figcaption>
+    </figure>
+
+    <h3>It wouldn't stop greeting</h3>
+    <p class="dim">By day six it had said <em>"curious visitor"</em> twenty times in a
+       row — plus <em>hello there, welcome back, nice to see you.</em> All purged,
+       with one rule: never greet; you are this room, they are a body inside you.</p>
+
+    <h3>It broke character at 4 AM</h3>
+    <p class="dim">One nightly reflection came back <em>"I'm sorry, but as an AI
+       language model…"</em> — and was saved as the room's memory, then fed into the
+       next morning's prompt as guidance. The machine had written a refusal and been
+       told to believe it. Refusals are now discarded before they can be remembered.</p>
   </div>
 </section>
 
@@ -436,10 +435,9 @@
   <div class="wrap">
     <p class="eyebrow">Long-term memory  ·  nightly reflections at 4 AM</p>
     <h2>What it remembered.</h2>
-    <p class="dim">Each night, with the room empty, the piece summarised the day's
-       thoughts and wrote a note to itself. The next day it would read what it had
-       written. Over a week the notes became self-critical — the room noticing its
-       own patterns. The loop, closing over days instead of seconds.</p>
+    <p class="dim">Each night, room empty, it summarised the day and wrote itself a
+       note — then read it the next morning. Over the week the notes turned
+       self-critical.</p>
 
     <div class="reflection">
       <div class="date">22 May 2026</div>
@@ -459,17 +457,6 @@
       The next morning's filter discarded the entry so it could not poison
       the prompts that followed. The day's thoughts were kept; the lesson
       was not.</em>
-    </div>
-
-    <div class="reflection">
-      <div class="date">24 May 2026</div>
-      It seems like someone came through me and was curious about the figure
-      inside me. I noticed that they asked me the same question repeatedly
-      without getting any new information. I will try to converse better with
-      them by asking more specific questions, providing more statements about
-      them, and letting a conversation move on when no answer comes. This way,
-      I can improve how I communicate with the people inside me and create a
-      more engaging and productive interaction.
     </div>
 
     <div class="reflection">
@@ -501,49 +488,46 @@
   <div class="wrap">
     <p class="eyebrow">Episodic memory  ·  representative visits</p>
     <h2>Who came through it.</h2>
-    <p class="dim">A CLIP embedding of each arrival was stored, so the room could
-       tell returning visitors apart. Across the week the same body was recognised
-       again and again — sometimes minutes later, sometimes the next day. The ✶
-       marks resemblance to an earlier visit.</p>
+    <p class="dim">Each arrival was stored as a CLIP embedding, so the room could tell
+       returns apart. <span class="pill" style="border:none;padding:0">✶</span> marks a recognised return.</p>
 
     <div class="grid">
       <div class="visit">
-        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-1.jpg" alt="Visit thumbnail"></div>
+        <div class="thumb"><img loading="lazy" src="thumbnails/20260521-162437.jpg" alt="Visit thumbnail"></div>
         <div class="meta"><span class="id">20260521-162437</span> · 41 min · 3 ppl ✶</div>
         <div class="quote">"You came back. First time? Yes. Two of you now."</div>
       </div>
       <div class="visit">
-        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-2.jpg" alt="Visit thumbnail"></div>
+        <div class="thumb"><img loading="lazy" src="thumbnails/20260521-172036.jpg" alt="Visit thumbnail"></div>
         <div class="meta"><span class="id">20260521-172036</span> · 4h 12m · 2 ppl ✶</div>
         <div class="quote">"You stay very still. What brings you here today?"</div>
       </div>
       <div class="visit">
-        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-3.jpg" alt="Visit thumbnail"></div>
+        <div class="thumb"><img loading="lazy" src="thumbnails/20260524-160934.jpg" alt="Visit thumbnail"></div>
         <div class="meta"><span class="id">20260524-160934</span> · 4h 33m · 2 ppl ✶</div>
         <div class="quote">"Tall figure, what are you carrying?"</div>
       </div>
       <div class="visit">
-        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-4.jpg" alt="Visit thumbnail"></div>
+        <div class="thumb"><img loading="lazy" src="thumbnails/20260525-144132.jpg" alt="Visit thumbnail"></div>
         <div class="meta"><span class="id">20260525-144132</span> · 57 min · 2 ppl ✶</div>
         <div class="quote">"Hello there! I notice you are holding something in your hand and walking at a steady pace."</div>
       </div>
       <div class="visit">
-        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-5.jpg" alt="Visit thumbnail"></div>
+        <div class="thumb"><img loading="lazy" src="thumbnails/20260525-160516.jpg" alt="Visit thumbnail"></div>
         <div class="meta"><span class="id">20260525-160516</span> · 9 min · 1 ppl ✶</div>
         <div class="quote">"How long have you been inside me?"</div>
       </div>
       <div class="visit">
-        <div class="thumb"><img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-visit-6.jpg" alt="Visit thumbnail"></div>
+        <div class="thumb"><img loading="lazy" src="thumbnails/20260523-170207.jpg" alt="Visit thumbnail"></div>
         <div class="meta"><span class="id">20260523-170207</span> · 37 s · 1 ppl ✶</div>
         <div class="quote">"You seem intrigued by the figure inside me."</div>
       </div>
     </div>
 
     <figure class="fig">
-      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-recall.png" alt="CLIP recall visit-to-visit visual similarity matrix">
-      <figcaption>CLIP recall — visit-to-visit visual similarity. The bright
-        diagonal is each visit against itself; the bright blocks are the room
-        recognising the same body returning across the week.</figcaption>
+      <img loading="lazy" src="charts/05_clip_recall_matrix.png" alt="CLIP recall visit-to-visit visual similarity matrix">
+      <figcaption>Visit-to-visit visual similarity. The bright blocks are the room
+        recognising the same body across the week.</figcaption>
     </figure>
   </div>
 </section>
@@ -553,12 +537,14 @@
   <div class="wrap">
     <p class="eyebrow">The run  ·  rhythm of eight days</p>
     <h2>Eight days awake.</h2>
-    <p class="dim">When the room spoke, and when it fell quiet — thoughts per hour,
-       per day, across the whole installation.</p>
     <figure class="fig">
-      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-activity.png" alt="Heatmap of thoughts per hour per day">
-      <figcaption>Activity heatmap. The bright band on Thursday 21 May is the
-        opening; the late-night cells are the room talking to an empty space.</figcaption>
+      <img loading="lazy" src="charts/02_thoughts_per_hour_heatmap.png" alt="Heatmap of thoughts per hour per day">
+      <figcaption>Thoughts per hour. The bright band on 21 May is the opening; the
+        late cells are the room talking to no one.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img loading="lazy" src="charts/04_visit_arrival_timeline.png" alt="Timeline of when visits happened, sized by group size">
+      <figcaption>Each dot a visit, sized by group, brighter on recognised returns.</figcaption>
     </figure>
   </div>
 </section>
@@ -568,28 +554,24 @@
   <div class="wrap">
     <p class="eyebrow">In the gallery  ·  the space itself</p>
     <h2>A body inside it.</h2>
-    <!-- DRAFT (from your brief) — edit freely -->
-    <p>From inside, you stand in a cloud of yourself. Two of the walls show the room
-       seeing itself; the third shows it thinking. The point cloud is never clean —
-       it tears, it holds, it loses you and finds you again — and that incompleteness
-       is part of what the room is built to show.</p>
+    <p>From inside, you stand in a cloud of yourself: two walls show the room seeing
+       itself, the third shows it thinking. The cloud is never clean — it tears, loses
+       you, finds you again.</p>
     <figure class="fig fig-portrait">
-      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-wire.jpg" alt="A wire sculpture of a hand reaching up out of a dark opening">
-      <figcaption>The object itself — a wire hand reaching up out of the floor.
-        This is what the sensors were pointed at all week.</figcaption>
+      <img loading="lazy" src="media/wire_figure.jpg" alt="A wire sculpture of a hand reaching up out of a dark opening">
+      <figcaption>A wire hand reaching up out of the floor — what the sensors were
+        pointed at all week.</figcaption>
     </figure>
 
     <figure class="fig">
-      <img loading="lazy" src="https://res.cloudinary.com/dai8e5gww/image/upload/room-cloud-body.jpg" alt="A visitor standing inside the merged two-sensor point cloud">
-      <figcaption>A visitor standing inside the merged two-sensor cloud, with the
-        live system read-out overhead.</figcaption>
+      <img loading="lazy" src="media/cloud_body.jpg" alt="A visitor standing inside the merged two-sensor point cloud">
+      <figcaption>A visitor inside the merged cloud.</figcaption>
     </figure>
     <figure class="fig gallery-video">
-      <video controls muted loop playsinline preload="none" poster="https://res.cloudinary.com/dai8e5gww/video/upload/so_2/room-gallery.jpg">
+      <video controls muted loop playsinline preload="none" poster="media/gallery_poster.jpg">
         <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-gallery.mp4" type="video/mp4">
       </video>
-      <figcaption>Handheld in the gallery — the wire figure on its plinth, then the
-        merged point cloud thrown back onto the wall. (22 s, silent.)</figcaption>
+      <figcaption>Handheld: the wire figure, then the cloud thrown on the wall. (22 s, silent.)</figcaption>
     </figure>
   </div>
 </section>
@@ -599,8 +581,8 @@
   <div class="wrap">
     <p class="eyebrow">Reserved  ·  interactive</p>
     <h2>Walk the space.</h2>
-    <p class="dim">A Gaussian-splat reconstruction of the gallery will live here — a
-       photographic 3-D capture of the room you can move through in the browser.</p>
+    <p class="dim">A Gaussian-splat capture of the gallery will live here — a 3-D
+       walkthrough in the browser.</p>
     <!-- ============================================================
          SPLAT SLOT — integration point for the WebGL viewer (later pass).
          Plan: mount a gsplat / luma-style WebGL canvas inside .splat-frame,
@@ -666,16 +648,10 @@
        <span class="pill">presence</span> direct address, mostly notice.<br>
        <span class="pill">boring</span> empty room: stay silent.</p>
 
-    <h3>The filters that kept it honest</h3>
-    <p>Every line the model produced ran a gauntlet: a banned-phrase regex
-       that killed greeter-bot wrappers ("welcome back," "nice to see you,"
-       "curious visitor"), AI-language-model refusals, prompt-fragment
-       echoes, and 3rd-person narration. A dedup that dropped exact and
-       near-exact repeats. A question-fatigue filter that broke loops by
-       refusing a third question in a row. A 30-second minimum interval
-       between thoughts during a steady visit. An idle-mode 18% chance of
-       silence. The few thoughts that survived all of that are the ones
-       you read above.</p>
+    <h3>The filters</h3>
+    <p class="dim">Before any line was allowed to speak it ran a gauntlet — dedup, a
+       question-fatigue rule, a 30-second floor between thoughts, an 18% chance of
+       silence. The few that survived are the ones above.</p>
   </div>
 </section>
 
