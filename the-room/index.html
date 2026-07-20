@@ -170,13 +170,22 @@
 
   /* ── Reserved: Gaussian-splat slot ──────────────────────────────────── */
   .splat-frame {
+    position: relative; overflow: hidden;
     margin-top: 28px; aspect-ratio: 16/9; width: 100%;
-    border: 1px dashed var(--border);
+    border: 1px solid var(--border);
     background: radial-gradient(120% 120% at 50% 30%, rgba(184,150,110,0.05), transparent 60%), var(--surface);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-family: var(--mono); font-size: 0.6rem;
-    letter-spacing: 0.2em; text-transform: uppercase; text-align: center;
   }
+  #model-canvas { position: absolute; inset: 0; }
+  #model-canvas canvas { display: block; }
+  .splat-load {
+    position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    background: transparent; border: none; cursor: pointer;
+    color: var(--accent); font-family: var(--mono); font-size: 0.72rem;
+    letter-spacing: 0.16em; text-transform: uppercase; text-align: center;
+  }
+  .splat-load span { color: var(--muted); font-size: 0.56rem; letter-spacing: 0.08em; text-transform: none; }
+  .splat-load:hover { color: #fff; }
   .placeholder-note { margin-top: 24px; padding: 18px 22px; border: 1px dashed var(--border); color: var(--muted); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em; }
 
   /* ── Footer ─────────────────────────────────────────────────────────── */
@@ -590,7 +599,10 @@
          Keep the 16:9 frame; lazy-init on scroll into view.
          Do NOT implement now — this is the reserved clean slot.
          ============================================================ -->
-    <div class="splat-frame">Gaussian-splat walkthrough — coming soon</div>
+    <div class="splat-frame" id="splat-frame">
+      <div id="model-canvas"></div>
+      <button id="model-load" class="splat-load" type="button">Load the 3-D capture &nbsp;▶<span>~11 MB · drag to orbit, scroll to zoom</span></button>
+    </div>
   </div>
 </section>
 
@@ -659,6 +671,66 @@
   <span>The Room — Awake 18–26 May 2026</span>
   <span>© Ahmed J Malik 2026</span>
 </footer>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+}}
+</script>
+<script type="module">
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+  import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
+  const frame  = document.getElementById('splat-frame');
+  const holder = document.getElementById('model-canvas');
+  const btn    = document.getElementById('model-load');
+  let started = false;
+
+  btn && btn.addEventListener('click', async () => {
+    if (started) return; started = true;
+    btn.innerHTML = 'Loading…';
+    try {
+      const W = frame.clientWidth, H = frame.clientHeight;
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(W, H);
+      holder.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0c0b09);
+      const camera = new THREE.PerspectiveCamera(55, W / H, 0.01, 2000);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true; controls.dampingFactor = 0.08;
+
+      const tex = new THREE.TextureLoader().load('model/texture.jpg');
+      tex.colorSpace = THREE.SRGBColorSpace;
+      const mat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
+
+      const obj = await new OBJLoader().loadAsync('model/room.obj');
+      obj.traverse(c => { if (c.isMesh) c.material = mat; });
+      scene.add(obj);
+
+      const box = new THREE.Box3().setFromObject(obj);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+      const r = Math.max(size.x, size.y, size.z) || 1;
+      controls.target.copy(center);
+      camera.position.set(center.x + r * 0.8, center.y + r * 0.5, center.z + r * 0.8);
+      controls.update();
+      window.__mv = { scene, camera, controls, obj, tex, renderer };
+
+      btn.style.display = 'none';
+      const resize = () => { const w = frame.clientWidth, h = frame.clientHeight; camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h); };
+      window.addEventListener('resize', resize);
+      (function loop(){ requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); })();
+    } catch (e) {
+      console.error(e);
+      btn.innerHTML = 'Could not load the model — check console.';
+    }
+  });
+</script>
 
 </body>
 </html>
