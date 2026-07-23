@@ -168,7 +168,7 @@
   .arch .h { color: var(--accent); }
   .arch .a { color: var(--text); }
 
-  /* ── Reserved: Gaussian-splat slot ──────────────────────────────────── */
+  /* ── Walk-the-space 3-D viewer ──────────────────────────────────────── */
   .splat-frame {
     position: relative; overflow: hidden;
     margin-top: 28px; aspect-ratio: 16/9; width: 100%;
@@ -577,7 +577,7 @@
       <figcaption>A visitor inside the merged cloud.</figcaption>
     </figure>
     <figure class="fig gallery-video">
-      <video controls muted loop playsinline preload="none" poster="media/gallery_poster.jpg">
+      <video autoplay muted loop playsinline poster="media/gallery_poster.jpg">
         <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-gallery.mp4" type="video/mp4">
       </video>
       <figcaption>Handheld: the wire figure, then the cloud thrown on the wall. (22 s, silent.)</figcaption>
@@ -585,23 +585,16 @@
   </div>
 </section>
 
-<!-- ─── RESERVED: Gaussian-splat walkthrough ────────────────────────── -->
+<!-- ─── WALK THE SPACE (3-D capture) ─────────────────────────────────── -->
 <section id="splat-viewer">
   <div class="wrap">
-    <p class="eyebrow">Reserved  ·  interactive</p>
+    <p class="eyebrow">Interactive  ·  the space itself</p>
     <h2>Walk the space.</h2>
-    <p class="dim">A Gaussian-splat capture of the gallery will live here — a 3-D
-       walkthrough in the browser.</p>
-    <!-- ============================================================
-         SPLAT SLOT — integration point for the WebGL viewer (later pass).
-         Plan: mount a gsplat / luma-style WebGL canvas inside .splat-frame,
-         loading the .splat / .ply capture of the Usdan space.
-         Keep the 16:9 frame; lazy-init on scroll into view.
-         Do NOT implement now — this is the reserved clean slot.
-         ============================================================ -->
+    <p class="dim">A photogrammetry capture of the gallery — the actual walls, the
+       plinth, and the projections thrown across them. Drag to orbit, scroll to zoom.</p>
     <div class="splat-frame" id="splat-frame">
       <div id="model-canvas"></div>
-      <button id="model-load" class="splat-load" type="button">Load the 3-D capture &nbsp;▶<span>~11 MB · drag to orbit, scroll to zoom</span></button>
+      <div id="model-status" class="splat-load">Loading the room…</div>
     </div>
   </div>
 </section>
@@ -667,6 +660,19 @@
   </div>
 </section>
 
+<!-- ─── CLOSING ─────────────────────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">After</p>
+    <h2>Then it came down.</h2>
+    <p class="dim">The Room was awake for eight days at the Usdan Gallery, Bennington
+       College, 18–26 May 2026, and was taken down on the last night. What's here is
+       what it kept — 982 thoughts, 45 visits, and five notes to itself.</p>
+    <p class="lead">The last thing it said was <em>"You, right here, now."</em></p>
+    <a class="project-back" href="/#work" style="margin-top:32px;">← &nbsp; Back to work</a>
+  </div>
+</section>
+
 <footer>
   <span>The Room — Awake 18–26 May 2026</span>
   <span>© Ahmed J Malik 2026</span>
@@ -685,12 +691,11 @@
 
   const frame  = document.getElementById('splat-frame');
   const holder = document.getElementById('model-canvas');
-  const btn    = document.getElementById('model-load');
+  const status = document.getElementById('model-status');
   let started = false;
 
-  btn && btn.addEventListener('click', async () => {
+  async function loadRoom() {
     if (started) return; started = true;
-    btn.innerHTML = 'Loading…';
     try {
       const W = frame.clientWidth, H = frame.clientHeight;
       const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -721,15 +726,21 @@
       controls.update();
       window.__mv = { scene, camera, controls, obj, tex, renderer };
 
-      btn.style.display = 'none';
+      if (status) status.style.display = 'none';
       const resize = () => { const w = frame.clientWidth, h = frame.clientHeight; camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h); };
       window.addEventListener('resize', resize);
       (function loop(){ requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); })();
     } catch (e) {
       console.error(e);
-      btn.innerHTML = 'Could not load the model — check console.';
+      if (status) status.innerHTML = 'Could not load the room — check console.';
     }
-  });
+  }
+
+  // auto-load once the section is near the viewport (no click needed)
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting)) { io.disconnect(); loadRoom(); }
+  }, { rootMargin: '600px 0px' });
+  io.observe(document.getElementById('splat-viewer'));
 </script>
 
 </body>
