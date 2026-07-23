@@ -225,7 +225,7 @@
 <!-- ─── HERO ─────────────────────────────────────────────────────────── -->
 <section class="hero">
   <video class="hero-bg" autoplay muted loop playsinline poster="media/hero_poster.jpg" aria-hidden="true">
-    <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-hero.mp4" type="video/mp4">
+    <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-hero.mp4" type="video/mp4">
   </video>
   <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-inner wrap">
@@ -313,7 +313,7 @@
     <h3>Watching, in real time</h3>
     <figure class="fig">
       <video autoplay muted loop playsinline poster="media/perceive_poster.jpg">
-        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-perceive.mp4" type="video/mp4">
+        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-perceive.mp4" type="video/mp4">
       </video>
       <figcaption>A visitor moving through the live cloud — two sensors, ~135,000 points. 30 May.</figcaption>
     </figure>
@@ -578,7 +578,7 @@
     </figure>
     <figure class="fig gallery-video">
       <video autoplay muted loop playsinline poster="media/gallery_poster.jpg">
-        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/room-gallery.mp4" type="video/mp4">
+        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-gallery.mp4" type="video/mp4">
       </video>
       <figcaption>Handheld: the wire figure, then the cloud thrown on the wall. (22 s, silent.)</figcaption>
     </figure>
@@ -687,7 +687,7 @@
 <script type="module">
   import * as THREE from 'three';
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-  import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
   const frame  = document.getElementById('splat-frame');
   const holder = document.getElementById('model-canvas');
@@ -709,12 +709,15 @@
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true; controls.dampingFactor = 0.08;
 
-      const tex = new THREE.TextureLoader().load('model/texture.jpg');
-      tex.colorSpace = THREE.SRGBColorSpace;
-      const mat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
-
-      const obj = await new OBJLoader().loadAsync('model/room.obj');
-      obj.traverse(c => { if (c.isMesh) c.material = mat; });
+      const gltf = await new GLTFLoader().loadAsync('model/room.glb');
+      const obj = gltf.scene;
+      obj.traverse(c => {
+        if (c.isMesh && c.material) {
+          const map = c.material.map || null;
+          if (map) map.colorSpace = THREE.SRGBColorSpace;
+          c.material = new THREE.MeshBasicMaterial({ map, side: THREE.DoubleSide });
+        }
+      });
       scene.add(obj);
 
       const box = new THREE.Box3().setFromObject(obj);
@@ -722,9 +725,11 @@
       const size = box.getSize(new THREE.Vector3());
       const r = Math.max(size.x, size.y, size.z) || 1;
       controls.target.copy(center);
-      camera.position.set(center.x + r * 0.8, center.y + r * 0.5, center.z + r * 0.8);
+      // start looking straight down into the room — slightly off vertical so the
+      // up-vector stays valid and orbiting feels natural from the first drag
+      camera.position.set(center.x + r * 0.20, center.y + r * 1.23, center.z + r * 0.20);
       controls.update();
-      window.__mv = { scene, camera, controls, obj, tex, renderer };
+      window.__mv = { scene, camera, controls, obj, renderer };
 
       if (status) status.style.display = 'none';
       const resize = () => { const w = frame.clientWidth, h = frame.clientHeight; camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h); };
