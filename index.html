@@ -13,6 +13,14 @@
       position: relative;
       overflow: hidden;
     }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(12,11,9,0.12) 0%, rgba(12,11,9,0) 30%, rgba(12,11,9,0.38) 70%, rgba(12,11,9,0.72) 100%);
+    }
     .hero-video {
       position: absolute;
       inset: 0;
@@ -27,6 +35,20 @@
       position: relative;
       z-index: 1;
     }
+    .hero-cta {
+      display: inline-block;
+      margin-top: 28px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(184, 150, 110, 0.4);
+      padding: 12px 20px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero-cta em { font-style: italic; text-transform: none; }
+    .hero-cta:hover { background: var(--accent); color: var(--bg); }
   </style>
 </head>
 <body>
@@ -41,13 +63,14 @@
 
   <main>
     <section class="hero">
-      <video class="hero-video" autoplay muted loop playsinline>
-        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/v1777317292/mov2025.mp4" type="video/mp4">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/room-hero.jpg">
+        <!-- previous hero video: .../video/upload/v1777317292/mov2025.mp4 -->
+        <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-hero.mp4" type="video/mp4">
       </video>
       <div class="hero-text">
-      
         <h1 id="hero-title">—</h1>
         <p id="hero-bio" class="bio">—</p>
+        <a class="hero-cta" href="/the-room/">View the latest project &nbsp;→</a>
       </div>
     </section>
 
