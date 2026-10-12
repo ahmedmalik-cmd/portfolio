@@ -13,7 +13,7 @@
       --bg: #0c0b09;
       --surface: #111008;
       --border: #1e1c18;
-      --accent: #b8966e;
+      --accent: #ea5fb0;
       --text: #ddd9d0;
       --muted: #5a5650;
       --serif: 'Cormorant Garamond', Georgia, serif;
@@ -168,7 +168,7 @@
 
     /* ── PLACEHOLDER ────────────────────────────────────────── */
     .placeholder {
-      border: 1px dashed #4a4336; background: repeating-linear-gradient(45deg, rgba(184,150,110,0.04) 0 12px, transparent 12px 24px);
+      border: 1px dashed #5a3a4d; background: repeating-linear-gradient(45deg, rgba(234,95,176,0.05) 0 12px, transparent 12px 24px);
       display: flex; align-items: center; justify-content: center; text-align: center;
       padding: 48px 24px; min-height: 240px;
     }
@@ -337,10 +337,23 @@
         </div>
 
         <div class="media">
-          <div class="placeholder">
-            <span>[ Placeholder — projection mapping video from AWE / Jadu. Ahmed to send footage. ]</span>
+          <video controls muted loop playsinline preload="metadata"
+                 poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832272/IMG_3818.jpg">
+            <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832272/IMG_3818.mp4" type="video/mp4">
+          </video>
+          <p class="media-cap">The projection running live at the venue.</p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
+            <div>
+              <video controls muted loop playsinline preload="metadata"
+                     poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832279/IMG_3819.jpg">
+                <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832279/IMG_3819.mp4" type="video/mp4">
+              </video>
+            </div>
+            <img src="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,c_fill,g_auto,ar_16:9,w_1100/v1791832360/IMG_3797.jpg" alt="Behind the scenes — projection setup" loading="lazy">
           </div>
-          <p class="media-cap">Documentation video — to be added.</p>
+          <img style="margin-top:12px;" src="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,c_fill,g_auto,ar_16:9,w_1400/v1791832360/IMG_3798.jpg" alt="Behind the scenes — the mapped projection" loading="lazy">
+          <p class="media-cap">On site — setup and the mapped output.</p>
         </div>
       </article>
 
@@ -441,7 +454,7 @@
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
       const mat = new THREE.PointsMaterial({
-        color: 0xb8966e, size: 0.045, sizeAttenuation: true,
+        color: 0xea5fb0, size: 0.045, sizeAttenuation: true,
         transparent: true, opacity: 0.85, depthWrite: false
       });
       const cloud = new THREE.Points(geo, mat);
@@ -514,7 +527,20 @@
           chunks.forEach(a => { merged.set(a, o); o += a.length; });
           const pgeo = new THREE.BufferGeometry();
           pgeo.setAttribute('position', new THREE.BufferAttribute(merged, 3));
-          const pmat = new THREE.PointsMaterial({ color: 0xc6a985, size: 0.012, sizeAttenuation: true, transparent: true, opacity: 0.9, depthWrite: false });
+          // colour the cloud the way it reads in the room videos: hot magenta low,
+          // fading up to pale pink — vertical gradient across the point cloud
+          let minY = Infinity, maxY = -Infinity;
+          for (let i = 1; i < merged.length; i += 3) { const y = merged[i]; if (y < minY) minY = y; if (y > maxY) maxY = y; }
+          const span = (maxY - minY) || 1;
+          const low = new THREE.Color(0xff2fb0), high = new THREE.Color(0xf7d6ea), col = new THREE.Color();
+          const colors = new Float32Array(merged.length);
+          for (let i = 0; i < merged.length; i += 3) {
+            const t = Math.pow((merged[i + 1] - minY) / span, 0.8);
+            col.copy(low).lerp(high, t);
+            colors[i] = col.r; colors[i + 1] = col.g; colors[i + 2] = col.b;
+          }
+          pgeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+          const pmat = new THREE.PointsMaterial({ vertexColors: true, size: 0.017, sizeAttenuation: true, transparent: true, opacity: 0.95, depthWrite: false });
           const points = new THREE.Points(pgeo, pmat);
           scene.add(points);
 
