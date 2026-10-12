@@ -147,6 +147,23 @@
     .stills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
     .stills img { aspect-ratio: 4/3; object-fit: cover; }
 
+    /* ── FILMS ──────────────────────────────────────────────── */
+    .film-feature {
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+      border: 1px solid var(--border); background: var(--surface);
+      padding: 28px; transition: border-color 0.2s;
+    }
+    .film-feature:hover { border-color: var(--accent); }
+    .film-kicker { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .film-title { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--text); line-height: 1.1; }
+    .film-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.9; margin-top: 12px; max-width: 48ch; }
+    .film-watch { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+    .film-series { margin-top: 16px; border: 1px solid var(--border); padding: 22px 28px; }
+    .series-links { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 8px; }
+    .series-links a { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 3px; transition: border-color 0.2s, color 0.2s; }
+    .series-links a:hover { border-color: var(--accent); color: var(--accent); }
+    @media (max-width: 760px) { .film-feature { flex-direction: column; align-items: flex-start; } }
+
     .viewer-frame {
       position: relative; width: 100%; aspect-ratio: 16/10;
       border: 1px solid var(--border); background: var(--surface); overflow: hidden;
@@ -302,7 +319,7 @@
 
         <!-- perception demo video + stills -->
         <div class="media">
-          <video controls muted loop playsinline preload="none"
+          <video autoplay muted loop playsinline controls preload="metadata"
                  poster="/the-room/media/perceive_poster.jpg">
             <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-perceive.mp4" type="video/mp4">
           </video>
@@ -320,40 +337,36 @@
         <p class="section-label">&nbsp;</p>
         <div class="case-index">02 / Live Installation</div>
         <h2 class="case-title">Projection Mapping — Jadu at AWE</h2>
-        <div class="case-meta">Unity · Panasonic PT-MZ20K · On-site</div>
-        <p class="case-summary">A large-format projection mapped onto the venue for a Jadu mixer at Augmented World Expo — set up, aligned, run, and struck on site.</p>
+        <div class="case-meta">Unity · Panasonic PT-MZ20K · On-site AV</div>
+        <p class="case-summary">A large-format projection mapped onto the venue for a Jadu mixer at Augmented World Expo — rigged, calibrated, run, and struck on site.</p>
 
         <div class="case-body">
           <div>
-            <h3>What I built</h3>
-            <p>Volunteering with Jadu, an AR company, I handled the projection mapping for their mixer at AWE end to end: rigging and configuring a Panasonic PT-MZ20K (a 20,000-lumen laser projector), driving the mapped content from Unity, aligning the output to the venue's surfaces on site, operating it live through the event, and tearing the whole rig down afterward.</p>
+            <h3>What I ran</h3>
+            <p>Volunteering with Jadu, an AR company, I ran the projection mapping for their AWE mixer end to end. The projector was a Panasonic PT-MZ20K — a 20,000-lumen WUXGA 3LCD laser unit, liquid-cooled and a two-person lift. I drove the mapped content from Unity and aligned it to the venue on site, output at the projector's native 1920×1200 with everything off the target masked to true black (at 20,000 lumens, spill is real). Then I struck and packed the rig: the tool-free lens removal — top slide cover, lock lever, counter-clockwise out — lens cased on its own, body cased and left to acclimate to room temperature before power-up to avoid condensation.</p>
           </div>
           <div>
             <h3>Stack</h3>
             <ul class="stack">
-              <li>Unity</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li><li>On-site calibration</li>
+              <li>Unity</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li><li>AV rigging &amp; calibration</li>
             </ul>
           </div>
         </div>
 
         <div class="media">
-          <video controls muted loop playsinline preload="metadata"
+          <video autoplay muted loop playsinline controls preload="metadata"
                  poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832272/IMG_3818.jpg">
             <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832272/IMG_3818.mp4" type="video/mp4">
           </video>
           <p class="media-cap">The projection running live at the venue.</p>
 
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
-            <div>
-              <video controls muted loop playsinline preload="metadata"
-                     poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832279/IMG_3819.jpg">
-                <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832279/IMG_3819.mp4" type="video/mp4">
-              </video>
-            </div>
-            <img src="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,c_fill,g_auto,ar_16:9,w_1100/v1791832360/IMG_3797.jpg" alt="Behind the scenes — projection setup" loading="lazy">
-          </div>
-          <img style="margin-top:12px;" src="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,c_fill,g_auto,ar_16:9,w_1400/v1791832360/IMG_3798.jpg" alt="Behind the scenes — the mapped projection" loading="lazy">
-          <p class="media-cap">On site — setup and the mapped output.</p>
+          <video style="margin-top:12px;" autoplay muted loop playsinline controls preload="metadata"
+                 poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832279/IMG_3819.jpg">
+            <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832279/IMG_3819.mp4" type="video/mp4">
+          </video>
+
+          <img style="margin-top:12px;" src="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,c_fill,g_auto,z_1.4,ar_16:9,w_1400/v1791832360/IMG_3798.jpg" alt="Mapping the projection on site" loading="lazy">
+          <p class="media-cap">Dialing in the map on site.</p>
         </div>
       </article>
 
@@ -368,26 +381,34 @@
         <div class="case-body">
           <div>
             <h3>Process</h3>
-            <p>[ Placeholder — Ahmed to write the process description: how handmade sets / slides / footage are shot and then extended or transformed with generative video tools, and how the two are edited together. ]</p>
+            <p>My films start in physical material — handmade sets, slides, and footage shot by hand — which I then hand to generative video to re-animate and extend, cutting the built and the synthesized back into each other. <em>Return Without Reason</em> began as an analog experiment after Stan Brakhage, until AI reanimates it; <em>Loop Prison</em> carries the method into an episodic series.</p>
           </div>
           <div>
-            <h3>Works</h3>
-            <p>
-              <a class="plink" href="#" data-ph="link" style="color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:2px;">Return Without Reason →</a><br><br>
-              <a class="plink" href="#" data-ph="link" style="color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:2px;">∞ Loop Prison →</a>
-            </p>
-            <h3 style="margin-top:34px;">Stack</h3>
+            <h3>Stack</h3>
             <ul class="stack">
-              <li>Handmade sets</li><li>Generative video</li><li>Adobe Suite</li><li>Editing</li>
+              <li>Handmade sets</li><li>Analog film</li><li>Generative video</li><li>Adobe Suite</li><li>Editing</li>
             </ul>
           </div>
         </div>
 
         <div class="media">
-          <div class="placeholder">
-            <span>[ Placeholder — stills / embeds for "Return Without Reason" &amp; "∞ Loop Prison". Ahmed to send Flickr links + frames. ]</span>
+          <a class="film-feature" href="https://flick.art/film/return-without-reason-b9c5fe" target="_blank" rel="noopener">
+            <div>
+              <div class="film-kicker">Featured film</div>
+              <div class="film-title">Return Without Reason</div>
+              <p class="film-desc">An analog experiment after Stan Brakhage — until AI reanimates it.</p>
+            </div>
+            <span class="film-watch">Watch on Flick ↗</span>
+          </a>
+
+          <div class="film-series">
+            <div class="film-kicker">Loop Prison — episodic series</div>
+            <div class="series-links">
+              <a href="https://flick.art/film/infinite-loop-prison-2cba93" target="_blank" rel="noopener">Infinite Loop Prison ↗</a>
+              <a href="https://flick.art/film/loop-prison-13518d" target="_blank" rel="noopener">Loop Prison ↗</a>
+              <a href="https://flick.art/film/loop-prison-the-dig-6f1744" target="_blank" rel="noopener">The Dig ↗</a>
+            </div>
           </div>
-          <p class="media-cap">Film stills and links — to be added.</p>
         </div>
       </article>
 
@@ -398,7 +419,7 @@
           <span>C</span><span>C++</span><span>C#</span><span>Python</span>
           <span>Unity</span><span>Unreal Engine</span><span>TouchDesigner</span><span>Blender</span>
           <span>Adobe Suite</span><span>QGIS</span><span>Ollama</span><span>LLaVA</span>
-          <span>Generative video</span>
+          <span>Generative video</span><span>Projection mapping</span>
         </div>
       </div>
     </div>
@@ -540,7 +561,7 @@
             colors[i] = col.r; colors[i + 1] = col.g; colors[i + 2] = col.b;
           }
           pgeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-          const pmat = new THREE.PointsMaterial({ vertexColors: true, size: 0.017, sizeAttenuation: true, transparent: true, opacity: 0.95, depthWrite: false });
+          const pmat = new THREE.PointsMaterial({ vertexColors: true, size: 0.019, sizeAttenuation: true, transparent: true, opacity: 0.95, depthWrite: false });
           const points = new THREE.Points(pgeo, pmat);
           scene.add(points);
 
