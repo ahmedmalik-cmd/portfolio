@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Work — Ahmed J Malik</title>
+  <meta name="description" content="Creative technologist working where physical material meets machine perception and generative media.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0b09;
+      --surface: #111008;
+      --border: #1e1c18;
+      --accent: #b8966e;
+      --text: #ddd9d0;
+      --muted: #5a5650;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --mono: 'Space Mono', ui-monospace, monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 40px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(12, 11, 9, 0.72);
+      backdrop-filter: blur(8px);
+    }
+    .logo {
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.32em; text-transform: uppercase; color: var(--text);
+    }
+    header nav { display: flex; gap: 26px; }
+    header nav a {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+      transition: color 0.2s;
+    }
+    header nav a:hover { color: var(--accent); }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 160px 40px 120px;
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none; opacity: 0;
+      transition: opacity 1.6s ease;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(ellipse at 60% 45%, rgba(12,11,9,0) 0%, rgba(12,11,9,0.55) 70%, rgba(12,11,9,0.9) 100%);
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 880px; }
+    .eyebrow {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 30px;
+    }
+    .hero h1 {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(2.2rem, 5.6vw, 4.1rem); line-height: 1.12;
+      letter-spacing: -0.01em; color: var(--text); max-width: 16ch;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      margin-top: 30px; max-width: 54ch;
+      font-size: 0.82rem; color: var(--muted); line-height: 2;
+    }
+    .scroll-hint {
+      position: absolute; bottom: 34px; left: 40px; z-index: 2;
+      font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── SECTION SCAFFOLD ───────────────────────────────────── */
+    section { padding: 0 40px; }
+    .wrap { max-width: 1040px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--muted);
+      padding-top: 110px; margin-bottom: 54px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── CASE STUDY ─────────────────────────────────────────── */
+    .case { padding-bottom: 40px; }
+    .case-index {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      color: var(--accent); margin-bottom: 18px;
+    }
+    .case-title {
+      font-family: var(--serif); font-weight: 300; font-style: italic;
+      font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.1; color: var(--text);
+    }
+    .case-meta {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-top: 16px;
+    }
+    .case-summary {
+      font-family: var(--serif); font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 300; line-height: 1.65; color: var(--text);
+      max-width: 60ch; margin-top: 30px;
+    }
+    .case-body {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      margin-top: 48px;
+    }
+    .case-body h3 {
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    }
+    .case-body p { font-size: 0.78rem; color: var(--muted); line-height: 2; }
+    .stack { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .stack li {
+      font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em;
+      color: var(--text); border: 1px solid var(--border);
+      padding: 6px 11px; border-radius: 2px;
+    }
+
+    /* ── MEDIA ──────────────────────────────────────────────── */
+    .media { margin-top: 48px; }
+    .media video, .media img {
+      width: 100%; display: block; background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .media-cap {
+      font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em;
+      color: var(--muted); margin-top: 12px;
+    }
+    .stills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+    .stills img { aspect-ratio: 4/3; object-fit: cover; }
+
+    .viewer-frame {
+      position: relative; width: 100%; aspect-ratio: 16/10;
+      border: 1px solid var(--border); background: var(--surface); overflow: hidden;
+    }
+    .viewer-frame canvas { display: block; width: 100%; height: 100%; }
+    .viewer-status {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); pointer-events: none;
+    }
+
+    /* ── PIPELINE DIAGRAM ───────────────────────────────────── */
+    .pipeline { margin-top: 44px; width: 100%; }
+    .pl-box { fill: var(--surface); stroke: var(--border); }
+    .pl-label { fill: var(--text); font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; }
+    .pl-sub { fill: var(--muted); font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.06em; }
+    .pl-line { stroke: var(--accent); stroke-width: 1; fill: none; opacity: 0.55; }
+    .pl-arrow { fill: var(--accent); opacity: 0.55; }
+
+    /* ── PLACEHOLDER ────────────────────────────────────────── */
+    .placeholder {
+      border: 1px dashed #4a4336; background: repeating-linear-gradient(45deg, rgba(184,150,110,0.04) 0 12px, transparent 12px 24px);
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 48px 24px; min-height: 240px;
+    }
+    .placeholder span {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); max-width: 40ch; line-height: 1.9;
+    }
+
+    /* ── SKILLS ─────────────────────────────────────────────── */
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .skills-wrap span {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      color: var(--text); border: 1px solid var(--border); padding: 9px 14px;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      margin-top: 120px; padding: 70px 40px; border-top: 1px solid var(--border);
+    }
+    .footer-inner { max-width: 1040px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; align-items: flex-end; }
+    .footer-inner a.flink {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 3px;
+      transition: border-color 0.2s; margin-right: 24px;
+    }
+    .footer-inner a.flink:hover { border-color: var(--accent); }
+    .footer-note { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em; color: var(--muted); }
+
+    @media (max-width: 760px) {
+      header { padding: 18px 20px; }
+      .hero, section { padding-left: 20px; padding-right: 20px; }
+      .scroll-hint { left: 20px; }
+      .case-body { grid-template-columns: 1fr; gap: 32px; }
+      .stills { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 54px 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Ahmed J Malik</a>
+    <nav>
+      <a href="/">Art Portfolio</a>
+      <a href="/the-room/">The Room</a>
+    </nav>
+  </header>
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-inner">
+      <p class="eyebrow">Artist · Creative Technologist</p>
+      <h1>Where physical material meets <em>machine perception</em> and generative media.</h1>
+      <p class="hero-sub">I build installations and films at the seam between the handmade and the computed — depth sensing, real-time point clouds, local vision-language models, projection, and generative video. The technical work behind the art.</p>
+    </div>
+    <span class="scroll-hint">Scroll — three works ↓</span>
+  </section>
+
+  <!-- ── CASE STUDIES ─────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <p class="section-label">Selected Technical Work</p>
+
+      <!-- A — real & rendered -->
+      <article class="case">
+        <div class="case-index">01 / Senior Thesis</div>
+        <h2 class="case-title">real &amp; rendered</h2>
+        <div class="case-meta">Real-time CV · Local LLM · 2026</div>
+        <p class="case-summary">Live 3D point clouds of the people in the room, read in real time by a local vision-language model. The installation watches its visitors and tries, out loud, to say what it sees.</p>
+
+        <div class="case-body">
+          <div>
+            <h3>What I built</h3>
+            <p>Depth cameras feed a single merged point cloud, reconstructed and rendered live in Unity. A locally-run vision-language model (LLaVA via Ollama) looks at the scene frame by frame and generates a running "perception" — language the space speaks back as it watches. Nothing leaves the machine; the whole perception loop runs on local hardware in the gallery.</p>
+          </div>
+          <div>
+            <h3>Stack</h3>
+            <ul class="stack">
+              <li>Unity</li><li>Depth sensing</li><li>Computer vision</li><li>Python</li><li>Ollama</li><li>LLaVA</li><li>Projection</li>
+            </ul>
+            <h3 style="margin-top:34px;">See it in full</h3>
+            <p><a href="/the-room/" style="color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:2px;">The Room — full project page →</a></p>
+          </div>
+        </div>
+
+        <!-- pipeline diagram -->
+        <svg class="pipeline" viewBox="0 0 1000 150" role="img" aria-label="Pipeline: depth cameras to computer vision and point cloud in Unity to a local vision-language model to a spoken caption projected into the room.">
+          <!-- boxes -->
+          <g>
+            <rect class="pl-box" x="2"   y="48" width="150" height="54" rx="2"/>
+            <text class="pl-label" x="77" y="72" text-anchor="middle">Depth cameras</text>
+            <text class="pl-sub"   x="77" y="88" text-anchor="middle">visitors in space</text>
+
+            <rect class="pl-box" x="212" y="48" width="170" height="54" rx="2"/>
+            <text class="pl-label" x="297" y="72" text-anchor="middle">Point cloud / CV</text>
+            <text class="pl-sub"   x="297" y="88" text-anchor="middle">merged · live · Unity</text>
+
+            <rect class="pl-box" x="442" y="48" width="170" height="54" rx="2"/>
+            <text class="pl-label" x="527" y="72" text-anchor="middle">Local VLM</text>
+            <text class="pl-sub"   x="527" y="88" text-anchor="middle">Ollama · LLaVA</text>
+
+            <rect class="pl-box" x="672" y="48" width="150" height="54" rx="2"/>
+            <text class="pl-label" x="747" y="72" text-anchor="middle">Perception</text>
+            <text class="pl-sub"   x="747" y="88" text-anchor="middle">caption / language</text>
+
+            <rect class="pl-box" x="872" y="48" width="126" height="54" rx="2"/>
+            <text class="pl-label" x="935" y="72" text-anchor="middle">Projection</text>
+            <text class="pl-sub"   x="935" y="88" text-anchor="middle">back into room</text>
+          </g>
+          <!-- connectors -->
+          <g>
+            <path class="pl-line" d="M152 75 L206 75"/><polygon class="pl-arrow" points="206,75 198,71 198,79"/>
+            <path class="pl-line" d="M382 75 L436 75"/><polygon class="pl-arrow" points="436,75 428,71 428,79"/>
+            <path class="pl-line" d="M612 75 L666 75"/><polygon class="pl-arrow" points="666,75 658,71 658,79"/>
+            <path class="pl-line" d="M822 75 L866 75"/><polygon class="pl-arrow" points="866,75 858,71 858,79"/>
+          </g>
+        </svg>
+
+        <!-- live point cloud of the gallery (sampled from room.glb) -->
+        <div class="media">
+          <div class="viewer-frame" id="cloud-frame">
+            <canvas id="cloud-canvas"></canvas>
+            <div class="viewer-status" id="cloud-status">Loading the gallery as points…</div>
+          </div>
+          <p class="media-cap">The gallery itself, rendered as a live point cloud — drag to orbit. Captured by photogrammetry, sampled from the scan mesh.</p>
+        </div>
+
+        <!-- perception demo video + stills -->
+        <div class="media">
+          <video controls muted loop playsinline preload="none"
+                 poster="/the-room/media/perceive_poster.jpg">
+            <source src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-perceive.mp4" type="video/mp4">
+          </video>
+          <p class="media-cap">The room perceiving a visitor inside the live point cloud.</p>
+          <div class="stills">
+            <img src="/the-room/media/cloud_person.jpg" alt="Point cloud of a person" loading="lazy">
+            <img src="/the-room/media/cloud_caption.jpg" alt="Perception caption over the cloud" loading="lazy">
+            <img src="/the-room/media/cloud_wide.jpg" alt="Wide view of the point cloud room" loading="lazy">
+          </div>
+        </div>
+      </article>
+
+      <!-- B — projection mapping -->
+      <article class="case">
+        <p class="section-label">&nbsp;</p>
+        <div class="case-index">02 / Live Installation</div>
+        <h2 class="case-title">Projection Mapping — Jadu at AWE</h2>
+        <div class="case-meta">Unity · Panasonic PT-MZ20K · On-site</div>
+        <p class="case-summary">A large-format projection mapped onto the venue for a Jadu mixer at Augmented World Expo — set up, aligned, run, and struck on site.</p>
+
+        <div class="case-body">
+          <div>
+            <h3>What I built</h3>
+            <p>Volunteering with Jadu, an AR company, I handled the projection mapping for their mixer at AWE end to end: rigging and configuring a Panasonic PT-MZ20K (a 20,000-lumen laser projector), driving the mapped content from Unity, aligning the output to the venue's surfaces on site, operating it live through the event, and tearing the whole rig down afterward.</p>
+          </div>
+          <div>
+            <h3>Stack</h3>
+            <ul class="stack">
+              <li>Unity</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li><li>On-site calibration</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="media">
+          <div class="placeholder">
+            <span>[ Placeholder — projection mapping video from AWE / Jadu. Ahmed to send footage. ]</span>
+          </div>
+          <p class="media-cap">Documentation video — to be added.</p>
+        </div>
+      </article>
+
+      <!-- C — physical → generated -->
+      <article class="case">
+        <p class="section-label">&nbsp;</p>
+        <div class="case-index">03 / Film · Process</div>
+        <h2 class="case-title">Physical → Generated</h2>
+        <div class="case-meta">Handmade sets · Generative video</div>
+        <p class="case-summary">Handmade sets, slides, and footage used as the seed for generative video — the built and the synthesized cut into one another. The work is in the process, not only the final film.</p>
+
+        <div class="case-body">
+          <div>
+            <h3>Process</h3>
+            <p>[ Placeholder — Ahmed to write the process description: how handmade sets / slides / footage are shot and then extended or transformed with generative video tools, and how the two are edited together. ]</p>
+          </div>
+          <div>
+            <h3>Works</h3>
+            <p>
+              <a class="plink" href="#" data-ph="link" style="color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:2px;">Return Without Reason →</a><br><br>
+              <a class="plink" href="#" data-ph="link" style="color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:2px;">∞ Loop Prison →</a>
+            </p>
+            <h3 style="margin-top:34px;">Stack</h3>
+            <ul class="stack">
+              <li>Handmade sets</li><li>Generative video</li><li>Adobe Suite</li><li>Editing</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="media">
+          <div class="placeholder">
+            <span>[ Placeholder — stills / embeds for "Return Without Reason" &amp; "∞ Loop Prison". Ahmed to send Flickr links + frames. ]</span>
+          </div>
+          <p class="media-cap">Film stills and links — to be added.</p>
+        </div>
+      </article>
+
+      <!-- SKILLS -->
+      <div class="case">
+        <p class="section-label">Tools &amp; Languages</p>
+        <div class="skills-wrap">
+          <span>C</span><span>C++</span><span>C#</span><span>Python</span>
+          <span>Unity</span><span>Unreal Engine</span><span>TouchDesigner</span><span>Blender</span>
+          <span>Adobe Suite</span><span>QGIS</span><span>Ollama</span><span>LLaVA</span>
+          <span>Generative video</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <a class="flink" href="mailto:ahmedjamalmalik1@gmail.com">ahmedjamalmalik1@gmail.com</a>
+        <a class="flink" href="/">Art Portfolio</a>
+        <a class="flink" href="/the-room/">The Room</a>
+      </div>
+      <div class="footer-note">Ahmed J Malik — © <span id="yr"></span></div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+
+  <!-- ── THREE.JS: hero particle field + gallery point cloud ── -->
+  <script type="importmap">
+  { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+  }}
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- HERO: lightweight volumetric point field ---------- */
+    (function hero() {
+      const canvas = document.getElementById('hero-canvas');
+      let W = canvas.clientWidth, H = canvas.clientHeight;
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      renderer.setSize(W, H, false);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, W / H, 0.1, 100);
+      camera.position.z = 15;
+
+      const COUNT = 6500;
+      const pos = new Float32Array(COUNT * 3);
+      for (let i = 0; i < COUNT; i++) {
+        // gaussian-ish ellipsoid cloud
+        const r = Math.cbrt(Math.random());
+        const t = Math.random() * Math.PI * 2;
+        const p = Math.acos(2 * Math.random() - 1);
+        pos[i*3]   = r * Math.sin(p) * Math.cos(t) * 9.0;
+        pos[i*3+1] = r * Math.sin(p) * Math.sin(t) * 5.5;
+        pos[i*3+2] = r * Math.cos(p) * 7.0;
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      const mat = new THREE.PointsMaterial({
+        color: 0xb8966e, size: 0.045, sizeAttenuation: true,
+        transparent: true, opacity: 0.85, depthWrite: false
+      });
+      const cloud = new THREE.Points(geo, mat);
+      scene.add(cloud);
+
+      let mx = 0, my = 0;
+      window.addEventListener('pointermove', (e) => {
+        mx = (e.clientX / window.innerWidth - 0.5);
+        my = (e.clientY / window.innerHeight - 0.5);
+      }, { passive: true });
+
+      function resize() {
+        W = canvas.clientWidth; H = canvas.clientHeight;
+        camera.aspect = W / H; camera.updateProjectionMatrix();
+        renderer.setSize(W, H, false);
+      }
+      window.addEventListener('resize', resize);
+
+      requestAnimationFrame(() => { canvas.style.opacity = '1'; });
+
+      let running = true;
+      document.addEventListener('visibilitychange', () => { running = !document.hidden; if (running) loop(); });
+
+      function loop() {
+        if (!running) return;
+        cloud.rotation.y += reduced ? 0 : 0.0012;
+        cloud.rotation.x = my * 0.25;
+        cloud.rotation.z = mx * 0.12;
+        camera.position.x += (mx * 2 - camera.position.x) * 0.03;
+        camera.lookAt(0, 0, 0);
+        renderer.render(scene, camera);
+        if (!reduced || true) requestAnimationFrame(loop);
+      }
+      loop();
+    })();
+
+    /* ---------- CASE A: gallery as a live point cloud (lazy) ---------- */
+    (function galleryCloud() {
+      const frame = document.getElementById('cloud-frame');
+      const canvas = document.getElementById('cloud-canvas');
+      const status = document.getElementById('cloud-status');
+      let started = false;
+
+      async function load() {
+        if (started) return; started = true;
+        try {
+          const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+          const { OrbitControls } = await import('three/addons/controls/OrbitControls.js');
+          let W = frame.clientWidth, H = frame.clientHeight;
+          const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+          renderer.setSize(W, H, false);
+          const scene = new THREE.Scene(); scene.background = new THREE.Color(0x0c0b09);
+          const camera = new THREE.PerspectiveCamera(55, W / H, 0.01, 2000);
+          const controls = new OrbitControls(camera, renderer.domElement);
+          controls.enableDamping = true; controls.dampingFactor = 0.08;
+
+          const gltf = await new GLTFLoader().loadAsync('/the-room/model/room.glb');
+          // gather all vertex positions into one point cloud
+          const chunks = [];
+          gltf.scene.updateWorldMatrix(true, true);
+          gltf.scene.traverse(c => {
+            if (c.isMesh && c.geometry && c.geometry.attributes.position) {
+              const g = c.geometry.clone(); g.applyMatrix4(c.matrixWorld);
+              chunks.push(g.attributes.position.array);
+            }
+          });
+          let total = chunks.reduce((n, a) => n + a.length, 0);
+          const merged = new Float32Array(total); let o = 0;
+          chunks.forEach(a => { merged.set(a, o); o += a.length; });
+          const pgeo = new THREE.BufferGeometry();
+          pgeo.setAttribute('position', new THREE.BufferAttribute(merged, 3));
+          const pmat = new THREE.PointsMaterial({ color: 0xc6a985, size: 0.012, sizeAttenuation: true, transparent: true, opacity: 0.9, depthWrite: false });
+          const points = new THREE.Points(pgeo, pmat);
+          scene.add(points);
+
+          const box = new THREE.Box3().setFromObject(points);
+          const ctr = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const r = Math.max(size.x, size.y, size.z) || 1;
+          controls.target.copy(ctr);
+          camera.position.set(ctr.x + r * 0.9, ctr.y + r * 0.45, ctr.z + r * 0.9);
+          controls.update();
+          if (status) status.style.display = 'none';
+
+          const resize = () => { const w = frame.clientWidth, h = frame.clientHeight; camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h, false); };
+          window.addEventListener('resize', resize);
+          (function spin(){ requestAnimationFrame(spin); if (!reduced) points.rotation.y += 0.0007; controls.update(); renderer.render(scene, camera); })();
+        } catch (e) {
+          console.error(e);
+          if (status) status.textContent = 'Could not load the point cloud.';
+          started = false;
+        }
+      }
+      const io = new IntersectionObserver((ents) => {
+        if (ents.some(e => e.isIntersecting)) { io.disconnect(); load(); }
+      }, { rootMargin: '400px 0px' });
+      io.observe(frame);
+    })();
+  </script>
+
+</body>
+</html>
