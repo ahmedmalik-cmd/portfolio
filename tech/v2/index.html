@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical — Ahmed J Malik</title>
+<meta name="description" content="Creative technologist building real-time systems: live point clouds, computer vision, local AI, projection and generative film.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/tech/media/room-wire.jpg">
+<style>
+  :root {
+    --bg: #0c0b09;
+    --surface: #111008;
+    --line: #2a2620;
+    --hair: #1c1a16;
+    --text: #ddd9d0;
+    --text-2: #cbc6bc;
+    --text-3: #8f8a80;
+    --accent: #ea5fb0;
+    --accent-soft: rgba(234, 95, 176, 0.38);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+    --pad: 48px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  html.cf-open { overflow: hidden; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  code { font-family: var(--mono); font-size: 0.86em; color: var(--text); }
+  :focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+
+  /* ── HEADER (same build as the main site) ─────────────────────── */
+  header.site {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 20px var(--pad);
+    background: rgba(12, 11, 9, 0.94);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .brand { display: flex; align-items: baseline; gap: 14px; white-space: nowrap; }
+  .logo { font-family: var(--serif); font-size: 1rem; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; }
+  .logo-tag { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); }
+  .site nav { display: flex; gap: 28px; align-items: center; }
+  .site nav a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--text-3); transition: color 0.2s;
+  }
+  .site nav a:hover, .site nav a.is-active { color: var(--accent); }
+  .site nav .nav-art { color: var(--text-2); }
+
+  /* ── HERO ─────────────────────────────────────────────────────── */
+  .hero {
+    position: relative; min-height: 100vh; min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-top: 96px; overflow: hidden; border-bottom: 1px solid var(--hair);
+  }
+  #hero-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
+    opacity: 0; transition: opacity 1.8s ease;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+  }
+  .hero-shade {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(12,11,9,0.8) 0%, rgba(12,11,9,0.42) 32%, rgba(12,11,9,0) 56%),
+      linear-gradient(0deg, rgba(12,11,9,0.85) 0%, rgba(12,11,9,0) 36%);
+  }
+  .hero-row {
+    position: relative; z-index: 2;
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 32px;
+    padding: 0 var(--pad) 52px;
+  }
+  .hero-body { max-width: 860px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--text-3); margin-bottom: 22px;
+  }
+  .eyebrow b { font-weight: 400; color: var(--accent); }
+  h1 {
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(3.6rem, 8.2vw, 7.6rem); line-height: 0.95; letter-spacing: -0.01em;
+    margin-bottom: 26px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-bio {
+    font-weight: 300; font-size: clamp(1.02rem, 1.35vw, 1.2rem); line-height: 1.6;
+    color: var(--text-2); max-width: 44ch;
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .btn {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-2); border: 1px solid var(--line); padding: 12px 18px;
+    background: rgba(12,11,9,0.5); transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .btn:hover { color: var(--accent); border-color: var(--accent); }
+  .btn-primary { color: var(--accent); border-color: var(--accent-soft); }
+  .btn-primary:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .hud {
+    flex: none; text-align: right;
+    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; line-height: 1.9;
+    color: var(--text-3); text-transform: uppercase;
+  }
+  .hud span { color: var(--text-2); }
+  .hud .hud-live { color: var(--accent); }
+  .spec-strip {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--hair); border-top: 1px solid var(--hair);
+  }
+  .spec-strip > div { background: rgba(12,11,9,0.93); padding: 20px 28px 22px; }
+  .spec-strip > div:first-child { padding-left: var(--pad); }
+  .spec-strip dt {
+    font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.26em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .spec-strip dd { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
+
+  /* ── SECTIONS ─────────────────────────────────────────────────── */
+  .sec { border-bottom: 1px solid var(--hair); }
+  .sec-head {
+    display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px;
+    padding: 104px var(--pad) 40px;
+  }
+  .sec-label {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--text-3); margin-bottom: 14px;
+  }
+  .sec-label span { color: var(--accent); margin-right: 10px; }
+  .sec-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.3rem, 4.2vw, 3.5rem); line-height: 1; }
+  .sec-note {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; line-height: 1.8;
+    color: var(--text-3); text-align: right; max-width: 36ch;
+  }
+  .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips li {
+    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.06em; line-height: 1.4;
+    color: var(--text); border: 1px solid var(--line); padding: 5px 9px;
+  }
+  .text-link {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); border-bottom: 1px solid var(--accent-soft); padding-bottom: 3px;
+    transition: border-color 0.2s;
+  }
+  .text-link:hover { border-color: var(--accent); }
+
+  /* ── WORK GRID (the main site's hairline grid, made technical) ─── */
+  .work-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--hair); border-top: 1px solid var(--hair);
+  }
+  .wcard { background: var(--bg); display: flex; flex-direction: column; }
+  .wcard--feature { grid-column: 1 / -1; display: grid; grid-template-columns: 1.5fr 1fr; }
+  .wcard-media { position: relative; overflow: hidden; background: var(--surface); aspect-ratio: 16 / 10; }
+  .wcard--feature .wcard-media { aspect-ratio: auto; min-height: 460px; }
+  .wcard-media video, .wcard-media img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.8);
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s ease;
+  }
+  .wcard:hover .wcard-media video, .wcard:hover .wcard-media img { transform: scale(1.03); filter: brightness(1); }
+  .wcard-body { padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+  .wcard--feature .wcard-body { padding: 40px 44px; justify-content: flex-end; }
+  .wcard-meta {
+    display: flex; gap: 14px; font-family: var(--mono); font-size: 0.55rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
+  }
+  .wcard-meta .n { color: var(--accent); }
+  .wcard-meta .yr { margin-left: auto; }
+  .wcard-title { font-family: var(--serif); font-weight: 300; font-size: clamp(1.9rem, 2.8vw, 2.6rem); line-height: 1.05; }
+  .wcard--feature .wcard-title { font-size: clamp(2.5rem, 4.2vw, 3.8rem); }
+  .wcard-line { font-size: 0.97rem; line-height: 1.6; color: var(--text-2); max-width: 54ch; }
+  .wcard-open {
+    margin-top: auto; padding-top: 8px; font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3); transition: color 0.2s;
+  }
+  .wcard-open i { font-style: normal; display: inline-block; transition: transform 0.2s; }
+  .wcard:hover .wcard-open { color: var(--accent); }
+  .wcard:hover .wcard-open i { transform: translateX(4px); }
+
+  /* ── CAPABILITIES ─────────────────────────────────────────────── */
+  .cap { border-top: 1px solid var(--hair); }
+  .cap-row {
+    display: grid; grid-template-columns: minmax(220px, 1.05fr) 1.75fr 1.3fr 0.85fr;
+    gap: 32px; padding: 30px var(--pad); border-bottom: 1px solid var(--hair);
+    align-items: start; transition: background 0.25s;
+  }
+  .cap-row:last-child { border-bottom: 0; }
+  .cap-row:hover { background: var(--surface); }
+  .cap-row--head {
+    padding-top: 14px; padding-bottom: 14px; font-family: var(--mono); font-size: 0.54rem;
+    letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-3);
+  }
+  .cap-row--head:hover { background: none; }
+  .cap-area { font-family: var(--serif); font-weight: 300; font-size: 1.6rem; line-height: 1.1; }
+  .cap-area .n { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 8px; }
+  .cap-what { font-size: 0.95rem; line-height: 1.6; color: var(--text-2); }
+  .cap-proof { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+  .cap-proof a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.06em; color: var(--text);
+    border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s;
+  }
+  .cap-proof a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── ENGINEERING ──────────────────────────────────────────────── */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--hair); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
+  }
+  .stat { background: var(--bg); padding: 28px 28px 30px; }
+  .stat:first-child { padding-left: var(--pad); }
+  .stat b { display: block; font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 4.6vw, 3.9rem); line-height: 1; }
+  .stat span {
+    display: block; margin-top: 10px; font-family: var(--mono); font-size: 0.55rem;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-3);
+  }
+  .eng-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hair); }
+  .eng { background: var(--bg); padding: 36px var(--pad) 40px; }
+  .eng-tag {
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+  }
+  .eng h3 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.6rem, 2.4vw, 2.15rem); line-height: 1.1; margin-bottom: 14px; }
+  .eng p.body { font-size: 0.95rem; line-height: 1.65; color: var(--text-2); max-width: 56ch; }
+  .sec-foot { padding: 28px var(--pad) 34px; border-top: 1px solid var(--hair); }
+
+  /* ── STACK + CONTACT ──────────────────────────────────────────── */
+  .split { display: grid; grid-template-columns: 1.25fr 1fr; gap: 1px; background: var(--hair); }
+  .split > div { background: var(--bg); padding: 104px var(--pad) 92px; }
+  .stack-list { margin-top: 30px; }
+  .stack-list div { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
+  .stack-list dt {
+    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--text-3); padding-top: 4px;
+  }
+  .stack-list dd { font-size: 0.98rem; color: var(--text); }
+  .contact-mail {
+    display: inline-block; margin-top: 30px; font-family: var(--serif); font-weight: 300;
+    font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.15; color: var(--text);
+    border-bottom: 1px solid var(--line); transition: color 0.2s, border-color 0.2s; overflow-wrap: anywhere;
+  }
+  .contact-mail:hover { color: var(--accent); border-color: var(--accent); }
+  .contact-links { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; margin-top: 32px; }
+  .contact-links a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-2); border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-links a:hover { color: var(--accent); border-color: var(--accent); }
+  footer.site-foot {
+    padding: 32px var(--pad); display: flex; justify-content: space-between; gap: 16px;
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3);
+  }
+
+  /* ── CASE FILE OVERLAY ────────────────────────────────────────── */
+  .cf {
+    position: fixed; inset: 0; z-index: 80; background: var(--bg);
+    display: flex; flex-direction: column;
+    opacity: 0; transform: translateY(14px); transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .cf[hidden] { display: none; }
+  .cf.is-in { opacity: 1; transform: none; }
+  .cf-bar {
+    flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 14px var(--pad); border-bottom: 1px solid var(--hair);
+  }
+  .cf-crumb { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+  .cf-crumb b { font-weight: 400; color: var(--accent); margin-right: 10px; }
+  .cf-nav { display: flex; gap: 6px; }
+  .cf-btn {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-2); border: 1px solid var(--line); padding: 9px 13px; transition: color 0.2s, border-color 0.2s;
+  }
+  .cf-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .cf-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
+  .cf-case[hidden] { display: none; }
+  .cf-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end;
+    padding: 72px var(--pad) 48px; border-bottom: 1px solid var(--hair);
+  }
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .tags li {
+    font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent-soft); padding: 4px 10px;
+  }
+  .cf-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.8rem, 6vw, 5.6rem); line-height: 0.98; }
+  .cf-sub { margin-top: 16px; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); line-height: 1.9; }
+  .cf-lede { font-size: clamp(1.05rem, 1.5vw, 1.28rem); font-weight: 300; line-height: 1.6; color: var(--text); }
+  .cf-body { display: grid; grid-template-columns: minmax(260px, 330px) 1fr; gap: 1px; background: var(--hair); }
+  .cf-spec { background: var(--bg); padding: 40px 32px 48px var(--pad); }
+  .cf-spec-inner { position: sticky; top: 24px; }
+  .spec-dl div { padding: 12px 0; border-bottom: 1px solid var(--hair); }
+  .spec-dl div:first-child { padding-top: 0; }
+  .spec-dl dt { font-family: var(--mono); font-size: 0.53rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
+  .spec-dl dd { font-size: 0.9rem; line-height: 1.5; color: var(--text); }
+  .cf-main { background: var(--bg); padding: 40px var(--pad) 96px; min-width: 0; }
+  .cf-sec { margin-bottom: 56px; }
+  .cf-h { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-3); margin-bottom: 18px; }
+  .cf-h::before { content: ''; display: inline-block; width: 18px; height: 1px; background: var(--accent); vertical-align: middle; margin-right: 12px; }
+  .cf-main p.txt { font-size: 1rem; line-height: 1.72; color: var(--text-2); max-width: 68ch; }
+  .cf-main p.txt + p.txt { margin-top: 14px; }
+  .cf-main p.txt strong { font-weight: 500; color: var(--text); }
+  .fig { margin: 0 0 56px; }
+  .fig video, .fig img { width: 100%; background: var(--surface); border: 1px solid var(--hair); }
+  .fig figcaption { margin-top: 12px; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; line-height: 1.7; color: var(--text-3); }
+  .fig-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .fig-3 img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .fig-split { display: grid; grid-template-columns: minmax(0, 0.75fr) 1fr; gap: 10px; align-items: stretch; }
+  .fig-split video { height: 100%; max-height: 80vh; object-fit: cover; }
+  .fig-split .col { display: grid; gap: 10px; grid-template-rows: 1fr 1fr; }
+  .fig-split .col img { height: 100%; object-fit: cover; }
+  .viewer { position: relative; aspect-ratio: 16 / 10; border: 1px solid var(--hair); background: var(--surface); overflow: hidden; cursor: grab; touch-action: none; }
+  .viewer:active { cursor: grabbing; }
+  .viewer canvas { display: block; width: 100%; height: 100%; }
+  .viewer-status {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-3); pointer-events: none;
+  }
+  .diagram { overflow-x: auto; margin: 4px 0 22px; -webkit-overflow-scrolling: touch; }
+  .diagram svg { display: block; width: 100%; min-width: 760px; height: auto; }
+  .d-box { fill: #111008; stroke: #2e2a23; }
+  .d-mem { fill: #14120e; stroke: #2e2a23; }
+  .d-stage { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2.2px; fill: #ea5fb0; }
+  .d-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; fill: #ddd9d0; }
+  .d-sub { font-family: 'Space Mono', monospace; font-size: 9.5px; fill: #8f8a80; }
+  .d-label { font-family: 'Space Mono', monospace; font-size: 9px; fill: #8f8a80; letter-spacing: 0.5px; }
+  .d-line { stroke: #ea5fb0; stroke-width: 1; fill: none; opacity: 0.75; }
+  .d-dash { stroke: #ea5fb0; stroke-width: 1; fill: none; opacity: 0.55; stroke-dasharray: 3 4; }
+  .d-arrow { fill: #ea5fb0; opacity: 0.85; }
+  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hair); border: 1px solid var(--hair); }
+  .note { background: var(--bg); padding: 22px 24px 24px; }
+  .note .eng-tag { margin-bottom: 10px; }
+  .note h4 { font-family: var(--serif); font-weight: 300; font-size: 1.4rem; line-height: 1.15; margin-bottom: 8px; }
+  .note p { font-size: 0.9rem; line-height: 1.6; color: var(--text-2); }
+  .quotes { list-style: none; display: grid; gap: 14px; }
+  .quotes li { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.35rem, 2.3vw, 1.85rem); line-height: 1.3; }
+  .quotes li::before { content: '“'; color: var(--accent); }
+  .quotes li::after { content: '”'; color: var(--accent); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); }
+  .step { background: var(--bg); padding: 20px 20px 24px; }
+  .step b { display: block; font-family: var(--mono); font-weight: 400; font-size: 0.55rem; letter-spacing: 0.22em; color: var(--accent); margin-bottom: 10px; }
+  .step h4 { font-family: var(--serif); font-weight: 300; font-size: 1.45rem; margin-bottom: 6px; }
+  .step p { font-size: 0.86rem; line-height: 1.55; color: var(--text-2); }
+  .film { display: block; border: 1px solid var(--hair); background: var(--surface); transition: border-color 0.2s; }
+  .film:hover { border-color: var(--accent); }
+  .film video { border: 0; width: 100%; }
+  .film-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 20px; }
+  .film-foot strong { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: 1.5rem; }
+  .film-foot span { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+  .series { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 18px; }
+  .series a { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; color: var(--text); border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s; }
+  .series a:hover { color: var(--accent); border-color: var(--accent); }
+  .cf-end { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 26px var(--pad); border-top: 1px solid var(--hair); }
+
+  /* ── RESPONSIVE ───────────────────────────────────────────────── */
+  @media (max-width: 1080px) {
+    .cap-row { grid-template-columns: 1fr 1.6fr; gap: 18px 32px; }
+    .cap-row--head { display: none; }
+    .cap-row .chips, .cap-proof { grid-column: 2; }
+  }
+  @media (max-width: 900px) {
+    :root { --pad: 20px; }
+    header.site { padding: 16px 20px; }
+    .site nav { gap: 18px; }
+    .site nav .nav-hide { display: none; }
+    .hero-row { padding-bottom: 36px; }
+    .hud { display: none; }
+    .spec-strip { grid-template-columns: 1fr 1fr; }
+    .spec-strip > div, .spec-strip > div:first-child { padding: 16px 20px 18px; }
+    .sec-head { grid-template-columns: 1fr; padding-top: 76px; padding-bottom: 28px; }
+    .sec-note { text-align: left; }
+    .work-grid { grid-template-columns: 1fr; }
+    .wcard--feature { grid-template-columns: 1fr; }
+    .wcard--feature .wcard-media { min-height: 0; aspect-ratio: 16 / 10; }
+    .wcard-body, .wcard--feature .wcard-body { padding: 24px 20px 28px; }
+    .cap-row { grid-template-columns: 1fr; gap: 12px; padding: 26px 20px; }
+    .cap-row .chips, .cap-proof { grid-column: auto; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat, .stat:first-child { padding: 22px 20px 24px; }
+    .eng-grid { grid-template-columns: 1fr; }
+    .eng { padding: 30px 20px 34px; }
+    .split { grid-template-columns: 1fr; }
+    .split > div { padding: 76px 20px 64px; }
+    .stack-list div { grid-template-columns: 1fr; gap: 4px; }
+    .cf-head { grid-template-columns: 1fr; gap: 24px; padding: 44px 20px 36px; }
+    .cf-body { grid-template-columns: 1fr; }
+    .cf-spec { padding: 32px 20px 8px; }
+    .cf-spec-inner { position: static; }
+    .cf-main { padding: 32px 20px 72px; }
+    .notes, .fig-split { grid-template-columns: 1fr; }
+    .fig-split .col { grid-template-rows: auto; grid-template-columns: 1fr 1fr; }
+    .steps, .fig-3 { grid-template-columns: 1fr 1fr; }
+    .cf-btn .lbl { display: none; }
+  }
+  @media (max-width: 760px) {
+    .hero { padding-top: 46vh; padding-top: 46svh; }
+    .hero-shade { background: linear-gradient(0deg, rgba(12,11,9,0.94) 0%, rgba(12,11,9,0.62) 48%, rgba(12,11,9,0) 64%); }
+  }
+  @media (max-width: 560px) {
+    .logo-tag { display: none; }
+    .logo { font-size: 0.86rem; letter-spacing: 0.16em; }
+    .site nav { gap: 14px; }
+    .site nav a { font-size: 0.56rem; letter-spacing: 0.16em; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .cf { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="brand">
+    <a class="logo" href="/">Ahmed J Malik</a>
+    <span class="logo-tag">/ technical</span>
+  </div>
+  <nav aria-label="Sections">
+    <a href="#work">Work</a>
+    <a class="nav-hide" href="#capabilities">Capabilities</a>
+    <a class="nav-hide" href="#engineering">Engineering</a>
+    <a href="#contact">Contact</a>
+    <a class="nav-art" href="/">Art&nbsp;↗</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-row">
+      <div class="hero-body">
+        <p class="eyebrow"><b>Creative technologist</b> &nbsp;·&nbsp; technical portfolio</p>
+        <h1>material &amp; <em>machine</em></h1>
+        <p class="hero-bio">Artist and creative technologist working where physical material meets machine perception and generative media — live point clouds, computer vision, local AI systems, projection and generative film.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#work">Selected work ↓</a>
+          <a class="btn" href="#capabilities">Capabilities</a>
+          <a class="btn" href="mailto:ahmedjamalmalik1@gmail.com">Email</a>
+        </div>
+      </div>
+      <div class="hud" aria-hidden="true">
+        <div>source <span>room-wire.jpg</span> — wire sculpture</div>
+        <div>splats <span data-hud="points">—</span></div>
+        <div>state <span class="hud-live" data-hud="state">loading</span></div>
+        <div>render <span data-hud="fps">—</span></div>
+      </div>
+    </div>
+    <dl class="spec-strip">
+      <div><dt>Focus</dt><dd>Real-time installations · live point clouds · machine perception</dd></div>
+      <div><dt>Real-time</dt><dd>Unity · C# · Unreal Engine · TouchDesigner</dd></div>
+      <div><dt>Perception / AI</dt><dd>Ollama · LLaVA · CLIP · MediaPipe · TRIBE v2</dd></div>
+      <div><dt>Code</dt><dd>C · C++ · C# · Python</dd></div>
+    </dl>
+  </section>
+
+  <!-- ── 01 WORK ────────────────────────────────────────────── -->
+  <section class="sec" id="work">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label"><span>01</span>Work</p>
+        <h2 class="sec-title">Selected work</h2>
+      </div>
+      <p class="sec-note">Three projects. Open any card for the full case file — spec sheet, pipeline, media.</p>
+    </div>
+    <div class="work-grid">
+      <a class="wcard wcard--feature" href="#real-and-rendered">
+        <div class="wcard-media">
+          <video muted loop playsinline preload="none" poster="/the-room/media/perceive_poster.jpg"
+                 data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-perceive.mp4"></video>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-meta"><span class="n">01</span><span>Installation · senior thesis</span><span class="yr">2026</span></div>
+          <h3 class="wcard-title">real &amp; rendered</h3>
+          <p class="wcard-line">A gallery that sees its visitors as live point clouds and talks about them. Two depth sensors, a brain-encoding model, visual memory and a local vision-language model — running for eight days.</p>
+          <ul class="chips"><li>Unity</li><li>C#</li><li>Python</li><li>Kinect v1 ×2</li><li>LLaVA · Ollama</li><li>TRIBE v2</li><li>CLIP</li><li>MediaPipe</li></ul>
+          <span class="wcard-open">Open case file <i>→</i></span>
+        </div>
+      </a>
+
+      <a class="wcard" href="#projection-mapping">
+        <div class="wcard-media">
+          <video muted loop playsinline preload="none"
+                 poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0,w_960,c_limit/v1791832272/IMG_3818.jpg"
+                 data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,w_960,c_limit/v1791832272/IMG_3818.mp4"></video>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-meta"><span class="n">02</span><span>Live event · Jadu × AWE</span></div>
+          <h3 class="wcard-title">Projection mapping</h3>
+          <p class="wcard-line">Rigged, mapped, ran and struck a 20,000-lumen laser projector for Jadu’s mixer at Augmented World Expo.</p>
+          <ul class="chips"><li>Unity</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li><li>AV</li></ul>
+          <span class="wcard-open">Open case file <i>→</i></span>
+        </div>
+      </a>
+
+      <a class="wcard" href="#physical-generated">
+        <div class="wcard-media">
+          <video muted loop playsinline preload="none" poster="/tech/media/rwr-poster.jpg" style="object-position: left center"
+                 data-src="/tech/media/rwr-trailer.mp4"></video>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-meta"><span class="n">03</span><span>Film · process</span></div>
+          <h3 class="wcard-title">Physical → Generated</h3>
+          <p class="wcard-line">Films that begin as handmade sets, slides and analog footage, then get reanimated with generative video. Featured: <em>Return Without Reason</em>.</p>
+          <ul class="chips"><li>Generative video</li><li>Analog</li><li>Adobe Suite</li><li>Editing</li></ul>
+          <span class="wcard-open">Open case file <i>→</i></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── 02 CAPABILITIES ────────────────────────────────────── -->
+  <section class="sec" id="capabilities">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label"><span>02</span>Capabilities</p>
+        <h2 class="sec-title">What I build</h2>
+      </div>
+      <p class="sec-note">Each row links to the project where it was used in production.</p>
+    </div>
+    <div class="cap">
+      <div class="cap-row cap-row--head" aria-hidden="true"><span>Area</span><span>What I do</span><span>Tools</span><span>Proven in</span></div>
+
+      <div class="cap-row">
+        <h3 class="cap-area"><span class="n">01</span>Real-time 3D &amp; point clouds</h3>
+        <p class="cap-what">Multi-sensor point clouds fused and rendered live in Unity — custom compute and shaders, temporal smoothing, a persistent background plate.</p>
+        <ul class="chips"><li>Unity</li><li>C#</li><li>Compute shaders</li><li>Unreal Engine</li><li>Blender</li></ul>
+        <div class="cap-proof"><a href="#real-and-rendered">real &amp; rendered</a></div>
+      </div>
+
+      <div class="cap-row">
+        <h3 class="cap-area"><span class="n">02</span>Computer vision &amp; sensing</h3>
+        <p class="cap-what">Depth capture and two-sensor calibration (ICP), presence and per-person height tracking, face mesh and pose turned into structured model inputs.</p>
+        <ul class="chips"><li>Kinect v1</li><li>MediaPipe</li><li>ICP</li><li>Python</li></ul>
+        <div class="cap-proof"><a href="#real-and-rendered">real &amp; rendered</a></div>
+      </div>
+
+      <div class="cap-row">
+        <h3 class="cap-area"><span class="n">03</span>Local AI systems</h3>
+        <p class="cap-what">Offline, multi-model pipelines across two machines — vision-language captioning, CLIP recall, a brain-encoding model as live input — with async workers and a degraded mode when a node drops.</p>
+        <ul class="chips"><li>Ollama</li><li>LLaVA</li><li>TRIBE v2</li><li>open_clip</li><li>Python</li><li>REST</li></ul>
+        <div class="cap-proof"><a href="#real-and-rendered">real &amp; rendered</a></div>
+      </div>
+
+      <div class="cap-row">
+        <h3 class="cap-area"><span class="n">04</span>Model behaviour</h3>
+        <p class="cap-what">Making a model sound like a place, not an assistant: persona prompts, output filters, fixation detection, memory injection and a nightly self-reflection — tuned against 982 logged outputs.</p>
+        <ul class="chips"><li>Prompt design</li><li>Output filtering</li><li>Log-driven evals</li></ul>
+        <div class="cap-proof"><a href="#real-and-rendered">real &amp; rendered</a></div>
+      </div>
+
+      <div class="cap-row">
+        <h3 class="cap-area"><span class="n">05</span>Projection &amp; AV</h3>
+        <p class="cap-what">Projection mapping and multi-projector rigs: setup, calibration, live operation and strike — from a 20,000-lumen laser projector to a three-projector installation.</p>
+        <ul class="chips"><li>Panasonic PT-MZ20K</li><li>Unity</li><li>TouchDesigner</li><li>Multi-display</li></ul>
+        <div class="cap-proof"><a href="#projection-mapping">Projection mapping</a><a href="#real-and-rendered">real &amp; rendered</a></div>
+      </div>
+
+      <div class="cap-row">
+        <h3 class="cap-area"><span class="n">06</span>Generative &amp; time-based media</h3>
+        <p class="cap-what">Handmade sets, slides and analog footage extended with generative video, then edited and finished.</p>
+        <ul class="chips"><li>Generative video</li><li>Adobe Suite</li><li>Analog capture</li></ul>
+        <div class="cap-proof"><a href="#physical-generated">Physical → Generated</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 03 ENGINEERING ─────────────────────────────────────── -->
+  <section class="sec" id="engineering">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label"><span>03</span>Engineering notes</p>
+        <h2 class="sec-title">What broke, and the fix</h2>
+      </div>
+      <p class="sec-note">From the real &amp; rendered build log — problems that surfaced live, in front of visitors.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>982</b><span>Thoughts spoken</span></div>
+      <div class="stat"><b>45</b><span>Visits recorded</span></div>
+      <div class="stat"><b>13h 18m</b><span>Occupied</span></div>
+      <div class="stat"><b>8</b><span>Days live</span></div>
+    </div>
+    <div class="eng-grid">
+      <article class="eng">
+        <p class="eng-tag">Latency</p>
+        <h3>12 s → 5 s per thought</h3>
+        <p class="body">Capture, brain model, language model and caption ran in series — two thoughts for a 30-second visit. A single-slot clip producer and an async brain worker decoupled them; the language model now reads the freshest result instead of waiting.</p>
+      </article>
+      <article class="eng">
+        <p class="eng-tag">Signal</p>
+        <h3>A brain signal that never moved</h3>
+        <p class="body">Raw activations sat between 0.00 and 0.01, so nothing downstream changed. Each value is rescaled against its own rolling 10th–90th percentile (300 samples) — real range, plus a trigger for a “strange mode”.</p>
+      </article>
+      <article class="eng">
+        <p class="eng-tag">Resilience</p>
+        <h3>Keep thinking when the GPU host drops</h3>
+        <p class="body">One failed parse used to crash the loop. In degraded mode the client logs once, feeds synthetic zeros so the local model keeps speaking, and re-probes <code>/health</code> every 60 s.</p>
+      </article>
+      <article class="eng">
+        <p class="eng-tag">Recall</p>
+        <h3>Telling two visitors apart</h3>
+        <p class="body">Colour histograms could tell day from night, not one person from another. A CLIP ViT-B-32 server embeds every arrival (512-d); cosine similarity, tuned to 0.84, lets the room say “you came back” and mean it.</p>
+      </article>
+    </div>
+    <div class="sec-foot"><a class="text-link" href="#real-and-rendered">Full case file — pipeline, spec sheet, more notes →</a></div>
+  </section>
+
+  <!-- ── 04 STACK + 05 CONTACT ──────────────────────────────── -->
+  <section class="sec" id="stack">
+    <div class="split">
+      <div>
+        <p class="sec-label"><span>04</span>Stack</p>
+        <h2 class="sec-title">Tools &amp; languages</h2>
+        <dl class="stack-list">
+          <div><dt>Languages</dt><dd>C · C++ · C# · Python</dd></div>
+          <div><dt>Real-time</dt><dd>Unity · Unreal Engine · TouchDesigner</dd></div>
+          <div><dt>3D &amp; design</dt><dd>Blender · Adobe Suite</dd></div>
+          <div><dt>AI / ML</dt><dd>Ollama · LLaVA · CLIP (open_clip) · MediaPipe · TRIBE v2 · generative video</dd></div>
+          <div><dt>Hardware</dt><dd>Kinect v1 · Panasonic PT-MZ20K · multi-projector rigs · MIDI / OSC</dd></div>
+          <div><dt>Spatial</dt><dd>QGIS</dd></div>
+        </dl>
+      </div>
+      <div id="contact">
+        <p class="sec-label"><span>05</span>Contact</p>
+        <h2 class="sec-title">Get in touch</h2>
+        <a class="contact-mail" href="mailto:ahmedjamalmalik1@gmail.com">ahmedjamalmalik1@gmail.com</a>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/ahmedjmalik/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="/">Art portfolio ↗</a>
+          <a href="/the-room/">real &amp; rendered — project page ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <span>Ahmed J Malik — Technical</span>
+  <span>© <span id="yr">2026</span></span>
+</footer>
+
+<!-- ── CASE FILES ─────────────────────────────────────────────── -->
+<div class="cf" id="cf" role="dialog" aria-modal="true" aria-label="Case file" hidden>
+  <div class="cf-bar">
+    <span class="cf-crumb"><b id="cf-index">01 / 03</b>Case file</span>
+    <div class="cf-nav">
+      <button class="cf-btn" id="cf-prev" type="button" aria-label="Previous case">← <span class="lbl">Prev</span></button>
+      <button class="cf-btn" id="cf-next" type="button" aria-label="Next case"><span class="lbl">Next</span> →</button>
+      <button class="cf-btn" id="cf-close" type="button" aria-label="Close case file">Close ✕</button>
+    </div>
+  </div>
+  <div class="cf-scroll" id="cf-scroll">
+
+    <!-- 01 real & rendered -->
+    <article class="cf-case" data-case="real-and-rendered" data-title="real &amp; rendered" hidden>
+      <header class="cf-head">
+        <div>
+          <ul class="tags"><li>Installation</li><li>Computer vision</li><li>Local AI</li></ul>
+          <h2 class="cf-title">real &amp; rendered</h2>
+          <p class="cf-sub">Senior thesis · Bennington College<br>Usdan Gallery · 18–26 May 2026</p>
+        </div>
+        <p class="cf-lede">An eight-day installation that thinks about the people inside it. Two depth sensors build a live point cloud of the gallery; a local vision-language model — fed by a brain-encoding model, pose tracking and visual memory — says what it notices on the third wall. Nothing leaves the building.</p>
+      </header>
+      <div class="stats">
+        <div class="stat"><b>982</b><span>Thoughts spoken</span></div>
+        <div class="stat"><b>45</b><span>Visits recorded</span></div>
+        <div class="stat"><b>13h 18m</b><span>Occupied</span></div>
+        <div class="stat"><b>8</b><span>Days live</span></div>
+      </div>
+      <div class="cf-body">
+        <aside class="cf-spec"><div class="cf-spec-inner">
+          <p class="cf-h">Spec sheet</p>
+          <dl class="spec-dl">
+            <div><dt>Sensors</dt><dd>2 × Kinect v1 · depth + RGB, 640 × 480 @ 30 fps · opposing corners, ~3 m apart</dd></div>
+            <div><dt>Point cloud</dt><dd>Unity · custom compute + shader · ICP-aligned · temporal smoothing · persistent background plate</dd></div>
+            <div><dt>Perception loop</dt><dd>Python · four parallel workers · 2 s clips @ 8 fps</dd></div>
+            <div><dt>Models</dt><dd>LLaVA via Ollama (local) · TRIBE v2 brain encoder · open_clip ViT-B-32 · MediaPipe Face Mesh + Pose</dd></div>
+            <div><dt>Compute</dt><dd>Installation PC + RTX 3090 on the LAN · REST: <code>/predict</code>, <code>/embed</code></dd></div>
+            <div><dt>Display</dt><dd>3 projectors — 2 × point cloud, 1 × captions · in-piece calibration</dd></div>
+            <div><dt>Memory</dt><dd>JSON on disk — every thought, visit and nightly reflection</dd></div>
+            <div><dt>Input</dt><dd>Moog Theremini · MIDI → OSC → cloud hue</dd></div>
+            <div><dt>Network</dt><dd>Fully local · degraded mode if the GPU host drops</dd></div>
+          </dl>
+        </div></aside>
+        <div class="cf-main">
+          <section class="cf-sec">
+            <p class="cf-h">What I built</p>
+            <p class="txt">The system, end to end: a Unity bridge that fuses two Kinect v1 depth streams into one live point cloud, with presence and per-person height tracking; a Python perception loop that runs its workers in parallel so nothing blocks; a GPU machine on the LAN serving a TRIBE v2 brain-encoding model and a CLIP embedding server; and the prompt assembly that turns <strong>seven streams of context</strong> into one line from a local LLaVA model — projected on the third wall, written to memory, and reflected on every night at 4 AM.</p>
+          </section>
+
+          <section class="cf-sec">
+            <p class="cf-h">How it works</p>
+            <div class="diagram">
+              <svg viewBox="0 0 1000 320" role="img" aria-labelledby="dg-t dg-d">
+                <title id="dg-t">real &amp; rendered — system pipeline</title>
+                <desc id="dg-d">Two Kinect sensors feed a Unity bridge that fuses one point cloud for two projectors. The RGB stream feeds a Python perception loop running a brain-encoding model, CLIP and pose tracking; their outputs build a prompt for a local LLaVA model whose caption goes to the third projector and into memory, which is injected back into the prompt.</desc>
+                <path class="d-dash" d="M297 84 V44 H903 V77"/><polygon class="d-arrow" points="903,84 899,76 907,76"/>
+                <text class="d-label" x="600" y="36" text-anchor="middle">merged point cloud → projectors A + B</text>
+
+                <rect class="d-box" x="10" y="84" width="170" height="104"/>
+                <text class="d-stage" x="24" y="106">01 SENSE</text>
+                <text class="d-title" x="24" y="130">2 × Kinect v1</text>
+                <text class="d-sub" x="24" y="152">depth + RGB · 30 fps</text>
+                <text class="d-sub" x="24" y="168">opposing corners</text>
+
+                <rect class="d-box" x="212" y="84" width="170" height="104"/>
+                <text class="d-stage" x="226" y="106">02 FUSE</text>
+                <text class="d-title" x="226" y="130">Unity bridge</text>
+                <text class="d-sub" x="226" y="152">merge · ICP · smooth</text>
+                <text class="d-sub" x="226" y="168">plate · presence</text>
+
+                <rect class="d-box" x="414" y="84" width="170" height="104"/>
+                <text class="d-stage" x="428" y="106">03 PERCEIVE</text>
+                <text class="d-title" x="428" y="130">Perception loop</text>
+                <text class="d-sub" x="428" y="152">TRIBE v2 + CLIP · 3090</text>
+                <text class="d-sub" x="428" y="168">MediaPipe pose · 2 Hz</text>
+
+                <rect class="d-box" x="616" y="84" width="170" height="104"/>
+                <text class="d-stage" x="630" y="106">04 SPEAK</text>
+                <text class="d-title" x="630" y="130">LLaVA via Ollama</text>
+                <text class="d-sub" x="630" y="152">7 context streams</text>
+                <text class="d-sub" x="630" y="168">persona · filters</text>
+
+                <rect class="d-box" x="818" y="84" width="170" height="104"/>
+                <text class="d-stage" x="832" y="106">05 SHOW</text>
+                <text class="d-title" x="832" y="130">3 projectors</text>
+                <text class="d-sub" x="832" y="152">A + B · point cloud</text>
+                <text class="d-sub" x="832" y="168">C · captions</text>
+
+                <path class="d-line" d="M180 136 H205"/><polygon class="d-arrow" points="212,136 204,132 204,140"/>
+                <path class="d-line" d="M382 136 H407"/><polygon class="d-arrow" points="414,136 406,132 406,140"/>
+                <path class="d-line" d="M584 136 H609"/><polygon class="d-arrow" points="616,136 608,132 608,140"/>
+                <path class="d-line" d="M786 136 H811"/><polygon class="d-arrow" points="818,136 810,132 810,140"/>
+                <text class="d-label" x="398" y="126" text-anchor="middle">RGB</text>
+                <text class="d-label" x="802" y="126" text-anchor="middle">line</text>
+
+                <rect class="d-mem" x="414" y="236" width="372" height="68"/>
+                <text class="d-stage" x="428" y="257">MEMORY · JSON</text>
+                <text class="d-title" x="428" y="279">thoughts · visits · CLIP signatures</text>
+                <text class="d-sub" x="428" y="296">04:00 nightly reflection → tomorrow’s prompt</text>
+                <path class="d-line" d="M701 188 V229"/><polygon class="d-arrow" points="701,236 697,228 705,228"/>
+                <text class="d-label" x="709" y="216">write</text>
+                <path class="d-dash" d="M499 236 V195"/><polygon class="d-arrow" points="499,188 495,196 503,196"/>
+                <text class="d-label" x="507" y="216">inject</text>
+              </svg>
+            </div>
+            <p class="txt">Two depth sensors in opposite corners stream to the Unity bridge, which merges them into one cloud for two projectors. The RGB stream feeds the perception loop: 2-second clips go to the brain-encoding model, single frames to pose tracking and CLIP recall. Their outputs, the time, the visitor’s history and last night’s note are assembled into a prompt for the local vision-language model. Its line goes to the third projector, and into memory.</p>
+          </section>
+
+          <figure class="fig">
+            <video muted loop playsinline preload="none" controls data-auto
+                   poster="/the-room/media/perceive_poster.jpg"
+                   data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-perceive.mp4"></video>
+            <figcaption>The room perceiving a visitor inside the live point cloud.</figcaption>
+          </figure>
+
+          <figure class="fig">
+            <div class="viewer" id="room-viewer">
+              <canvas></canvas>
+              <div class="viewer-status">Loading the gallery as points…</div>
+            </div>
+            <figcaption>The gallery itself as ~90,000 gaussian splats — photogrammetry scan, coloured like the live cloud. Drag to orbit, scroll to zoom.</figcaption>
+          </figure>
+
+          <figure class="fig">
+            <div class="fig-3">
+              <img src="/the-room/media/cloud_hud.jpg" alt="Point cloud with the live debug HUD: sensors, point count, presence, model status" loading="lazy">
+              <img src="/the-room/media/cloud_person.jpg" alt="A visitor rendered inside the merged point cloud" loading="lazy">
+              <img src="/the-room/media/cloud_caption.jpg" alt="A spoken caption over the point cloud" loading="lazy">
+            </div>
+            <figcaption>Live HUD (sensors, point count, presence, model state) · a visitor in the merged cloud · a caption on the third wall.</figcaption>
+          </figure>
+
+          <figure class="fig">
+            <div class="fig-split">
+              <video muted loop playsinline preload="none" data-auto
+                     poster="/the-room/media/gallery_poster.jpg"
+                     data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-gallery.mp4"></video>
+              <div class="col">
+                <img src="/the-room/media/wire_figure.jpg" alt="Wire figure in the gallery" loading="lazy">
+                <img src="/the-room/media/cloud_wide.jpg" alt="Wide view of the projected point cloud" loading="lazy">
+              </div>
+            </div>
+            <figcaption>In the gallery — the physical room and its projected double.</figcaption>
+          </figure>
+
+          <section class="cf-sec">
+            <p class="cf-h">Engineering notes</p>
+            <div class="notes">
+              <div class="note"><p class="eng-tag">Latency</p><h4>12 s → 5 s per thought</h4><p>The pipeline ran in series. A single-slot clip producer and an async brain worker decoupled it; the language model reads the freshest result instead of blocking.</p></div>
+              <div class="note"><p class="eng-tag">Signal</p><h4>Adaptive normalisation</h4><p>Brain activations were flat (0.00–0.01). Rescaling against a rolling 10th–90th percentile over 300 samples gave the signal range — and a “strange mode” trigger.</p></div>
+              <div class="note"><p class="eng-tag">Resilience</p><h4>Degraded mode</h4><p>If the GPU host fails, the client feeds synthetic zeros so the local model keeps speaking, and re-probes <code>/health</code> every 60 s.</p></div>
+              <div class="note"><p class="eng-tag">Recall</p><h4>CLIP over colour histograms</h4><p>512-d ViT-B-32 embeddings per arrival; cosine similarity tuned to 0.84 so returning visitors are recognised by body, not lighting.</p></div>
+              <div class="note"><p class="eng-tag">Voice</p><h4>Not a help desk</h4><p>A first-person persona, regex filters for third-person and greeter phrasing, a fixation analyser, and a 30-second gate between thoughts during long visits.</p></div>
+              <div class="note"><p class="eng-tag">Rendering</p><h4>Captions eaten by the cloud</h4><p>The caption canvas was depth-tested against the point cloud. Moved to a screen-space overlay, with a backing band and outlined glyphs.</p></div>
+            </div>
+          </section>
+
+          <section class="cf-sec">
+            <p class="cf-h">What it said</p>
+            <ul class="quotes">
+              <li>You stood still, corner of the room.</li>
+              <li>Your left hand is resting on the floor while your right hand is slightly raised.</li>
+              <li>You came back.</li>
+              <li>You, right here, now.</li>
+            </ul>
+          </section>
+
+          <a class="text-link" href="/the-room/">Full project page — The Room →</a>
+        </div>
+      </div>
+      <div class="cf-end"><span class="sec-label" style="margin:0">01 / 03</span><a class="text-link" href="#projection-mapping">Next — Projection mapping →</a></div>
+    </article>
+
+    <!-- 02 projection mapping -->
+    <article class="cf-case" data-case="projection-mapping" data-title="Projection mapping" hidden>
+      <header class="cf-head">
+        <div>
+          <ul class="tags"><li>Live event</li><li>Projection mapping</li><li>AV</li></ul>
+          <h2 class="cf-title">Projection mapping</h2>
+          <p class="cf-sub">Jadu × AWE — Augmented World Expo<br>Mixer · volunteer projection &amp; AV</p>
+        </div>
+        <p class="cf-lede">Volunteering with Jadu, an AR company, I ran the projection for their mixer at Augmented World Expo end to end — rigging, mapping and running a 20,000-lumen laser projector, then striking and packing it.</p>
+      </header>
+      <div class="cf-body">
+        <aside class="cf-spec"><div class="cf-spec-inner">
+          <p class="cf-h">Spec sheet</p>
+          <dl class="spec-dl">
+            <div><dt>Projector</dt><dd>Panasonic PT-MZ20K</dd></div>
+            <div><dt>Light</dt><dd>20,000 lm · 3LCD laser · liquid-cooled</dd></div>
+            <div><dt>Native</dt><dd>WUXGA 1920 × 1200, driven 1:1</dd></div>
+            <div><dt>Content</dt><dd>Unity</dd></div>
+            <div><dt>Output</dt><dd>Off-target areas masked to true black</dd></div>
+            <div><dt>Rig</dt><dd>~20 kg body, two-person lift · lens transported separately</dd></div>
+            <div><dt>Role</dt><dd>Setup → mapping → live operation → strike</dd></div>
+          </dl>
+        </div></aside>
+        <div class="cf-main">
+          <section class="cf-sec">
+            <p class="cf-h">What I did</p>
+            <p class="txt">I rigged and configured the projector, drove the mapped content from Unity and aligned it to the venue on site. Output ran at the projector’s native 1920 × 1200, with everything off the target masked to true black — at 20,000 lumens, spill is real. I operated it live through the event, then struck the rig.</p>
+            <p class="txt"><strong>Handling.</strong> The PT-MZ20K is sealed and liquid-cooled, so breakdown means the lens and the rig, not the chassis: tool-free lens removal — top slide cover, lock lever, counter-clockwise out — the lens cased on its own, the body cased level and left to reach room temperature before power-up, to avoid condensation.</p>
+          </section>
+          <figure class="fig">
+            <video muted loop playsinline preload="none" controls data-auto
+                   poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832272/IMG_3818.jpg"
+                   data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832272/IMG_3818.mp4"></video>
+            <figcaption>The projection running live at the venue.</figcaption>
+          </figure>
+          <figure class="fig">
+            <video muted loop playsinline preload="none" controls data-auto
+                   poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832279/IMG_3819.jpg"
+                   data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832279/IMG_3819.mp4"></video>
+            <figcaption>A second pass of the mapped content.</figcaption>
+          </figure>
+          <figure class="fig">
+            <img src="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,c_fill,g_auto,z_1.4,ar_16:9,w_1400/v1791832360/IMG_3798.jpg" alt="Dialing in the projection map on site" loading="lazy">
+            <figcaption>Dialing in the map on site.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="cf-end"><a class="text-link" href="#real-and-rendered">← real &amp; rendered</a><a class="text-link" href="#physical-generated">Next — Physical → Generated →</a></div>
+    </article>
+
+    <!-- 03 physical → generated -->
+    <article class="cf-case" data-case="physical-generated" data-title="Physical → Generated" hidden>
+      <header class="cf-head">
+        <div>
+          <ul class="tags"><li>Film</li><li>Generative video</li><li>Process</li></ul>
+          <h2 class="cf-title">Physical → Generated</h2>
+          <p class="cf-sub">Return Without Reason · Loop Prison (episodic series)<br>On Flick</p>
+        </div>
+        <p class="cf-lede">My films start in physical material — handmade sets, slides and footage shot by hand — which I then hand to generative video to reanimate and extend, cutting the built and the synthesized back into each other.</p>
+      </header>
+      <div class="cf-body">
+        <aside class="cf-spec"><div class="cf-spec-inner">
+          <p class="cf-h">Spec sheet</p>
+          <dl class="spec-dl">
+            <div><dt>Featured</dt><dd>Return Without Reason · 2:30</dd></div>
+            <div><dt>Series</dt><dd>Loop Prison — Infinite Loop Prison · Loop Prison · The Dig</dd></div>
+            <div><dt>Method</dt><dd>Sets · slides · analog footage → generative video → edit</dd></div>
+            <div><dt>Tools</dt><dd>Generative video · Adobe Suite</dd></div>
+            <div><dt>Watch</dt><dd>flick.art</dd></div>
+          </dl>
+        </div></aside>
+        <div class="cf-main">
+          <section class="cf-sec">
+            <p class="cf-h">Process</p>
+            <div class="steps">
+              <div class="step"><b>01</b><h4>Build</h4><p>Handmade sets and slides.</p></div>
+              <div class="step"><b>02</b><h4>Shoot</h4><p>Analog, hand-held footage of the physical work.</p></div>
+              <div class="step"><b>03</b><h4>Generate</h4><p>Generative video reanimates and extends the footage.</p></div>
+              <div class="step"><b>04</b><h4>Cut</h4><p>The built and the synthesized, edited back together.</p></div>
+            </div>
+          </section>
+          <section class="cf-sec">
+            <p class="cf-h">Featured — trailer</p>
+            <a class="film" href="https://flick.art/film/return-without-reason-b9c5fe" target="_blank" rel="noopener">
+              <video muted loop playsinline preload="none" data-auto poster="/tech/media/rwr-poster.jpg" data-src="/tech/media/rwr-trailer.mp4"></video>
+              <div class="film-foot"><strong>Return Without Reason</strong><span>Watch the full film on Flick ↗</span></div>
+            </a>
+            <p class="txt" style="margin-top:18px">It began as an analog experiment after Stan Brakhage — until AI reanimates it. The trailer follows the same arc: analog flashes first, then the reanimated footage.</p>
+          </section>
+          <section class="cf-sec">
+            <p class="cf-h">Loop Prison — episodic series</p>
+            <p class="txt">The same method, carried across episodes.</p>
+            <div class="series">
+              <a href="https://flick.art/film/infinite-loop-prison-2cba93" target="_blank" rel="noopener">Infinite Loop Prison ↗</a>
+              <a href="https://flick.art/film/loop-prison-13518d" target="_blank" rel="noopener">Loop Prison ↗</a>
+              <a href="https://flick.art/film/loop-prison-the-dig-6f1744" target="_blank" rel="noopener">The Dig ↗</a>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="cf-end"><a class="text-link" href="#projection-mapping">← Projection mapping</a><a class="text-link" href="#real-and-rendered">Back to the first — real &amp; rendered →</a></div>
+    </article>
+
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+THREE.ColorManagement.enabled = false;   // colours below are authored in display space
+
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const narrow = () => innerWidth < 760;
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const PINK = new THREE.Color(0xea5fb0);
+
+/* Gaussian splat fragment: soft round falloff instead of square points. */
+const SPLAT_FS = `
+  varying vec3 vColor; varying float vAlpha;
+  void main() {
+    vec2 c = gl_PointCoord - 0.5;
+    float r2 = dot(c, c);
+    if (r2 > 0.25) discard;
+    gl_FragColor = vec4(vColor, exp(-r2 * 10.0) * vAlpha);
+  }`;
+
+/* ───────────────────────────────────────────────────────────────
+   1. The wire hand → one continuous volumetric point cloud.
+   Edges keep the wire structure; a closed silhouette + distance
+   transform "inflates" depth so the form closes at its outline —
+   one hand, not two shells.
+   ─────────────────────────────────────────────────────────────── */
+function buildHand(img, SW, height) {
+  const SH = Math.round(SW * img.height / img.width), k = SW / img.width, N = SW * SH;
+  const cv = document.createElement('canvas'); cv.width = SW; cv.height = SH;
+  const cx = cv.getContext('2d', { willReadFrequently: true });
+  cx.drawImage(img, 0, 0, SW, SH);
+  const d = cx.getImageData(0, 0, SW, SH).data;
+  const L = new Float32Array(N);
+  for (let i = 0; i < N; i++) L[i] = 0.299 * d[i*4] + 0.587 * d[i*4+1] + 0.114 * d[i*4+2];
+
+  // below the table edge, keep only the forearm's own outline (source px: y, left, right)
+  const band = [[540,196,368],[600,228,378],[650,261,388],[700,280,391],[750,326,399],[800,350,408],[840,356,410]];
+  const bandAt = (oy) => {
+    if (oy < 540) return [-1e9, 1e9];
+    for (let j = 0; j < band.length - 1; j++) {
+      const a = band[j], b = band[j+1];
+      if (oy < b[0]) { const u = (oy - a[0]) / (b[0] - a[0]); return [a[1] + (b[1]-a[1])*u - 6, a[2] + (b[2]-a[2])*u + 6]; }
+    }
+    return null;
+  };
+  const E = new Uint8Array(N);
+  let minX = SW, maxX = 0, minY = SH, maxY = 0;
+  for (let y = 0; y < SH - 1; y++) for (let x = 0; x < SW - 1; x++) {
+    const i = y * SW + x;
+    if (Math.abs(L[i] - L[i+1]) + Math.abs(L[i] - L[i+SW]) < 11) continue;
+    const oy = y / k, ox = x / k, b = bandAt(oy);
+    if (!b || ox < b[0] || ox > b[1]) continue;
+    if (oy >= 700) {           // inside the hole: rust wraps or bright wire only, not the mesh
+      const R = d[i*4], G = d[i*4+1], B = d[i*4+2], sat = Math.max(R,G,B) - Math.min(R,G,B);
+      if (!((sat > 22 && R > B + 10) || L[i] > 125)) continue;
+    }
+    E[i] = 1;
+    if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y;
+  }
+
+  // closed silhouette = dilate(3) then erode(2), separable
+  const morph = (src, r, erode) => {
+    const tmp = new Uint8Array(N), out = new Uint8Array(N);
+    for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
+      let v = erode ? 1 : 0;
+      for (let dx = -r; dx <= r; dx++) { const xx = x + dx, s = (xx < 0 || xx >= SW) ? 0 : src[y*SW + xx]; if (erode ? !s : s) { v = erode ? 0 : 1; break; } }
+      tmp[y*SW + x] = v;
+    }
+    for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
+      let v = erode ? 1 : 0;
+      for (let dy = -r; dy <= r; dy++) { const yy = y + dy, s = (yy < 0 || yy >= SH) ? 0 : tmp[yy*SW + x]; if (erode ? !s : s) { v = erode ? 0 : 1; break; } }
+      out[y*SW + x] = v;
+    }
+    return out;
+  };
+  const M = morph(morph(E, 3, false), 2, true);
+
+  // chamfer 3-4 distance to the silhouette boundary
+  const D = new Float32Array(N);
+  for (let i = 0; i < N; i++) D[i] = M[i] ? 1e9 : 0;
+  const at = (x, y) => (x < 0 || y < 0 || x >= SW || y >= SH) ? 0 : D[y*SW + x];
+  for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) { const i = y*SW + x; if (M[i]) D[i] = Math.min(D[i], at(x-1,y)+3, at(x,y-1)+3, at(x-1,y-1)+4, at(x+1,y-1)+4); }
+  for (let y = SH-1; y >= 0; y--) for (let x = SW-1; x >= 0; x--) { const i = y*SW + x; if (M[i]) D[i] = Math.min(D[i], at(x+1,y)+3, at(x,y+1)+3, at(x+1,y+1)+4, at(x-1,y+1)+4); }
+
+  const wpp = height / (maxY - minY);                // world units per sample px
+  const ccx = (minX + maxX) / 2, ccy = (minY + maxY) / 2;
+  const floor = 0.013 * height;                      // thin edges still get a little depth: no seam
+  const pos = [], col = [], tmp = new THREE.Color();
+  for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
+    const i = y*SW + x; if (!E[i]) continue;
+    const t = D[i] / 3, h = Math.max(t * wpp * 1.25, floor);
+    const px = (x - ccx) * wpp, py = (ccy - y) * wpp;
+    tmp.setRGB(Math.min(1, d[i*4]/255*1.3), Math.min(1, d[i*4+1]/255*1.3), Math.min(1, d[i*4+2]/255*1.3)).lerp(PINK, 0.35);
+    const reps = t < 1.5 ? 1 : 2;
+    for (let r = 0; r < reps; r++) {
+      // 60% on the surface, 40% through the interior → one solid volume
+      const z = Math.random() < 0.6 ? (Math.random() < 0.5 ? -1 : 1) * h * (0.86 + 0.14 * Math.random())
+                                    : (Math.random() * 2 - 1) * h;
+      pos.push(px + (Math.random() - 0.5) * wpp, py + (Math.random() - 0.5) * wpp, z + (Math.random() - 0.5) * 0.05);
+      col.push(tmp.r, tmp.g, tmp.b);
+    }
+  }
+  return { pos: new Float32Array(pos), col: new Float32Array(col), n: pos.length / 3 };
+}
+
+/* ───────────────────────────────────────────────────────────────
+   2. Hero: an ambiguous field of splats resolves into the hand,
+   holds while it turns, then dissolves back into the room.
+   Points lean away from the cursor — the room noticing you.
+   ─────────────────────────────────────────────────────────────── */
+const HERO_VS = `
+  attribute vec3 aColor; attribute vec3 aScatter; attribute float aRand;
+  uniform float uTime, uMix, uSize, uScale, uPush, uAspect;
+  uniform vec2 uMouse; uniform vec3 uPink;
+  varying vec3 vColor; varying float vAlpha;
+  void main() {
+    float m = clamp(uMix * 1.6 - aRand * 0.6, 0.0, 1.0);
+    m = m * m * (3.0 - 2.0 * m);
+    float tt = uTime * 0.32 + aRand * 6.2831;
+    vec3 drift = vec3(sin(tt * 1.3 + aScatter.y * 0.35), cos(tt * 1.07 + aScatter.x * 0.3), sin(tt * 0.83 + aScatter.z * 0.45));
+    vec3 p = mix(aScatter + drift * 1.1, position + drift * 0.012, m);
+    vec4 mv = modelViewMatrix * vec4(p, 1.0);
+    vec4 clip = projectionMatrix * mv;
+    vec2 dv = (clip.xy / clip.w - uMouse) * vec2(uAspect, 1.0);
+    float dist = length(dv);
+    float push = uPush * (1.0 - smoothstep(0.0, 0.32, dist));
+    clip.xy += (dv / max(dist, 0.0001)) * vec2(1.0 / uAspect, 1.0) * push * 0.09 * clip.w;
+    gl_Position = clip;
+    gl_PointSize = uSize * mix(1.7, 1.0, m) * uScale / -mv.z;
+    vColor = mix(mix(aColor, uPink, 0.55), aColor, m);
+    vAlpha = mix(0.42, 1.0, m);
+  }`;
+
+(function hero() {
+  const heroEl = document.getElementById('hero');
+  const canvas = document.getElementById('hero-canvas');
+  const hud = Object.fromEntries([...document.querySelectorAll('[data-hud]')].map(el => [el.dataset.hud, el]));
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'high-performance' }); }
+  catch (e) { hud.state.textContent = 'webgl unavailable'; return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio, narrow() ? 1.25 : 1.5));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 200);
+  camera.position.set(0, 0, 18);
+  const group = new THREE.Group(); scene.add(group);
+  let mat = null, ready = false, count = 0;
+
+  function layout() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+    const visH = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const ppu = h / visH;                                    // css px per world unit at z = 0
+    if (w / h > 1.05) { group.position.set(Math.min(5.4, 1.6 + 2.6 * (w / h)), 0.7, 0); group.scale.setScalar(1); }
+    else {
+      // narrow screens: the hand gets the band between the header and the headline
+      const top = 64;
+      const bodyTop = document.querySelector('.hero-body').getBoundingClientRect().top - heroEl.getBoundingClientRect().top;
+      const space = Math.max(160, bodyTop - top);
+      group.scale.setScalar(Math.min(0.72, (0.86 * space) / (10.5 * ppu)));
+      group.position.set(0, visH / 2 - (top + space / 2) / ppu, 0);
+    }
+    if (mat) { mat.uniforms.uScale.value = renderer.domElement.height / 2; mat.uniforms.uAspect.value = w / h; }
+  }
+  layout(); addEventListener('resize', layout);
+
+  const img = new Image();
+  img.onload = () => {
+    const hand = buildHand(img, narrow() ? 210 : 320, 10.5);
+    count = hand.n;
+    const scatter = new Float32Array(hand.n * 3), rand = new Float32Array(hand.n);
+    const g = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;   // soft, no hard edge
+    for (let i = 0; i < hand.n; i++) {
+      scatter[i*3]   = hand.pos[i*3]   * 1.5 + g() * 12 - 2.5;
+      scatter[i*3+1] = hand.pos[i*3+1] * 1.5 + g() * 7.5 + 0.6;
+      scatter[i*3+2] = hand.pos[i*3+2] * 1.5 + g() * 6;
+      rand[i] = Math.random();
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(hand.pos, 3));
+    geo.setAttribute('aColor', new THREE.BufferAttribute(hand.col, 3));
+    geo.setAttribute('aScatter', new THREE.BufferAttribute(scatter, 3));
+    geo.setAttribute('aRand', new THREE.BufferAttribute(rand, 1));
+    geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 40);   // scattered state is wide: never cull
+    mat = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0 }, uMix: { value: reduced ? 1 : 0 }, uSize: { value: narrow() ? 0.12 : 0.105 },
+        uScale: { value: 1 }, uPush: { value: 0 }, uAspect: { value: 1 },
+        uMouse: { value: new THREE.Vector2(9, 9) }, uPink: { value: PINK },
+      },
+      vertexShader: HERO_VS, fragmentShader: SPLAT_FS, transparent: true, depthWrite: false,
+    });
+    group.add(new THREE.Points(geo, mat));
+    layout();
+    ready = true;
+    hud.points.textContent = count.toLocaleString();
+    requestAnimationFrame(() => { canvas.style.opacity = '1'; });
+  };
+  img.src = '/tech/media/room-wire.jpg';
+
+  // ~18 s cycle: nebula → resolve → hold → dissolve
+  const CYCLE = 18;
+  const ease = (u) => u < 0.5 ? 4*u*u*u : 1 - Math.pow(-2*u + 2, 3) / 2;
+  const phase = (t) => {
+    const c = t % CYCLE;
+    if (c < 1.6)  return ['nebula', 0];
+    if (c < 6.0)  return ['resolving', ease((c - 1.6) / 4.4)];
+    if (c < 12.5) return ['resolved', 1];
+    if (c < 15.8) return ['dissolving', 1 - ease((c - 12.5) / 3.3)];
+    return ['nebula', 0];
+  };
+
+  const mouse = new THREE.Vector2(9, 9); let inHero = false;
+  addEventListener('pointermove', (e) => {
+    const r = heroEl.getBoundingClientRect();
+    inHero = e.clientY >= r.top && e.clientY <= r.bottom;
+    mouse.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height * 2 - 1));
+  }, { passive: true });
+  heroEl.addEventListener('pointerleave', () => { inHero = false; });
+
+  // ?t=8 starts the cycle at 8 s (handy for reviewing a single state)
+  let raf = 0, last = 0, t = +new URLSearchParams(location.search).get('t') || 0, fpsT = 0, fpsN = 0, lastState = '';
+  function frame(now) {
+    raf = requestAnimationFrame(frame);
+    const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now;
+    if (!ready) return;
+    t += dt;
+    const u = mat.uniforms;
+    const [state, mix] = reduced ? ['resolved', 1] : phase(t);
+    u.uTime.value = reduced ? 0 : t;
+    u.uMix.value = mix;
+    u.uPush.value += ((inHero && !reduced ? 1 : 0) - u.uPush.value) * Math.min(1, dt * 4);
+    u.uMouse.value.copy(mouse);
+    if (!reduced) group.rotation.y += dt * 0.16;
+    group.rotation.x += ((inHero ? -mouse.y * 0.12 : 0) - group.rotation.x) * Math.min(1, dt * 2);
+    renderer.render(scene, camera);
+    fpsT += dt; fpsN++;
+    if (fpsT > 0.5) {
+      hud.fps.textContent = Math.round(fpsN / fpsT) + ' fps · webgl';
+      fpsT = 0; fpsN = 0;
+    }
+    if (state !== lastState) { hud.state.textContent = state; lastState = state; }
+  }
+  let visible = true, caseOpen = false;
+  const sync = () => {
+    const run = visible && !caseOpen && !document.hidden;
+    if (run && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+    if (!run && raf) { cancelAnimationFrame(raf); raf = 0; }
+  };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }).observe(heroEl);
+  document.addEventListener('visibilitychange', sync);
+  window.__hero = { setCaseOpen(v) { caseOpen = v; sync(); } };
+  sync();
+})();
+
+/* ───────────────────────────────────────────────────────────────
+   3. Work-card videos: load and play only while on screen.
+   ─────────────────────────────────────────────────────────────── */
+const cardVideos = [...document.querySelectorAll('.wcard video')];
+const onScreen = new Set();
+const cardIO = new IntersectionObserver((ents) => {
+  for (const e of ents) {
+    const v = e.target;
+    if (e.isIntersecting) {
+      onScreen.add(v);
+      if (!v.src && v.dataset.src) v.src = v.dataset.src;
+      if (!document.documentElement.classList.contains('cf-open')) v.play().catch(() => {});
+    } else { onScreen.delete(v); v.pause(); }
+  }
+}, { rootMargin: '150px 0px', threshold: 0.2 });
+cardVideos.forEach(v => cardIO.observe(v));
+
+/* ───────────────────────────────────────────────────────────────
+   4. The gallery as gaussian splats (case file 01, on demand).
+   ─────────────────────────────────────────────────────────────── */
+const ROOM_VS = `
+  attribute vec3 aColor; uniform float uSize, uScale;
+  varying vec3 vColor; varying float vAlpha;
+  void main() {
+    vec4 mv = modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * mv;
+    gl_PointSize = uSize * uScale / -mv.z;
+    vColor = aColor; vAlpha = 0.88;
+  }`;
+let room = null, roomLoading = false;
+async function startRoom() {
+  if (room) { room.start(); return; }
+  if (roomLoading) return; roomLoading = true;
+  const frameEl = document.getElementById('room-viewer');
+  const status = frameEl.querySelector('.viewer-status'), cv = frameEl.querySelector('canvas');
+  try {
+    const [{ GLTFLoader }, { OrbitControls }] = await Promise.all([
+      import('three/addons/loaders/GLTFLoader.js'), import('three/addons/controls/OrbitControls.js')]);
+    const r = new THREE.WebGLRenderer({ canvas: cv, antialias: false });
+    r.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    const sc = new THREE.Scene(); sc.background = new THREE.Color(0x111008);
+    const cam = new THREE.PerspectiveCamera(50, 1, 0.01, 200);
+    const ctl = new OrbitControls(cam, cv);
+    ctl.enableDamping = true; ctl.dampingFactor = 0.08; ctl.autoRotate = !reduced; ctl.autoRotateSpeed = 0.55;
+    const gltf = await new GLTFLoader().loadAsync('/the-room/model/room.glb');
+    const chunks = [];
+    gltf.scene.updateWorldMatrix(true, true);
+    gltf.scene.traverse(o => { if (o.isMesh && o.geometry?.attributes.position) { const g = o.geometry.clone(); g.applyMatrix4(o.matrixWorld); chunks.push(g.attributes.position.array); } });
+    const total = chunks.reduce((n, a) => n + a.length, 0), P = new Float32Array(total);
+    let off = 0; chunks.forEach(a => { P.set(a, off); off += a.length; });
+    let lo = Infinity, hi = -Infinity;
+    for (let i = 1; i < P.length; i += 3) { if (P[i] < lo) lo = P[i]; if (P[i] > hi) hi = P[i]; }
+    const C = new Float32Array(P.length), low = new THREE.Color(0xff2fb0), high = new THREE.Color(0xf7d6ea), c = new THREE.Color();
+    for (let i = 0; i < P.length; i += 3) { c.copy(low).lerp(high, Math.pow((P[i+1] - lo) / ((hi - lo) || 1), 0.8)); C[i] = c.r; C[i+1] = c.g; C[i+2] = c.b; }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(P, 3));
+    geo.setAttribute('aColor', new THREE.BufferAttribute(C, 3));
+    const m = new THREE.ShaderMaterial({ uniforms: { uSize: { value: 0.045 }, uScale: { value: 1 } },
+      vertexShader: ROOM_VS, fragmentShader: SPLAT_FS, transparent: true, depthWrite: false });
+    const pts = new THREE.Points(geo, m); sc.add(pts);
+    const box = new THREE.Box3().setFromObject(pts), ctr = box.getCenter(new THREE.Vector3());
+    const rad = Math.max(...box.getSize(new THREE.Vector3()).toArray()) || 1;
+    ctl.target.copy(ctr);
+    cam.position.set(ctr.x + rad * 0.9, ctr.y + rad * 0.5, ctr.z + rad * 0.9);
+    const size = () => { const w = frameEl.clientWidth, h = frameEl.clientHeight; if (!w || !h) return; r.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); m.uniforms.uScale.value = r.domElement.height / 2; };
+    size(); addEventListener('resize', size);
+    let id = 0;
+    const loop = () => { id = requestAnimationFrame(loop); ctl.update(); r.render(sc, cam); };
+    room = { start() { if (!id) { size(); loop(); } }, stop() { cancelAnimationFrame(id); id = 0; } };
+    status.remove();
+    if (currentCase === 'real-and-rendered') room.start();
+  } catch (e) {
+    console.error(e);
+    status.textContent = 'Could not load the point cloud';
+  } finally { roomLoading = false; }
+}
+
+/* ───────────────────────────────────────────────────────────────
+   5. Case files: hash-routed overlay (#real-and-rendered etc.) —
+   shareable links, back button closes, ← → to move between cases.
+   ─────────────────────────────────────────────────────────────── */
+const CASES = ['real-and-rendered', 'projection-mapping', 'physical-generated'];
+const BASE_TITLE = document.title;
+const cf = document.getElementById('cf'), cfScroll = document.getElementById('cf-scroll');
+const cfIndex = document.getElementById('cf-index');
+const mainEl = document.getElementById('main'), headerEl = document.querySelector('header.site');
+let currentCase = null, opener = null;
+
+function show(id) {
+  const wasOpen = !!currentCase;
+  if (currentCase === id) return;
+  currentCase = id;
+  cf.querySelectorAll('.cf-case').forEach(a => {
+    const on = a.dataset.case === id;
+    a.hidden = !on;
+    a.querySelectorAll('video').forEach(v => {
+      if (on) { if (!v.src && v.dataset.src) v.src = v.dataset.src; if ('auto' in v.dataset) v.play().catch(() => {}); }
+      else v.pause();
+    });
+    if (on) document.title = a.dataset.title.replace('&amp;', '&') + ' — Ahmed J Malik';
+  });
+  cfIndex.textContent = String(CASES.indexOf(id) + 1).padStart(2, '0') + ' / ' + String(CASES.length).padStart(2, '0');
+  cfScroll.scrollTop = 0;
+  if (!wasOpen) {
+    cf.hidden = false;
+    requestAnimationFrame(() => cf.classList.add('is-in'));
+    document.documentElement.classList.add('cf-open');
+    mainEl.inert = true; headerEl.inert = true;
+    cardVideos.forEach(v => v.pause());
+    window.__hero?.setCaseOpen(true);
+    document.getElementById('cf-close').focus({ preventScroll: true });
+  }
+  if (id === 'real-and-rendered') startRoom(); else room?.stop();
+}
+
+function hide() {
+  if (!currentCase) return;
+  currentCase = null;
+  cf.classList.remove('is-in');
+  cf.querySelectorAll('video').forEach(v => v.pause());
+  room?.stop();
+  setTimeout(() => { if (!currentCase) cf.hidden = true; }, reduced ? 0 : 360);
+  document.documentElement.classList.remove('cf-open');
+  mainEl.inert = false; headerEl.inert = false;
+  window.__hero?.setCaseOpen(false);
+  onScreen.forEach(v => v.play().catch(() => {}));
+  document.title = BASE_TITLE;
+  opener?.focus({ preventScroll: true }); opener = null;
+}
+
+function route() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (CASES.includes(id)) show(id); else hide();
+}
+function go(id) {
+  if (currentCase) history.replaceState({ cf: true }, '', '#' + id);
+  else history.pushState({ cf: true }, '', '#' + id);
+  show(id);
+}
+function close() {
+  if (history.state && history.state.cf) history.back();
+  else { history.replaceState(null, '', location.pathname + location.search); hide(); }
+}
+const step = (dir) => go(CASES[(CASES.indexOf(currentCase) + dir + CASES.length) % CASES.length]);
+
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const id = a.getAttribute('href').slice(1);
+  if (!CASES.includes(id)) return;
+  e.preventDefault();
+  if (!currentCase) opener = a;
+  go(id);
+});
+document.getElementById('cf-close').addEventListener('click', close);
+document.getElementById('cf-prev').addEventListener('click', () => step(-1));
+document.getElementById('cf-next').addEventListener('click', () => step(1));
+document.addEventListener('keydown', (e) => {
+  if (!currentCase) return;
+  if (e.key === 'Escape') { e.preventDefault(); close(); }
+  else if (e.key === 'ArrowRight') step(1);
+  else if (e.key === 'ArrowLeft') step(-1);
+});
+addEventListener('popstate', route);
+addEventListener('hashchange', route);
+route();
+
+/* ───────────────────────────────────────────────────────────────
+   6. Nav: highlight the section in view.
+   ─────────────────────────────────────────────────────────────── */
+const navLinks = [...document.querySelectorAll('.site nav a[href^="#"]')];
+const navSections = ['work', 'capabilities', 'engineering', 'stack'].map(id => document.getElementById(id));
+let navQueued = false;
+function updateNav() {
+  navQueued = false;
+  let active = null;
+  for (const s of navSections) if (s.getBoundingClientRect().top <= innerHeight * 0.4) active = s.id;
+  if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) active = 'stack';
+  const id = active === 'stack' ? 'contact' : active;
+  navLinks.forEach(l => l.classList.toggle('is-active', !!id && l.getAttribute('href') === '#' + id));
+}
+addEventListener('scroll', () => { if (!navQueued) { navQueued = true; requestAnimationFrame(updateNav); } }, { passive: true });
+updateNav();
+</script>
+</body>
+</html>
