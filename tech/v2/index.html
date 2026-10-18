@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="/tech/media/room-wire.jpg">
+<link rel="preload" as="image" href="/tech/media/wire-hand.jpg">
 <style>
   :root {
     --bg: #0c0b09;
@@ -37,8 +37,8 @@
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
   ::selection { background: var(--accent); color: var(--bg); }
-  code { font-family: var(--mono); font-size: 0.86em; color: var(--text); }
   :focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+  code { font-family: var(--mono); font-size: 0.86em; color: var(--text); }
 
   /* ── HEADER (same build as the main site) ─────────────────────── */
   header.site {
@@ -78,17 +78,11 @@
       linear-gradient(90deg, rgba(12,11,9,0.8) 0%, rgba(12,11,9,0.42) 32%, rgba(12,11,9,0) 56%),
       linear-gradient(0deg, rgba(12,11,9,0.85) 0%, rgba(12,11,9,0) 36%);
   }
-  .hero-row {
-    position: relative; z-index: 2;
-    display: flex; justify-content: space-between; align-items: flex-end; gap: 32px;
-    padding: 0 var(--pad) 52px;
-  }
-  .hero-body { max-width: 860px; }
+  .hero-body { position: relative; z-index: 2; max-width: 860px; padding: 0 var(--pad) 52px; }
   .eyebrow {
     font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.32em;
-    text-transform: uppercase; color: var(--text-3); margin-bottom: 22px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 22px;
   }
-  .eyebrow b { font-weight: 400; color: var(--accent); }
   h1 {
     font-family: var(--serif); font-weight: 300;
     font-size: clamp(3.6rem, 8.2vw, 7.6rem); line-height: 0.95; letter-spacing: -0.01em;
@@ -96,8 +90,8 @@
   }
   h1 em { font-style: italic; color: var(--accent); }
   .hero-bio {
-    font-weight: 300; font-size: clamp(1.02rem, 1.35vw, 1.2rem); line-height: 1.6;
-    color: var(--text-2); max-width: 44ch;
+    font-weight: 300; font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55;
+    color: var(--text-2); max-width: 36ch;
   }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
   .btn {
@@ -109,24 +103,28 @@
   .btn-primary { color: var(--accent); border-color: var(--accent-soft); }
   .btn-primary:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
   .hud {
-    flex: none; text-align: right;
+    position: absolute; z-index: 2; top: 92px; right: var(--pad); text-align: right;
     font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; line-height: 1.9;
-    color: var(--text-3); text-transform: uppercase;
+    color: var(--text-3); text-transform: uppercase; pointer-events: none;
+    background: rgba(12, 11, 9, 0.74); border: 1px solid var(--hair); padding: 8px 12px;
   }
   .hud span { color: var(--text-2); }
   .hud .hud-live { color: var(--accent); }
-  .spec-strip {
-    position: relative; z-index: 2;
+  .disciplines {
+    position: relative; z-index: 2; list-style: none;
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 1px; background: var(--hair); border-top: 1px solid var(--hair);
   }
-  .spec-strip > div { background: rgba(12,11,9,0.93); padding: 20px 28px 22px; }
-  .spec-strip > div:first-child { padding-left: var(--pad); }
-  .spec-strip dt {
-    font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.26em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  .disciplines a { display: block; height: 100%; background: rgba(12,11,9,0.93); padding: 20px 28px 22px; transition: background 0.25s; }
+  .disciplines li:first-child a { padding-left: var(--pad); }
+  .disciplines a:hover { background: var(--surface); }
+  .disciplines b {
+    display: flex; justify-content: space-between; font-family: var(--mono); font-weight: 400; font-size: 0.54rem;
+    letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
   }
-  .spec-strip dd { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
+  .disciplines b i { font-style: normal; opacity: 0; transform: translateX(-4px); transition: opacity 0.2s, transform 0.2s; }
+  .disciplines a:hover b i { opacity: 1; transform: none; }
+  .disciplines span { display: block; font-size: 0.92rem; line-height: 1.45; color: var(--text); }
 
   /* ── SECTIONS ─────────────────────────────────────────────────── */
   .sec { border-bottom: 1px solid var(--hair); }
@@ -172,7 +170,7 @@
   }
   .wcard:hover .wcard-media video, .wcard:hover .wcard-media img { transform: scale(1.03); filter: brightness(1); }
   .wcard-body { padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
-  .wcard--feature .wcard-body { padding: 40px 44px; justify-content: flex-end; }
+  .wcard--feature .wcard-body { padding: 40px 44px; }
   .wcard-meta {
     display: flex; gap: 14px; font-family: var(--mono); font-size: 0.55rem;
     letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
@@ -193,12 +191,12 @@
   /* ── CAPABILITIES ─────────────────────────────────────────────── */
   .cap { border-top: 1px solid var(--hair); }
   .cap-row {
-    display: grid; grid-template-columns: minmax(220px, 1.05fr) 1.75fr 1.3fr 0.85fr;
+    display: grid; grid-template-columns: minmax(210px, 1fr) 1.45fr 1.45fr minmax(150px, 0.75fr);
     gap: 32px; padding: 30px var(--pad); border-bottom: 1px solid var(--hair);
     align-items: start; transition: background 0.25s;
   }
   .cap-row:last-child { border-bottom: 0; }
-  .cap-row:hover { background: var(--surface); }
+  .cap-row:hover, .cap-row:target { background: var(--surface); }
   .cap-row--head {
     padding-top: 14px; padding-bottom: 14px; font-family: var(--mono); font-size: 0.54rem;
     letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-3);
@@ -207,34 +205,14 @@
   .cap-area { font-family: var(--serif); font-weight: 300; font-size: 1.6rem; line-height: 1.1; }
   .cap-area .n { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 8px; }
   .cap-what { font-size: 0.95rem; line-height: 1.6; color: var(--text-2); }
-  .cap-proof { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
-  .cap-proof a {
-    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.06em; color: var(--text);
+  .cap-proof { font-size: 0.95rem; line-height: 1.6; color: var(--text); border-left: 1px solid var(--accent-soft); padding-left: 16px; }
+  .cap-where { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+  .cap-where a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.04em; line-height: 1.5; color: var(--text);
     border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s;
   }
-  .cap-proof a:hover { color: var(--accent); border-color: var(--accent); }
-
-  /* ── ENGINEERING ──────────────────────────────────────────────── */
-  .stats {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 1px; background: var(--hair); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
-  }
-  .stat { background: var(--bg); padding: 28px 28px 30px; }
-  .stat:first-child { padding-left: var(--pad); }
-  .stat b { display: block; font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 4.6vw, 3.9rem); line-height: 1; }
-  .stat span {
-    display: block; margin-top: 10px; font-family: var(--mono); font-size: 0.55rem;
-    letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-3);
-  }
-  .eng-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hair); }
-  .eng { background: var(--bg); padding: 36px var(--pad) 40px; }
-  .eng-tag {
-    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
-  }
-  .eng h3 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.6rem, 2.4vw, 2.15rem); line-height: 1.1; margin-bottom: 14px; }
-  .eng p.body { font-size: 0.95rem; line-height: 1.65; color: var(--text-2); max-width: 56ch; }
-  .sec-foot { padding: 28px var(--pad) 34px; border-top: 1px solid var(--hair); }
+  .cap-where a b { font-weight: 400; color: var(--accent); }
+  .cap-where a:hover { color: var(--accent); border-color: var(--accent); }
 
   /* ── STACK + CONTACT ──────────────────────────────────────────── */
   .split { display: grid; grid-template-columns: 1.25fr 1fr; gap: 1px; background: var(--hair); }
@@ -314,12 +292,6 @@
   .fig { margin: 0 0 56px; }
   .fig video, .fig img { width: 100%; background: var(--surface); border: 1px solid var(--hair); }
   .fig figcaption { margin-top: 12px; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; line-height: 1.7; color: var(--text-3); }
-  .fig-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .fig-3 img { aspect-ratio: 4 / 3; object-fit: cover; }
-  .fig-split { display: grid; grid-template-columns: minmax(0, 0.75fr) 1fr; gap: 10px; align-items: stretch; }
-  .fig-split video { height: 100%; max-height: 80vh; object-fit: cover; }
-  .fig-split .col { display: grid; gap: 10px; grid-template-rows: 1fr 1fr; }
-  .fig-split .col img { height: 100%; object-fit: cover; }
   .viewer { position: relative; aspect-ratio: 16 / 10; border: 1px solid var(--hair); background: var(--surface); overflow: hidden; cursor: grab; touch-action: none; }
   .viewer:active { cursor: grabbing; }
   .viewer canvas { display: block; width: 100%; height: 100%; }
@@ -328,10 +300,12 @@
     font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
     color: var(--text-3); pointer-events: none;
   }
-  .diagram { overflow-x: auto; margin: 4px 0 22px; -webkit-overflow-scrolling: touch; }
+
+  /* system map */
+  .map-hint { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; color: var(--text-3); margin-bottom: 14px; }
+  .diagram { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .diagram svg { display: block; width: 100%; min-width: 760px; height: auto; }
-  .d-box { fill: #111008; stroke: #2e2a23; }
-  .d-mem { fill: #14120e; stroke: #2e2a23; }
+  .d-box { fill: #111008; stroke: #2e2a23; transition: fill 0.2s, stroke 0.2s; }
   .d-stage { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2.2px; fill: #ea5fb0; }
   .d-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; fill: #ddd9d0; }
   .d-sub { font-family: 'Space Mono', monospace; font-size: 9.5px; fill: #8f8a80; }
@@ -339,15 +313,22 @@
   .d-line { stroke: #ea5fb0; stroke-width: 1; fill: none; opacity: 0.75; }
   .d-dash { stroke: #ea5fb0; stroke-width: 1; fill: none; opacity: 0.55; stroke-dasharray: 3 4; }
   .d-arrow { fill: #ea5fb0; opacity: 0.85; }
-  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hair); border: 1px solid var(--hair); }
-  .note { background: var(--bg); padding: 22px 24px 24px; }
-  .note .eng-tag { margin-bottom: 10px; }
-  .note h4 { font-family: var(--serif); font-weight: 300; font-size: 1.4rem; line-height: 1.15; margin-bottom: 8px; }
-  .note p { font-size: 0.9rem; line-height: 1.6; color: var(--text-2); }
-  .quotes { list-style: none; display: grid; gap: 14px; }
-  .quotes li { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.35rem, 2.3vw, 1.85rem); line-height: 1.3; }
-  .quotes li::before { content: '“'; color: var(--accent); }
-  .quotes li::after { content: '”'; color: var(--accent); }
+  .node { cursor: pointer; outline: none; }
+  .node:hover .d-box { stroke: rgba(234, 95, 176, 0.6); }
+  .node.is-on .d-box { stroke: #ea5fb0; fill: #1a1217; }
+  .node:focus-visible .d-box { stroke: #ea5fb0; stroke-width: 2; }
+  .node-detail { margin-top: 1px; border: 1px solid var(--hair); background: var(--surface); padding: 26px 28px 28px; }
+  .node-detail[hidden] { display: none; }
+  .nd-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; margin-bottom: 18px; }
+  .nd-kicker { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); }
+  .nd-head h4 { font-family: var(--serif); font-weight: 300; font-size: 1.9rem; line-height: 1.05; }
+  .nd-where { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+  .nd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 20px; }
+  .nd-grid .lbl { font-family: var(--mono); font-size: 0.53rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; }
+  .nd-grid p:not(.lbl) { font-size: 0.93rem; line-height: 1.65; color: var(--text-2); }
+  .nd-grid .fix p:not(.lbl) { color: var(--text); }
+
+  /* films + process */
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); }
   .step { background: var(--bg); padding: 20px 20px 24px; }
   .step b { display: block; font-family: var(--mono); font-weight: 400; font-size: 0.55rem; letter-spacing: 0.22em; color: var(--accent); margin-bottom: 10px; }
@@ -368,17 +349,17 @@
   @media (max-width: 1080px) {
     .cap-row { grid-template-columns: 1fr 1.6fr; gap: 18px 32px; }
     .cap-row--head { display: none; }
-    .cap-row .chips, .cap-proof { grid-column: 2; }
+    .cap-row .cap-proof, .cap-where { grid-column: 2; }
   }
   @media (max-width: 900px) {
     :root { --pad: 20px; }
     header.site { padding: 16px 20px; }
     .site nav { gap: 18px; }
     .site nav .nav-hide { display: none; }
-    .hero-row { padding-bottom: 36px; }
+    .hero-body { padding-bottom: 36px; }
     .hud { display: none; }
-    .spec-strip { grid-template-columns: 1fr 1fr; }
-    .spec-strip > div, .spec-strip > div:first-child { padding: 16px 20px 18px; }
+    .disciplines { grid-template-columns: 1fr 1fr; }
+    .disciplines a, .disciplines li:first-child a { padding: 16px 20px 18px; }
     .sec-head { grid-template-columns: 1fr; padding-top: 76px; padding-bottom: 28px; }
     .sec-note { text-align: left; }
     .work-grid { grid-template-columns: 1fr; }
@@ -386,11 +367,7 @@
     .wcard--feature .wcard-media { min-height: 0; aspect-ratio: 16 / 10; }
     .wcard-body, .wcard--feature .wcard-body { padding: 24px 20px 28px; }
     .cap-row { grid-template-columns: 1fr; gap: 12px; padding: 26px 20px; }
-    .cap-row .chips, .cap-proof { grid-column: auto; }
-    .stats { grid-template-columns: 1fr 1fr; }
-    .stat, .stat:first-child { padding: 22px 20px 24px; }
-    .eng-grid { grid-template-columns: 1fr; }
-    .eng { padding: 30px 20px 34px; }
+    .cap-row .cap-proof, .cap-where { grid-column: auto; }
     .split { grid-template-columns: 1fr; }
     .split > div { padding: 76px 20px 64px; }
     .stack-list div { grid-template-columns: 1fr; gap: 4px; }
@@ -399,9 +376,9 @@
     .cf-spec { padding: 32px 20px 8px; }
     .cf-spec-inner { position: static; }
     .cf-main { padding: 32px 20px 72px; }
-    .notes, .fig-split { grid-template-columns: 1fr; }
-    .fig-split .col { grid-template-rows: auto; grid-template-columns: 1fr 1fr; }
-    .steps, .fig-3 { grid-template-columns: 1fr 1fr; }
+    .nd-grid { grid-template-columns: 1fr; gap: 18px; }
+    .node-detail { padding: 22px 20px 24px; }
+    .steps { grid-template-columns: 1fr 1fr; }
     .cf-btn .lbl { display: none; }
   }
   @media (max-width: 760px) {
@@ -430,7 +407,6 @@
   <nav aria-label="Sections">
     <a href="#work">Work</a>
     <a class="nav-hide" href="#capabilities">Capabilities</a>
-    <a class="nav-hide" href="#engineering">Engineering</a>
     <a href="#contact">Contact</a>
     <a class="nav-art" href="/">Art&nbsp;↗</a>
   </nav>
@@ -442,30 +418,28 @@
   <section class="hero" id="hero">
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
     <div class="hero-shade" aria-hidden="true"></div>
-    <div class="hero-row">
-      <div class="hero-body">
-        <p class="eyebrow"><b>Creative technologist</b> &nbsp;·&nbsp; technical portfolio</p>
-        <h1>material &amp; <em>machine</em></h1>
-        <p class="hero-bio">Artist and creative technologist working where physical material meets machine perception and generative media — live point clouds, computer vision, local AI systems, projection and generative film.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="#work">Selected work ↓</a>
-          <a class="btn" href="#capabilities">Capabilities</a>
-          <a class="btn" href="mailto:ahmedjamalmalik1@gmail.com">Email</a>
-        </div>
-      </div>
-      <div class="hud" aria-hidden="true">
-        <div>source <span>room-wire.jpg</span> — wire sculpture</div>
-        <div>splats <span data-hud="points">—</span></div>
-        <div>state <span class="hud-live" data-hud="state">loading</span></div>
-        <div>render <span data-hud="fps">—</span></div>
+    <div class="hud" aria-hidden="true">
+      <div>source <span>wire-hand.jpg</span> — sculpture</div>
+      <div>splats <span data-hud="points">—</span></div>
+      <div>state <span class="hud-live" data-hud="state">loading</span></div>
+      <div>render <span data-hud="fps">—</span></div>
+    </div>
+    <div class="hero-body">
+      <p class="eyebrow">Technical portfolio</p>
+      <h1>material &amp; <em>machine</em></h1>
+      <p class="hero-bio">Artist and creative technologist working where physical material meets machine perception and generative media.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#work">Selected work ↓</a>
+        <a class="btn" href="#capabilities">Capabilities</a>
+        <a class="btn" href="mailto:ahmedjamalmalik1@gmail.com">Email</a>
       </div>
     </div>
-    <dl class="spec-strip">
-      <div><dt>Focus</dt><dd>Real-time installations · live point clouds · machine perception</dd></div>
-      <div><dt>Real-time</dt><dd>Unity · C# · Unreal Engine · TouchDesigner</dd></div>
-      <div><dt>Perception / AI</dt><dd>Ollama · LLaVA · CLIP · MediaPipe · TRIBE v2</dd></div>
-      <div><dt>Code</dt><dd>C · C++ · C# · Python</dd></div>
-    </dl>
+    <ul class="disciplines">
+      <li><a href="#cap-realtime"><b>01 Real-time 3D <i>→</i></b><span>Live point clouds and interactive systems</span></a></li>
+      <li><a href="#cap-vision"><b>02 Vision &amp; sensing <i>→</i></b><span>Depth, pose and recognition</span></a></li>
+      <li><a href="#cap-ai"><b>03 Local AI <i>→</i></b><span>Offline, multi-model pipelines</span></a></li>
+      <li><a href="#cap-av"><b>04 Projection &amp; film <i>→</i></b><span>Mapping, AV and generative video</span></a></li>
+    </ul>
   </section>
 
   <!-- ── 01 WORK ────────────────────────────────────────────── -->
@@ -475,7 +449,7 @@
         <p class="sec-label"><span>01</span>Work</p>
         <h2 class="sec-title">Selected work</h2>
       </div>
-      <p class="sec-note">Three projects. Open any card for the full case file — spec sheet, pipeline, media.</p>
+      <p class="sec-note">Three projects. Open any card for the case file — spec sheet, system, media.</p>
     </div>
     <div class="work-grid">
       <a class="wcard wcard--feature" href="#real-and-rendered">
@@ -486,8 +460,8 @@
         <div class="wcard-body">
           <div class="wcard-meta"><span class="n">01</span><span>Installation · senior thesis</span><span class="yr">2026</span></div>
           <h3 class="wcard-title">real &amp; rendered</h3>
-          <p class="wcard-line">A gallery that sees its visitors as live point clouds and talks about them. Two depth sensors, a brain-encoding model, visual memory and a local vision-language model — running for eight days.</p>
-          <ul class="chips"><li>Unity</li><li>C#</li><li>Python</li><li>Kinect v1 ×2</li><li>LLaVA · Ollama</li><li>TRIBE v2</li><li>CLIP</li><li>MediaPipe</li></ul>
+          <p class="wcard-line">A gallery that sees its visitors as live point clouds and talks about them — a distributed system of depth sensors, a brain-encoding model, visual memory and a local vision-language model, running for eight days.</p>
+          <ul class="chips"><li>Unity</li><li>Python</li><li>Kinect v1 ×2</li><li>LLaVA</li><li>TRIBE v2</li><li>CLIP</li></ul>
           <span class="wcard-open">Open case file <i>→</i></span>
         </div>
       </a>
@@ -502,7 +476,7 @@
           <div class="wcard-meta"><span class="n">02</span><span>Live event · Jadu × AWE</span></div>
           <h3 class="wcard-title">Projection mapping</h3>
           <p class="wcard-line">Rigged, mapped, ran and struck a 20,000-lumen laser projector for Jadu’s mixer at Augmented World Expo.</p>
-          <ul class="chips"><li>Unity</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li><li>AV</li></ul>
+          <ul class="chips"><li>Unity</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li></ul>
           <span class="wcard-open">Open case file <i>→</i></span>
         </div>
       </a>
@@ -516,7 +490,7 @@
           <div class="wcard-meta"><span class="n">03</span><span>Film · process</span></div>
           <h3 class="wcard-title">Physical → Generated</h3>
           <p class="wcard-line">Films that begin as handmade sets, slides and analog footage, then get reanimated with generative video. Featured: <em>Return Without Reason</em>.</p>
-          <ul class="chips"><li>Generative video</li><li>Analog</li><li>Adobe Suite</li><li>Editing</li></ul>
+          <ul class="chips"><li>Generative video</li><li>Analog</li><li>Editing</li></ul>
           <span class="wcard-open">Open case file <i>→</i></span>
         </div>
       </a>
@@ -530,100 +504,60 @@
         <p class="sec-label"><span>02</span>Capabilities</p>
         <h2 class="sec-title">What I build</h2>
       </div>
-      <p class="sec-note">Each row links to the project where it was used in production.</p>
+      <p class="sec-note">Each row names one concrete result and links to the exact part of the system where it happened.</p>
     </div>
     <div class="cap">
-      <div class="cap-row cap-row--head" aria-hidden="true"><span>Area</span><span>What I do</span><span>Tools</span><span>Proven in</span></div>
+      <div class="cap-row cap-row--head" aria-hidden="true"><span>Area</span><span>What I do</span><span>Proof</span><span>Where</span></div>
 
-      <div class="cap-row">
+      <div class="cap-row" id="cap-realtime">
         <h3 class="cap-area"><span class="n">01</span>Real-time 3D &amp; point clouds</h3>
-        <p class="cap-what">Multi-sensor point clouds fused and rendered live in Unity — custom compute and shaders, temporal smoothing, a persistent background plate.</p>
-        <ul class="chips"><li>Unity</li><li>C#</li><li>Compute shaders</li><li>Unreal Engine</li><li>Blender</li></ul>
-        <div class="cap-proof"><a href="#real-and-rendered">real &amp; rendered</a></div>
+        <p class="cap-what">Point clouds from several depth sensors, fused and rendered live in Unity — custom compute and shaders, temporal smoothing, a persistent background plate.</p>
+        <p class="cap-proof">Two Kinect v1 streams merged into one live cloud of a gallery, projected on two walls for eight days straight.</p>
+        <div class="cap-where"><a href="#real-and-rendered/fuse">real &amp; rendered <b>→ Fuse</b></a></div>
       </div>
 
-      <div class="cap-row">
+      <div class="cap-row" id="cap-vision">
         <h3 class="cap-area"><span class="n">02</span>Computer vision &amp; sensing</h3>
-        <p class="cap-what">Depth capture and two-sensor calibration (ICP), presence and per-person height tracking, face mesh and pose turned into structured model inputs.</p>
-        <ul class="chips"><li>Kinect v1</li><li>MediaPipe</li><li>ICP</li><li>Python</li></ul>
-        <div class="cap-proof"><a href="#real-and-rendered">real &amp; rendered</a></div>
+        <p class="cap-what">Depth capture, two-sensor calibration, presence and per-person height tracking, face and pose tracking turned into inputs a model can read.</p>
+        <p class="cap-proof">Face mesh and pose at 2 Hz, emitted as four discrete labels — the language model went from guessing posture to reading it.</p>
+        <div class="cap-where"><a href="#real-and-rendered/perceive">real &amp; rendered <b>→ Perceive</b></a><a href="#real-and-rendered/sense">real &amp; rendered <b>→ Sense</b></a></div>
       </div>
 
-      <div class="cap-row">
+      <div class="cap-row" id="cap-ai">
         <h3 class="cap-area"><span class="n">03</span>Local AI systems</h3>
-        <p class="cap-what">Offline, multi-model pipelines across two machines — vision-language captioning, CLIP recall, a brain-encoding model as live input — with async workers and a degraded mode when a node drops.</p>
-        <ul class="chips"><li>Ollama</li><li>LLaVA</li><li>TRIBE v2</li><li>open_clip</li><li>Python</li><li>REST</li></ul>
-        <div class="cap-proof"><a href="#real-and-rendered">real &amp; rendered</a></div>
+        <p class="cap-what">Offline pipelines across machines — vision-language captioning, embeddings for recall, a brain-encoding model as a live input.</p>
+        <p class="cap-proof">Cut latency from ~12 s to ~5 s per thought with async workers; a degraded mode kept it speaking when the GPU host dropped.</p>
+        <div class="cap-where"><a href="#real-and-rendered/gpu">real &amp; rendered <b>→ GPU host</b></a></div>
       </div>
 
-      <div class="cap-row">
+      <div class="cap-row" id="cap-behaviour">
         <h3 class="cap-area"><span class="n">04</span>Model behaviour</h3>
-        <p class="cap-what">Making a model sound like a place, not an assistant: persona prompts, output filters, fixation detection, memory injection and a nightly self-reflection — tuned against 982 logged outputs.</p>
-        <ul class="chips"><li>Prompt design</li><li>Output filtering</li><li>Log-driven evals</li></ul>
-        <div class="cap-proof"><a href="#real-and-rendered">real &amp; rendered</a></div>
+        <p class="cap-what">Making a model sound like a place, not an assistant — persona prompts, output filters, fixation detection, memory and a nightly self-reflection.</p>
+        <p class="cap-proof">Iterated against 982 logged outputs; refusal filtering keeps one bad night out of long-term memory.</p>
+        <div class="cap-where"><a href="#real-and-rendered/speak">real &amp; rendered <b>→ Speak</b></a><a href="#real-and-rendered/memory">real &amp; rendered <b>→ Memory</b></a></div>
       </div>
 
-      <div class="cap-row">
+      <div class="cap-row" id="cap-av">
         <h3 class="cap-area"><span class="n">05</span>Projection &amp; AV</h3>
-        <p class="cap-what">Projection mapping and multi-projector rigs: setup, calibration, live operation and strike — from a 20,000-lumen laser projector to a three-projector installation.</p>
-        <ul class="chips"><li>Panasonic PT-MZ20K</li><li>Unity</li><li>TouchDesigner</li><li>Multi-display</li></ul>
-        <div class="cap-proof"><a href="#projection-mapping">Projection mapping</a><a href="#real-and-rendered">real &amp; rendered</a></div>
+        <p class="cap-what">Projection mapping and multi-projector rigs — setup, calibration, live operation and strike.</p>
+        <p class="cap-proof">Ran a 20,000-lumen Panasonic PT-MZ20K end to end at AWE; three daisy-chained projectors in the thesis installation.</p>
+        <div class="cap-where"><a href="#projection-mapping">Projection mapping</a><a href="#real-and-rendered/show">real &amp; rendered <b>→ Show</b></a></div>
       </div>
 
-      <div class="cap-row">
+      <div class="cap-row" id="cap-film">
         <h3 class="cap-area"><span class="n">06</span>Generative &amp; time-based media</h3>
-        <p class="cap-what">Handmade sets, slides and analog footage extended with generative video, then edited and finished.</p>
-        <ul class="chips"><li>Generative video</li><li>Adobe Suite</li><li>Analog capture</li></ul>
-        <div class="cap-proof"><a href="#physical-generated">Physical → Generated</a></div>
+        <p class="cap-what">Films built from handmade sets, slides and analog footage, extended with generative video and edited to finish.</p>
+        <p class="cap-proof"><em>Return Without Reason</em> — an analog experiment after Stan Brakhage, reanimated with generative video.</p>
+        <div class="cap-where"><a href="#physical-generated">Physical → Generated</a></div>
       </div>
     </div>
   </section>
 
-  <!-- ── 03 ENGINEERING ─────────────────────────────────────── -->
-  <section class="sec" id="engineering">
-    <div class="sec-head">
-      <div>
-        <p class="sec-label"><span>03</span>Engineering notes</p>
-        <h2 class="sec-title">What broke, and the fix</h2>
-      </div>
-      <p class="sec-note">From the real &amp; rendered build log — problems that surfaced live, in front of visitors.</p>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>982</b><span>Thoughts spoken</span></div>
-      <div class="stat"><b>45</b><span>Visits recorded</span></div>
-      <div class="stat"><b>13h 18m</b><span>Occupied</span></div>
-      <div class="stat"><b>8</b><span>Days live</span></div>
-    </div>
-    <div class="eng-grid">
-      <article class="eng">
-        <p class="eng-tag">Latency</p>
-        <h3>12 s → 5 s per thought</h3>
-        <p class="body">Capture, brain model, language model and caption ran in series — two thoughts for a 30-second visit. A single-slot clip producer and an async brain worker decoupled them; the language model now reads the freshest result instead of waiting.</p>
-      </article>
-      <article class="eng">
-        <p class="eng-tag">Signal</p>
-        <h3>A brain signal that never moved</h3>
-        <p class="body">Raw activations sat between 0.00 and 0.01, so nothing downstream changed. Each value is rescaled against its own rolling 10th–90th percentile (300 samples) — real range, plus a trigger for a “strange mode”.</p>
-      </article>
-      <article class="eng">
-        <p class="eng-tag">Resilience</p>
-        <h3>Keep thinking when the GPU host drops</h3>
-        <p class="body">One failed parse used to crash the loop. In degraded mode the client logs once, feeds synthetic zeros so the local model keeps speaking, and re-probes <code>/health</code> every 60 s.</p>
-      </article>
-      <article class="eng">
-        <p class="eng-tag">Recall</p>
-        <h3>Telling two visitors apart</h3>
-        <p class="body">Colour histograms could tell day from night, not one person from another. A CLIP ViT-B-32 server embeds every arrival (512-d); cosine similarity, tuned to 0.84, lets the room say “you came back” and mean it.</p>
-      </article>
-    </div>
-    <div class="sec-foot"><a class="text-link" href="#real-and-rendered">Full case file — pipeline, spec sheet, more notes →</a></div>
-  </section>
-
-  <!-- ── 04 STACK + 05 CONTACT ──────────────────────────────── -->
+  <!-- ── 03 STACK + 04 CONTACT ──────────────────────────────── -->
   <section class="sec" id="stack">
     <div class="split">
       <div>
-        <p class="sec-label"><span>04</span>Stack</p>
+        <p class="sec-label"><span>03</span>Stack</p>
         <h2 class="sec-title">Tools &amp; languages</h2>
         <dl class="stack-list">
           <div><dt>Languages</dt><dd>C · C++ · C# · Python</dd></div>
@@ -635,11 +569,12 @@
         </dl>
       </div>
       <div id="contact">
-        <p class="sec-label"><span>05</span>Contact</p>
+        <p class="sec-label"><span>04</span>Contact</p>
         <h2 class="sec-title">Get in touch</h2>
         <a class="contact-mail" href="mailto:ahmedjamalmalik1@gmail.com">ahmedjamalmalik1@gmail.com</a>
         <div class="contact-links">
           <a href="https://www.linkedin.com/in/ahmedjmalik/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/ahmedmalik-cmd" target="_blank" rel="noopener">GitHub ↗</a>
           <a href="/">Art portfolio ↗</a>
           <a href="/the-room/">real &amp; rendered — project page ↗</a>
         </div>
@@ -669,29 +604,23 @@
     <article class="cf-case" data-case="real-and-rendered" data-title="real &amp; rendered" hidden>
       <header class="cf-head">
         <div>
-          <ul class="tags"><li>Installation</li><li>Computer vision</li><li>Local AI</li></ul>
+          <ul class="tags"><li>Installation</li><li>Distributed system</li><li>Local AI</li></ul>
           <h2 class="cf-title">real &amp; rendered</h2>
           <p class="cf-sub">Senior thesis · Bennington College<br>Usdan Gallery · 18–26 May 2026</p>
         </div>
-        <p class="cf-lede">An eight-day installation that thinks about the people inside it. Two depth sensors build a live point cloud of the gallery; a local vision-language model — fed by a brain-encoding model, pose tracking and visual memory — says what it notices on the third wall. Nothing leaves the building.</p>
+        <p class="cf-lede">The engineering behind the installation: two machines, three projectors and seven components that turned depth sensors into a room that talks. This file is the system view — the concept, the voice and what it said live on the project page.</p>
       </header>
-      <div class="stats">
-        <div class="stat"><b>982</b><span>Thoughts spoken</span></div>
-        <div class="stat"><b>45</b><span>Visits recorded</span></div>
-        <div class="stat"><b>13h 18m</b><span>Occupied</span></div>
-        <div class="stat"><b>8</b><span>Days live</span></div>
-      </div>
       <div class="cf-body">
         <aside class="cf-spec"><div class="cf-spec-inner">
           <p class="cf-h">Spec sheet</p>
           <dl class="spec-dl">
-            <div><dt>Sensors</dt><dd>2 × Kinect v1 · depth + RGB, 640 × 480 @ 30 fps · opposing corners, ~3 m apart</dd></div>
-            <div><dt>Point cloud</dt><dd>Unity · custom compute + shader · ICP-aligned · temporal smoothing · persistent background plate</dd></div>
-            <div><dt>Perception loop</dt><dd>Python · four parallel workers · 2 s clips @ 8 fps</dd></div>
-            <div><dt>Models</dt><dd>LLaVA via Ollama (local) · TRIBE v2 brain encoder · open_clip ViT-B-32 · MediaPipe Face Mesh + Pose</dd></div>
+            <div><dt>Runtime</dt><dd>8 days, continuous, in public</dd></div>
+            <div><dt>Sensors</dt><dd>2 × Kinect v1 · depth + RGB, 640 × 480 @ 30 fps</dd></div>
+            <div><dt>Point cloud</dt><dd>~140,000 points per frame · Unity · custom compute + shader</dd></div>
             <div><dt>Compute</dt><dd>Installation PC + RTX 3090 on the LAN · REST: <code>/predict</code>, <code>/embed</code></dd></div>
-            <div><dt>Display</dt><dd>3 projectors — 2 × point cloud, 1 × captions · in-piece calibration</dd></div>
-            <div><dt>Memory</dt><dd>JSON on disk — every thought, visit and nightly reflection</dd></div>
+            <div><dt>Models</dt><dd>LLaVA via Ollama (local) · TRIBE v2 · open_clip ViT-B-32 · MediaPipe Face Mesh + Pose</dd></div>
+            <div><dt>Latency</dt><dd>~5 s per thought, down from ~12 s</dd></div>
+            <div><dt>Display</dt><dd>3 projectors — 2 × point cloud, 1 × captions</dd></div>
             <div><dt>Input</dt><dd>Moog Theremini · MIDI → OSC → cloud hue</dd></div>
             <div><dt>Network</dt><dd>Fully local · degraded mode if the GPU host drops</dd></div>
           </dl>
@@ -699,73 +628,152 @@
         <div class="cf-main">
           <section class="cf-sec">
             <p class="cf-h">What I built</p>
-            <p class="txt">The system, end to end: a Unity bridge that fuses two Kinect v1 depth streams into one live point cloud, with presence and per-person height tracking; a Python perception loop that runs its workers in parallel so nothing blocks; a GPU machine on the LAN serving a TRIBE v2 brain-encoding model and a CLIP embedding server; and the prompt assembly that turns <strong>seven streams of context</strong> into one line from a local LLaVA model — projected on the third wall, written to memory, and reflected on every night at 4 AM.</p>
+            <p class="txt">The whole pipeline, from sensor to wall: a Unity bridge that fuses two depth streams into one live point cloud; a Python perception loop that runs its workers in parallel so nothing blocks; a GPU machine on the LAN serving a brain-encoding model and an embedding server; and the prompt assembly that turns <strong>seven streams of context</strong> into one line from a local vision-language model.</p>
           </section>
 
-          <section class="cf-sec">
-            <p class="cf-h">How it works</p>
+          <section class="cf-sec explorer" id="explorer">
+            <p class="cf-h">System map</p>
+            <p class="map-hint">Select a component — what it does, where it runs, what broke and the fix.</p>
             <div class="diagram">
-              <svg viewBox="0 0 1000 320" role="img" aria-labelledby="dg-t dg-d">
-                <title id="dg-t">real &amp; rendered — system pipeline</title>
-                <desc id="dg-d">Two Kinect sensors feed a Unity bridge that fuses one point cloud for two projectors. The RGB stream feeds a Python perception loop running a brain-encoding model, CLIP and pose tracking; their outputs build a prompt for a local LLaVA model whose caption goes to the third projector and into memory, which is injected back into the prompt.</desc>
-                <path class="d-dash" d="M297 84 V44 H903 V77"/><polygon class="d-arrow" points="903,84 899,76 907,76"/>
-                <text class="d-label" x="600" y="36" text-anchor="middle">merged point cloud → projectors A + B</text>
+              <svg viewBox="0 0 1000 340" role="group" aria-label="real &amp; rendered system map">
+                <path class="d-dash" d="M297 86 V46 H903 V79"/><polygon class="d-arrow" points="903,86 899,78 907,78"/>
+                <text class="d-label" x="600" y="38" text-anchor="middle">merged point cloud → projectors A + B</text>
 
-                <rect class="d-box" x="10" y="84" width="170" height="104"/>
-                <text class="d-stage" x="24" y="106">01 SENSE</text>
-                <text class="d-title" x="24" y="130">2 × Kinect v1</text>
-                <text class="d-sub" x="24" y="152">depth + RGB · 30 fps</text>
-                <text class="d-sub" x="24" y="168">opposing corners</text>
+                <g class="node" data-node="sense" tabindex="0" role="button" aria-label="Sense: two Kinect v1 sensors">
+                  <rect class="d-box" x="10" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="24" y="108">01 SENSE</text>
+                  <text class="d-title" x="24" y="132">2 × Kinect v1</text>
+                  <text class="d-sub" x="24" y="154">depth + RGB · 30 fps</text>
+                  <text class="d-sub" x="24" y="170">opposing corners</text>
+                </g>
+                <g class="node" data-node="fuse" tabindex="0" role="button" aria-label="Fuse: Unity bridge">
+                  <rect class="d-box" x="212" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="226" y="108">02 FUSE</text>
+                  <text class="d-title" x="226" y="132">Unity bridge</text>
+                  <text class="d-sub" x="226" y="154">merge · ICP · smooth</text>
+                  <text class="d-sub" x="226" y="170">plate · presence</text>
+                </g>
+                <g class="node" data-node="perceive" tabindex="0" role="button" aria-label="Perceive: perception loop">
+                  <rect class="d-box" x="414" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="428" y="108">03 PERCEIVE</text>
+                  <text class="d-title" x="428" y="132">Perception loop</text>
+                  <text class="d-sub" x="428" y="154">clips · pose · recall</text>
+                  <text class="d-sub" x="428" y="170">7 context streams</text>
+                </g>
+                <g class="node" data-node="speak" tabindex="0" role="button" aria-label="Speak: LLaVA via Ollama">
+                  <rect class="d-box" x="616" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="630" y="108">05 SPEAK</text>
+                  <text class="d-title" x="630" y="132">LLaVA via Ollama</text>
+                  <text class="d-sub" x="630" y="154">local · one line</text>
+                  <text class="d-sub" x="630" y="170">persona · filters</text>
+                </g>
+                <g class="node" data-node="show" tabindex="0" role="button" aria-label="Show: three projectors">
+                  <rect class="d-box" x="818" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="832" y="108">06 SHOW</text>
+                  <text class="d-title" x="832" y="132">3 projectors</text>
+                  <text class="d-sub" x="832" y="154">A + B · point cloud</text>
+                  <text class="d-sub" x="832" y="170">C · captions</text>
+                </g>
+                <g class="node" data-node="gpu" tabindex="0" role="button" aria-label="GPU host: TRIBE v2 and CLIP">
+                  <rect class="d-box" x="414" y="242" width="170" height="90"/>
+                  <text class="d-stage" x="428" y="264">04 GPU HOST</text>
+                  <text class="d-title" x="428" y="288">TRIBE v2 + CLIP</text>
+                  <text class="d-sub" x="428" y="310">RTX 3090 · LAN · REST</text>
+                </g>
+                <g class="node" data-node="memory" tabindex="0" role="button" aria-label="Memory: JSON on disk">
+                  <rect class="d-box" x="616" y="242" width="170" height="90"/>
+                  <text class="d-stage" x="630" y="264">07 MEMORY</text>
+                  <text class="d-title" x="630" y="288">JSON on disk</text>
+                  <text class="d-sub" x="630" y="310">04:00 reflection</text>
+                </g>
 
-                <rect class="d-box" x="212" y="84" width="170" height="104"/>
-                <text class="d-stage" x="226" y="106">02 FUSE</text>
-                <text class="d-title" x="226" y="130">Unity bridge</text>
-                <text class="d-sub" x="226" y="152">merge · ICP · smooth</text>
-                <text class="d-sub" x="226" y="168">plate · presence</text>
+                <path class="d-line" d="M180 138 H205"/><polygon class="d-arrow" points="212,138 204,134 204,142"/>
+                <path class="d-line" d="M382 138 H407"/><polygon class="d-arrow" points="414,138 406,134 406,142"/>
+                <path class="d-line" d="M584 138 H609"/><polygon class="d-arrow" points="616,138 608,134 608,142"/>
+                <path class="d-line" d="M786 138 H811"/><polygon class="d-arrow" points="818,138 810,134 810,142"/>
+                <text class="d-label" x="398" y="128" text-anchor="middle">RGB</text>
+                <text class="d-label" x="600" y="128" text-anchor="middle">prompt</text>
+                <text class="d-label" x="802" y="128" text-anchor="middle">line</text>
 
-                <rect class="d-box" x="414" y="84" width="170" height="104"/>
-                <text class="d-stage" x="428" y="106">03 PERCEIVE</text>
-                <text class="d-title" x="428" y="130">Perception loop</text>
-                <text class="d-sub" x="428" y="152">TRIBE v2 + CLIP · 3090</text>
-                <text class="d-sub" x="428" y="168">MediaPipe pose · 2 Hz</text>
-
-                <rect class="d-box" x="616" y="84" width="170" height="104"/>
-                <text class="d-stage" x="630" y="106">04 SPEAK</text>
-                <text class="d-title" x="630" y="130">LLaVA via Ollama</text>
-                <text class="d-sub" x="630" y="152">7 context streams</text>
-                <text class="d-sub" x="630" y="168">persona · filters</text>
-
-                <rect class="d-box" x="818" y="84" width="170" height="104"/>
-                <text class="d-stage" x="832" y="106">05 SHOW</text>
-                <text class="d-title" x="832" y="130">3 projectors</text>
-                <text class="d-sub" x="832" y="152">A + B · point cloud</text>
-                <text class="d-sub" x="832" y="168">C · captions</text>
-
-                <path class="d-line" d="M180 136 H205"/><polygon class="d-arrow" points="212,136 204,132 204,140"/>
-                <path class="d-line" d="M382 136 H407"/><polygon class="d-arrow" points="414,136 406,132 406,140"/>
-                <path class="d-line" d="M584 136 H609"/><polygon class="d-arrow" points="616,136 608,132 608,140"/>
-                <path class="d-line" d="M786 136 H811"/><polygon class="d-arrow" points="818,136 810,132 810,140"/>
-                <text class="d-label" x="398" y="126" text-anchor="middle">RGB</text>
-                <text class="d-label" x="802" y="126" text-anchor="middle">line</text>
-
-                <rect class="d-mem" x="414" y="236" width="372" height="68"/>
-                <text class="d-stage" x="428" y="257">MEMORY · JSON</text>
-                <text class="d-title" x="428" y="279">thoughts · visits · CLIP signatures</text>
-                <text class="d-sub" x="428" y="296">04:00 nightly reflection → tomorrow’s prompt</text>
-                <path class="d-line" d="M701 188 V229"/><polygon class="d-arrow" points="701,236 697,228 705,228"/>
-                <text class="d-label" x="709" y="216">write</text>
-                <path class="d-dash" d="M499 236 V195"/><polygon class="d-arrow" points="499,188 495,196 503,196"/>
-                <text class="d-label" x="507" y="216">inject</text>
+                <path class="d-line" d="M478 190 V235"/><polygon class="d-arrow" points="478,242 474,234 482,234"/>
+                <path class="d-dash" d="M520 242 V197"/><polygon class="d-arrow" points="520,190 516,198 524,198"/>
+                <text class="d-label" x="470" y="220" text-anchor="end">clip · frame</text>
+                <text class="d-label" x="528" y="220">scores · vector</text>
+                <path class="d-line" d="M680 190 V235"/><polygon class="d-arrow" points="680,242 676,234 684,234"/>
+                <path class="d-dash" d="M722 242 V197"/><polygon class="d-arrow" points="722,190 718,198 726,198"/>
+                <text class="d-label" x="672" y="220" text-anchor="end">write</text>
+                <text class="d-label" x="730" y="220">inject</text>
               </svg>
             </div>
-            <p class="txt">Two depth sensors in opposite corners stream to the Unity bridge, which merges them into one cloud for two projectors. The RGB stream feeds the perception loop: 2-second clips go to the brain-encoding model, single frames to pose tracking and CLIP recall. Their outputs, the time, the visitor’s history and last night’s note are assembled into a prompt for the local vision-language model. Its line goes to the third projector, and into memory.</p>
+
+            <div class="node-detail" data-node="sense" hidden>
+              <div class="nd-head"><span class="nd-kicker">01 · Sense</span><h4>2 × Kinect v1</h4><span class="nd-where">Hardware · opposing corners, ~3 m apart</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Depth + RGB at 640 × 480, 30 fps each, angled inward and slightly down so the two views overlap across the room.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>The sensor frames are aligned by ICP. A “place sensors from blueprint” shortcut snapped both back to rough positions mid-run and tore a seam through the cloud — now flagged as destructive; the saved calibration is reloaded instead.</p></div>
+              </div>
+              <ul class="chips"><li>Kinect v1</li><li>Depth + RGB</li><li>ICP calibration</li></ul>
+            </div>
+            <div class="node-detail" data-node="fuse" hidden>
+              <div class="nd-head"><span class="nd-kicker">02 · Fuse</span><h4>Unity bridge</h4><span class="nd-where">Installation PC · Unity / C#</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Merges both clouds, smooths depth over time, fills brief dropouts from a persistent background plate, detects presence and per-person heights, and writes <code>presence.json</code> for the perception loop.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>The plate kept restoring depth captured at an old 4 m range after the range was raised to 8 m, slicing the far wall off. It now resets itself whenever min or max depth changes.</p></div>
+              </div>
+              <ul class="chips"><li>Unity</li><li>C#</li><li>Compute shader</li><li>BridgePointCloudManager.cs</li></ul>
+            </div>
+            <div class="node-detail" data-node="perceive" hidden>
+              <div class="nd-head"><span class="nd-kicker">03 · Perceive</span><h4>Perception loop</h4><span class="nd-where">Installation PC · Python</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Pulls the merged RGB stream and runs workers in parallel — 2-second clips at 8 fps for the brain model, single frames for MediaPipe pose (2 Hz) and recall — then assembles seven streams of context into one prompt.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>It started serial — capture, brain, language model, caption — about 12 s per thought. A single-slot clip producer and an async brain worker let the language model read the freshest result instead of waiting: about 5 s.</p></div>
+              </div>
+              <ul class="chips"><li>Python</li><li>Threading</li><li>MediaPipe</li><li>tribe_kinect_client.py</li></ul>
+            </div>
+            <div class="node-detail" data-node="gpu" hidden>
+              <div class="nd-head"><span class="nd-kicker">04 · GPU host</span><h4>TRIBE v2 + CLIP</h4><span class="nd-where">RTX 3090 on the LAN · REST</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>TRIBE v2 predicts cortical activation from each 2-second clip (<code>POST /predict</code>). open_clip ViT-B-32 embeds every arrival as a 512-d vector (<code>POST /embed</code>), so the room can recognise a return.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>Raw activations sat between 0.00 and 0.01, so they’re rescaled against a rolling 10th–90th percentile (300 samples). If the host drops, the client feeds synthetic zeros and re-probes <code>/health</code> every 60 s. Recall matches at cosine 0.84.</p></div>
+              </div>
+              <ul class="chips"><li>TRIBE v2</li><li>open_clip</li><li>REST</li><li>RTX 3090</li></ul>
+            </div>
+            <div class="node-detail" data-node="speak" hidden>
+              <div class="nd-head"><span class="nd-kicker">05 · Speak</span><h4>LLaVA via Ollama</h4><span class="nd-where">Installation PC · local, offline</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Turns the assembled prompt and the current frame into one short line — a noticing, a guess, a question — every thirty seconds or so.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>It defaulted to help-desk speech. Shaped against the logs: a first-person persona, regex filters for third-person and greeter phrasing, a fixation analyser that steers off repeated words, and a 30-second gate during long visits.</p></div>
+              </div>
+              <ul class="chips"><li>Ollama</li><li>LLaVA</li><li>Prompt assembly</li><li>Output filters</li></ul>
+            </div>
+            <div class="node-detail" data-node="show" hidden>
+              <div class="nd-head"><span class="nd-kicker">06 · Show</span><h4>3 projectors</h4><span class="nd-where">Daisy-chained extended displays</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Two project the merged point cloud, calibrated in-piece; the third shows the room’s line on black, over a top-down view of the cloud.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>The caption canvas was depth-tested against the cloud, so points drew over the text. It moved to a screen-space overlay with a backing band and outlined glyphs, under one CanvasGroup so the fades still animate together.</p></div>
+              </div>
+              <ul class="chips"><li>Unity</li><li>Multi-display</li><li>CaptionProjector.cs</li></ul>
+            </div>
+            <div class="node-detail" data-node="memory" hidden>
+              <div class="nd-head"><span class="nd-kicker">07 · Memory</span><h4>JSON on disk</h4><span class="nd-where">room_memory.json · visits.json · Episodes/</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Keeps every thought and every visit — arrival, duration, CLIP signature, thumbnail — plus a reflection written at 4 AM with the room empty, which is injected into the next day’s prompt.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>One night the reflection came back as a chatbot refusal and was stored as memory. Replies with refusal patterns are now discarded before saving, and filtered again at injection.</p></div>
+              </div>
+              <ul class="chips"><li>JSON</li><li>Nightly reflection</li><li>Memory injection</li></ul>
+            </div>
           </section>
 
           <figure class="fig">
             <video muted loop playsinline preload="none" controls data-auto
                    poster="/the-room/media/perceive_poster.jpg"
                    data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-perceive.mp4"></video>
-            <figcaption>The room perceiving a visitor inside the live point cloud.</figcaption>
+            <figcaption>The running system — a visitor inside the live point cloud.</figcaption>
+          </figure>
+
+          <figure class="fig">
+            <img src="/the-room/media/cloud_hud.jpg" alt="The Unity bridge's live HUD over the point cloud" loading="lazy">
+            <figcaption>The bridge’s live HUD — sensors connected, points per frame, post-processing time, plate coverage, per-sensor presence, model state.</figcaption>
           </figure>
 
           <figure class="fig">
@@ -773,54 +781,10 @@
               <canvas></canvas>
               <div class="viewer-status">Loading the gallery as points…</div>
             </div>
-            <figcaption>The gallery itself as ~90,000 gaussian splats — photogrammetry scan, coloured like the live cloud. Drag to orbit, scroll to zoom.</figcaption>
+            <figcaption>The gallery as ~90,000 gaussian splats — photogrammetry scan, coloured like the live cloud. Drag to orbit, scroll to zoom.</figcaption>
           </figure>
 
-          <figure class="fig">
-            <div class="fig-3">
-              <img src="/the-room/media/cloud_hud.jpg" alt="Point cloud with the live debug HUD: sensors, point count, presence, model status" loading="lazy">
-              <img src="/the-room/media/cloud_person.jpg" alt="A visitor rendered inside the merged point cloud" loading="lazy">
-              <img src="/the-room/media/cloud_caption.jpg" alt="A spoken caption over the point cloud" loading="lazy">
-            </div>
-            <figcaption>Live HUD (sensors, point count, presence, model state) · a visitor in the merged cloud · a caption on the third wall.</figcaption>
-          </figure>
-
-          <figure class="fig">
-            <div class="fig-split">
-              <video muted loop playsinline preload="none" data-auto
-                     poster="/the-room/media/gallery_poster.jpg"
-                     data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-gallery.mp4"></video>
-              <div class="col">
-                <img src="/the-room/media/wire_figure.jpg" alt="Wire figure in the gallery" loading="lazy">
-                <img src="/the-room/media/cloud_wide.jpg" alt="Wide view of the projected point cloud" loading="lazy">
-              </div>
-            </div>
-            <figcaption>In the gallery — the physical room and its projected double.</figcaption>
-          </figure>
-
-          <section class="cf-sec">
-            <p class="cf-h">Engineering notes</p>
-            <div class="notes">
-              <div class="note"><p class="eng-tag">Latency</p><h4>12 s → 5 s per thought</h4><p>The pipeline ran in series. A single-slot clip producer and an async brain worker decoupled it; the language model reads the freshest result instead of blocking.</p></div>
-              <div class="note"><p class="eng-tag">Signal</p><h4>Adaptive normalisation</h4><p>Brain activations were flat (0.00–0.01). Rescaling against a rolling 10th–90th percentile over 300 samples gave the signal range — and a “strange mode” trigger.</p></div>
-              <div class="note"><p class="eng-tag">Resilience</p><h4>Degraded mode</h4><p>If the GPU host fails, the client feeds synthetic zeros so the local model keeps speaking, and re-probes <code>/health</code> every 60 s.</p></div>
-              <div class="note"><p class="eng-tag">Recall</p><h4>CLIP over colour histograms</h4><p>512-d ViT-B-32 embeddings per arrival; cosine similarity tuned to 0.84 so returning visitors are recognised by body, not lighting.</p></div>
-              <div class="note"><p class="eng-tag">Voice</p><h4>Not a help desk</h4><p>A first-person persona, regex filters for third-person and greeter phrasing, a fixation analyser, and a 30-second gate between thoughts during long visits.</p></div>
-              <div class="note"><p class="eng-tag">Rendering</p><h4>Captions eaten by the cloud</h4><p>The caption canvas was depth-tested against the point cloud. Moved to a screen-space overlay, with a backing band and outlined glyphs.</p></div>
-            </div>
-          </section>
-
-          <section class="cf-sec">
-            <p class="cf-h">What it said</p>
-            <ul class="quotes">
-              <li>You stood still, corner of the room.</li>
-              <li>Your left hand is resting on the floor while your right hand is slightly raised.</li>
-              <li>You came back.</li>
-              <li>You, right here, now.</li>
-            </ul>
-          </section>
-
-          <a class="text-link" href="/the-room/">Full project page — The Room →</a>
+          <a class="text-link" href="/the-room/">The concept, the voice and what it said — project page →</a>
         </div>
       </div>
       <div class="cf-end"><span class="sec-label" style="margin:0">01 / 03</span><a class="text-link" href="#projection-mapping">Next — Projection mapping →</a></div>
@@ -947,6 +911,7 @@ const narrow = () => innerWidth < 760;
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 const PINK = new THREE.Color(0xea5fb0);
+const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 
 /* Gaussian splat fragment: soft round falloff instead of square points. */
 const SPLAT_FS = `
@@ -959,13 +924,15 @@ const SPLAT_FS = `
   }`;
 
 /* ───────────────────────────────────────────────────────────────
-   1. The wire hand → one continuous volumetric point cloud.
-   Edges keep the wire structure; a closed silhouette + distance
-   transform "inflates" depth so the form closes at its outline —
-   one hand, not two shells.
+   1. The wire hand → a volumetric point cloud with a hand's anatomy.
+   Edges keep the wire structure. Each row of the closed silhouette
+   becomes an elliptical cross-section whose depth depends on what
+   it is: round fingers, a flat palm, an oval forearm — plus a slight
+   forward curl of the fingers. (Uniform "inflation" made it bulbous.)
    ─────────────────────────────────────────────────────────────── */
 function buildHand(img, SW, height) {
   const SH = Math.round(SW * img.height / img.width), k = SW / img.width, N = SW * SH;
+  const sc = SW / 340;                                  // tuning below was done at SW = 340
   const cv = document.createElement('canvas'); cv.width = SW; cv.height = SH;
   const cx = cv.getContext('2d', { willReadFrequently: true });
   cx.drawImage(img, 0, 0, SW, SH);
@@ -973,13 +940,14 @@ function buildHand(img, SW, height) {
   const L = new Float32Array(N);
   for (let i = 0; i < N; i++) L[i] = 0.299 * d[i*4] + 0.587 * d[i*4+1] + 0.114 * d[i*4+2];
 
-  // below the table edge, keep only the forearm's own outline (source px: y, left, right)
-  const band = [[540,196,368],[600,228,378],[650,261,388],[700,280,391],[750,326,399],[800,350,408],[840,356,410]];
+  // in source-image px: above the table edge keep the hand's column (drops wall cables);
+  // below it, only the forearm's own outline (drops the table edge and the hole)
+  const band = [[490,278,496],[560,300,498],[620,331,502],[680,363,508],[740,388,519],[800,409,534],[822,413,537]];
   const bandAt = (oy) => {
-    if (oy < 540) return [-1e9, 1e9];
+    if (oy < 490) return [95, 600];
     for (let j = 0; j < band.length - 1; j++) {
       const a = band[j], b = band[j+1];
-      if (oy < b[0]) { const u = (oy - a[0]) / (b[0] - a[0]); return [a[1] + (b[1]-a[1])*u - 6, a[2] + (b[2]-a[2])*u + 6]; }
+      if (oy < b[0]) { const u = (oy - a[0]) / (b[0] - a[0]); return [a[1] + (b[1]-a[1])*u, a[2] + (b[2]-a[2])*u]; }
     }
     return null;
   };
@@ -990,7 +958,7 @@ function buildHand(img, SW, height) {
     if (Math.abs(L[i] - L[i+1]) + Math.abs(L[i] - L[i+SW]) < 11) continue;
     const oy = y / k, ox = x / k, b = bandAt(oy);
     if (!b || ox < b[0] || ox > b[1]) continue;
-    if (oy >= 700) {           // inside the hole: rust wraps or bright wire only, not the mesh
+    if (oy >= 660) {           // inside the hole: rust wraps or bright wire only, not the mesh
       const R = d[i*4], G = d[i*4+1], B = d[i*4+2], sat = Math.max(R,G,B) - Math.min(R,G,B);
       if (!((sat > 22 && R > B + 10) || L[i] > 125)) continue;
     }
@@ -1015,28 +983,38 @@ function buildHand(img, SW, height) {
   };
   const M = morph(morph(E, 3, false), 2, true);
 
-  // chamfer 3-4 distance to the silhouette boundary
-  const D = new Float32Array(N);
-  for (let i = 0; i < N; i++) D[i] = M[i] ? 1e9 : 0;
-  const at = (x, y) => (x < 0 || y < 0 || x >= SW || y >= SH) ? 0 : D[y*SW + x];
-  for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) { const i = y*SW + x; if (M[i]) D[i] = Math.min(D[i], at(x-1,y)+3, at(x,y-1)+3, at(x-1,y-1)+4, at(x+1,y-1)+4); }
-  for (let y = SH-1; y >= 0; y--) for (let x = SW-1; x >= 0; x--) { const i = y*SW + x; if (M[i]) D[i] = Math.min(D[i], at(x+1,y)+3, at(x,y+1)+3, at(x+1,y+1)+4, at(x-1,y+1)+4); }
+  // per-row runs of the silhouette: centre + half-width for every pixel
+  const runC = new Float32Array(N), runR = new Float32Array(N);
+  for (let y = 0; y < SH; y++) {
+    let x = 0;
+    while (x < SW) {
+      if (!M[y*SW + x]) { x++; continue; }
+      let x1 = x; while (x1 < SW && M[y*SW + x1]) x1++;
+      const c = (x + x1 - 1) / 2, r = Math.max(1, (x1 - x) / 2);
+      for (let q = x; q < x1; q++) { runC[y*SW + q] = c; runR[y*SW + q] = r; }
+      x = x1;
+    }
+  }
 
-  const wpp = height / (maxY - minY);                // world units per sample px
+  const wpp = height / (maxY - minY);
   const ccx = (minX + maxX) / 2, ccy = (minY + maxY) / 2;
-  const floor = 0.013 * height;                      // thin edges still get a little depth: no seam
+  const palmTop = 330 * k, palmEnd = 400 * k, armStart = 470 * k;   // source px → sample px
   const pos = [], col = [], tmp = new THREE.Color();
   for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
-    const i = y*SW + x; if (!E[i]) continue;
-    const t = D[i] / 3, h = Math.max(t * wpp * 1.25, floor);
+    const i = y*SW + x; if (!E[i] || !runR[i]) continue;
+    const r = runR[i], u = Math.max(-1, Math.min(1, (x - runC[i]) / r));
+    const finger = 1 - smooth(9 * sc, 20 * sc, r);                 // narrow runs are fingers
+    const wide = 0.38 + (0.6 - 0.38) * smooth(palmEnd, armStart, y); // flat palm → oval forearm
+    const flat = wide + (0.95 - wide) * finger;
+    const h = Math.max(flat * r * Math.sqrt(1 - u * u), 0.9 * sc) * wpp;
+    const curl = y < palmTop ? 0.55 * Math.pow((palmTop - y) / (palmTop - minY), 2) : 0;
     const px = (x - ccx) * wpp, py = (ccy - y) * wpp;
     tmp.setRGB(Math.min(1, d[i*4]/255*1.3), Math.min(1, d[i*4+1]/255*1.3), Math.min(1, d[i*4+2]/255*1.3)).lerp(PINK, 0.35);
-    const reps = t < 1.5 ? 1 : 2;
-    for (let r = 0; r < reps; r++) {
-      // 60% on the surface, 40% through the interior → one solid volume
-      const z = Math.random() < 0.6 ? (Math.random() < 0.5 ? -1 : 1) * h * (0.86 + 0.14 * Math.random())
-                                    : (Math.random() * 2 - 1) * h;
-      pos.push(px + (Math.random() - 0.5) * wpp, py + (Math.random() - 0.5) * wpp, z + (Math.random() - 0.5) * 0.05);
+    for (let rep = 0; rep < 2; rep++) {
+      // 65% on the surface, 35% through the interior → one solid volume
+      const z = Math.random() < 0.65 ? (Math.random() < 0.5 ? -1 : 1) * h * (0.9 + 0.1 * Math.random())
+                                     : (Math.random() * 2 - 1) * h;
+      pos.push(px + (Math.random() - 0.5) * wpp, py + (Math.random() - 0.5) * wpp, z + curl);
       col.push(tmp.r, tmp.g, tmp.b);
     }
   }
@@ -1083,7 +1061,8 @@ const HERO_VS = `
   const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 200);
   camera.position.set(0, 0, 18);
   const group = new THREE.Group(); scene.add(group);
-  let mat = null, ready = false, count = 0;
+  group.rotation.y = +new URLSearchParams(location.search).get('ry') || 0;   // ?ry=1.57 → start side-on (review)
+  let mat = null, ready = false;
 
   function layout() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -1106,8 +1085,7 @@ const HERO_VS = `
 
   const img = new Image();
   img.onload = () => {
-    const hand = buildHand(img, narrow() ? 210 : 320, 10.5);
-    count = hand.n;
+    const hand = buildHand(img, narrow() ? 240 : 380, 10.5);
     const scatter = new Float32Array(hand.n * 3), rand = new Float32Array(hand.n);
     const g = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;   // soft, no hard edge
     for (let i = 0; i < hand.n; i++) {
@@ -1133,10 +1111,10 @@ const HERO_VS = `
     group.add(new THREE.Points(geo, mat));
     layout();
     ready = true;
-    hud.points.textContent = count.toLocaleString();
+    hud.points.textContent = hand.n.toLocaleString();
     requestAnimationFrame(() => { canvas.style.opacity = '1'; });
   };
-  img.src = '/tech/media/room-wire.jpg';
+  img.src = '/tech/media/wire-hand.jpg';
 
   // ~18 s cycle: nebula → resolve → hold → dissolve
   const CYCLE = 18;
@@ -1175,10 +1153,7 @@ const HERO_VS = `
     group.rotation.x += ((inHero ? -mouse.y * 0.12 : 0) - group.rotation.x) * Math.min(1, dt * 2);
     renderer.render(scene, camera);
     fpsT += dt; fpsN++;
-    if (fpsT > 0.5) {
-      hud.fps.textContent = Math.round(fpsN / fpsT) + ' fps · webgl';
-      fpsT = 0; fpsN = 0;
-    }
+    if (fpsT > 0.5) { hud.fps.textContent = Math.round(fpsN / fpsT) + ' fps · webgl'; fpsT = 0; fpsN = 0; }
     if (state !== lastState) { hud.state.textContent = state; lastState = state; }
   }
   let visible = true, caseOpen = false;
@@ -1271,15 +1246,51 @@ async function startRoom() {
 }
 
 /* ───────────────────────────────────────────────────────────────
-   5. Case files: hash-routed overlay (#real-and-rendered etc.) —
-   shareable links, back button closes, ← → to move between cases.
+   5. System map (case file 01): select a component.
+   ─────────────────────────────────────────────────────────────── */
+const NODES = ['sense', 'fuse', 'perceive', 'gpu', 'speak', 'show', 'memory'];
+const cfScroll = document.getElementById('cf-scroll');
+function selectNode(id, scroll) {
+  if (!NODES.includes(id)) return;
+  document.querySelectorAll('.explorer .node').forEach(n => {
+    const on = n.dataset.node === id;
+    n.classList.toggle('is-on', on); n.setAttribute('aria-pressed', on);
+  });
+  document.querySelectorAll('.explorer .node-detail').forEach(p => { p.hidden = p.dataset.node !== id; });
+  // on narrow screens the map scrolls sideways — bring the selected component into view
+  const dg = document.querySelector('.explorer .diagram');
+  const box = document.querySelector(`.explorer .node[data-node="${id}"] rect`);
+  if (dg && box && dg.scrollWidth > dg.clientWidth + 1) {
+    const s = dg.querySelector('svg').clientWidth / 1000;
+    dg.scrollLeft = (+box.getAttribute('x') + +box.getAttribute('width') / 2) * s - dg.clientWidth / 2;
+  }
+  if (scroll) requestAnimationFrame(() => {
+    const ex = document.getElementById('explorer');
+    cfScroll.scrollTop += ex.getBoundingClientRect().top - cfScroll.getBoundingClientRect().top - 24;
+  });
+}
+const pickNode = (id) => {
+  selectNode(id);
+  history.replaceState(history.state, '', '#real-and-rendered/' + id);   // the URL is the shareable view
+};
+document.querySelectorAll('.explorer .node').forEach(n => {
+  n.addEventListener('click', () => pickNode(n.dataset.node));
+  n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickNode(n.dataset.node); } });
+});
+selectNode('perceive');
+
+/* ───────────────────────────────────────────────────────────────
+   6. Case files: hash-routed overlay (#real-and-rendered,
+   #real-and-rendered/fuse …) — shareable links, back button closes,
+   ← → to move between cases.
    ─────────────────────────────────────────────────────────────── */
 const CASES = ['real-and-rendered', 'projection-mapping', 'physical-generated'];
 const BASE_TITLE = document.title;
-const cf = document.getElementById('cf'), cfScroll = document.getElementById('cf-scroll');
+const cf = document.getElementById('cf');
 const cfIndex = document.getElementById('cf-index');
 const mainEl = document.getElementById('main'), headerEl = document.querySelector('header.site');
 let currentCase = null, opener = null;
+const parse = (h) => { const [id, sub] = decodeURIComponent(h.replace(/^#/, '')).split('/'); return { id, sub }; };
 
 function show(id) {
   const wasOpen = !!currentCase;
@@ -1324,13 +1335,16 @@ function hide() {
 }
 
 function route() {
-  const id = decodeURIComponent(location.hash.slice(1));
-  if (CASES.includes(id)) show(id); else hide();
+  const { id, sub } = parse(location.hash);
+  if (CASES.includes(id)) { show(id); if (sub) selectNode(sub, true); }
+  else hide();
 }
-function go(id) {
-  if (currentCase) history.replaceState({ cf: true }, '', '#' + id);
-  else history.pushState({ cf: true }, '', '#' + id);
+function go(id, sub) {
+  const h = '#' + id + (sub ? '/' + sub : '');
+  if (currentCase) history.replaceState({ cf: true }, '', h);
+  else history.pushState({ cf: true }, '', h);
   show(id);
+  if (sub) selectNode(sub, true);
 }
 function close() {
   if (history.state && history.state.cf) history.back();
@@ -1341,11 +1355,11 @@ const step = (dir) => go(CASES[(CASES.indexOf(currentCase) + dir + CASES.length)
 document.addEventListener('click', (e) => {
   const a = e.target.closest('a[href^="#"]');
   if (!a) return;
-  const id = a.getAttribute('href').slice(1);
+  const { id, sub } = parse(a.getAttribute('href'));
   if (!CASES.includes(id)) return;
   e.preventDefault();
   if (!currentCase) opener = a;
-  go(id);
+  go(id, sub);
 });
 document.getElementById('cf-close').addEventListener('click', close);
 document.getElementById('cf-prev').addEventListener('click', () => step(-1));
@@ -1353,6 +1367,7 @@ document.getElementById('cf-next').addEventListener('click', () => step(1));
 document.addEventListener('keydown', (e) => {
   if (!currentCase) return;
   if (e.key === 'Escape') { e.preventDefault(); close(); }
+  else if (e.target.closest('.node')) return;          // arrows don't hijack the map
   else if (e.key === 'ArrowRight') step(1);
   else if (e.key === 'ArrowLeft') step(-1);
 });
@@ -1361,10 +1376,10 @@ addEventListener('hashchange', route);
 route();
 
 /* ───────────────────────────────────────────────────────────────
-   6. Nav: highlight the section in view.
+   7. Nav: highlight the section in view.
    ─────────────────────────────────────────────────────────────── */
 const navLinks = [...document.querySelectorAll('.site nav a[href^="#"]')];
-const navSections = ['work', 'capabilities', 'engineering', 'stack'].map(id => document.getElementById(id));
+const navSections = ['work', 'capabilities', 'stack'].map(id => document.getElementById(id));
 let navQueued = false;
 function updateNav() {
   navQueued = false;
