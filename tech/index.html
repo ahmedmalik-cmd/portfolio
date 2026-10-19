@@ -7,7 +7,10 @@
 <meta name="description" content="Creative technologist building real-time systems: live point clouds, computer vision, local AI, projection and generative film.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js">
 <link rel="preload" as="image" href="/tech/media/wire-hand.jpg">
 <style>
   :root {
@@ -143,7 +146,6 @@
     font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.3em;
     text-transform: uppercase; color: var(--text-3); margin-bottom: 14px;
   }
-  .sec-label span { color: var(--accent); margin-right: 10px; }
   .sec-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.3rem, 4.2vw, 3.5rem); line-height: 1; }
   .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
   .chips li {
@@ -178,7 +180,6 @@
     display: flex; gap: 14px; font-family: var(--mono); font-size: 0.55rem;
     letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
   }
-  .wcard-meta .n { color: var(--accent); }
   .wcard-meta .yr { margin-left: auto; }
   .wcard-title { font-family: var(--serif); font-weight: 300; font-size: clamp(1.9rem, 2.8vw, 2.6rem); line-height: 1.05; }
   .wcard--feature .wcard-title { font-size: clamp(2.5rem, 4.2vw, 3.8rem); }
@@ -230,12 +231,18 @@
   .ix-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   /* ── CO-EXIST BAND ─────────────────────────────────────────── */
-  .band { position: relative; overflow: hidden; border-bottom: 1px solid var(--hair); background: var(--surface); }
-  .band img { display: block; width: 100%; height: auto; aspect-ratio: 1700 / 860; max-height: 70vh; object-fit: cover; object-position: 50% 80%; filter: brightness(0.8) saturate(0.92); }
+  /* The whole photo at its own proportions, shifted so the handshake (80.55% across the frame) sits at the
+     centre; its edges fade into a blurred, darkened copy of itself instead of a hard black gap. */
+  .band { position: relative; overflow: hidden; height: min(70vh, 660px); border-bottom: 1px solid var(--hair); background: var(--bg); }
+  .band img { position: absolute; top: 0; height: 100%; max-width: none; }
+  .band-bg { left: 0; width: 100%; object-fit: cover; object-position: 80% 50%; filter: blur(44px) brightness(0.3) saturate(0.85); transform: scale(1.15); }
+  .band-photo { left: 50%; width: auto; transform: translateX(-80.55%); filter: brightness(0.8) saturate(0.92);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 80%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 80%, transparent 100%); }
   .band-shade { position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(0deg, rgba(12,11,9,0.88) 0%, rgba(12,11,9,0) 48%), linear-gradient(90deg, rgba(12,11,9,0.5) 0%, rgba(12,11,9,0) 50%); }
-  .band-q { position: absolute; left: var(--pad); bottom: 44px; max-width: 20ch; font-family: var(--serif); font-weight: 300;
-    font-size: clamp(1.9rem, 3.8vw, 3.2rem); line-height: 1.08; color: var(--text); }
+    background: linear-gradient(180deg, rgba(12,11,9,0.72) 0%, rgba(12,11,9,0) 38%), linear-gradient(0deg, rgba(12,11,9,0.5) 0%, rgba(12,11,9,0) 22%); }
+  .band-q { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 40px);
+    text-align: center; font-family: var(--serif); font-weight: 300; font-size: clamp(1.9rem, 3.8vw, 3.2rem); line-height: 1.08; color: var(--text); }
   .band-q em { font-style: italic; color: var(--accent); white-space: nowrap; }
 
   /* ── STACK + CONTACT ──────────────────────────────────────────── */
@@ -409,9 +416,8 @@
     .ix-row { grid-template-columns: 58px minmax(0, 1fr); gap: 6px 14px; padding: 18px 20px; }
     .ix-k, .ix-s, .ix-go { grid-column: 2; }
     .ix-go { justify-self: start; }
-    .band img { aspect-ratio: 1 / 1; max-height: 70vh; object-position: 100% 50%; }   /* hands near the middle */
-    .band-q { top: 20px; bottom: auto; max-width: 26ch; font-size: 1.5rem; }   /* over the dark curtain, clear of the hands */
-    .band-shade { background: linear-gradient(180deg, rgba(12,11,9,0.78) 0%, rgba(12,11,9,0) 44%); }
+    .band { height: auto; aspect-ratio: 1 / 1; max-height: 70vh; }
+    .band-q { top: 20px; font-size: 1.5rem; }
     .cf-head { grid-template-columns: 1fr; gap: 24px; padding: 44px 20px 36px; }
     .cf-body { grid-template-columns: 1fr; }
     .cf-spec { padding: 32px 20px 8px; }
@@ -607,11 +613,12 @@
         <h2 class="sec-title">Tools &amp; languages</h2>
         <dl class="stack-list">
           <div><dt>Languages</dt><dd>C · C++ · C# · Python</dd></div>
-          <div><dt>Real-time 3D &amp; XR</dt><dd>Unity · Unreal Engine · TouchDesigner · VR</dd></div>
-          <div><dt>3D &amp; CAD</dt><dd>Blender · Rhino · SketchUp · AutoCAD · photogrammetry · 3D printing</dd></div>
+          <div><dt>Real-time 3D &amp; XR</dt><dd>Unity · Unreal Engine · TouchDesigner · Meta XR SDK · ZapWorks (AR)</dd></div>
+          <div><dt>3D &amp; CAD</dt><dd>Blender · Rhino · SketchUp · AutoCAD · photogrammetry</dd></div>
           <div><dt>AI / ML</dt><dd>Ollama · LLaVA · TRIBE v2 · CLIP · MediaPipe · ml-sharp · Runway · Midjourney</dd></div>
-          <div><dt>Video &amp; audio</dt><dd>Premiere Pro · DaVinci Resolve · Ableton · Pro Tools · spatial audio</dd></div>
+          <div><dt>Fabrication &amp; electronics</dt><dd>CNC · 3D printing · wood &amp; metal shop · soldering · breadboarding</dd></div>
           <div><dt>Hardware &amp; AV</dt><dd>Kinect v1 · Panasonic PT-MZ20K · multi-projector rigs · MIDI / OSC</dd></div>
+          <div><dt>Video &amp; audio</dt><dd>Premiere Pro · DaVinci Resolve · Ableton · Pro Tools · FL Studio · Audacity · spatial audio</dd></div>
           <div><dt>Design &amp; GIS</dt><dd>Figma · Adobe Suite · QGIS</dd></div>
         </dl>
         <div class="edu">
@@ -632,9 +639,10 @@
   </section>
   <!-- ── CO-EXIST ───────────────────────────────────────────── -->
   <section class="band" aria-label="Co-exist, not compete">
-    <img src="/tech/media/handshake-v3.jpg" alt="A wax arm reaching across a table to shake a person’s hand" loading="lazy">
+    <img class="band-bg" src="/tech/media/handshake-v4.jpg" alt="" aria-hidden="true" loading="lazy">
+    <img class="band-photo" src="/tech/media/handshake-v4.jpg" alt="A wax arm reaching across a table to shake a person’s hand" loading="lazy">
     <div class="band-shade" aria-hidden="true"></div>
-    <p class="band-q">Human and machine should <em>co-exist</em>, not compete.</p>
+    <p class="band-q">Human and machine should<br><em>co-exist</em>, not compete.</p>
   </section>
 </main>
 
@@ -1245,11 +1253,10 @@ const HERO_VS = `
     vAlpha = mix(0.42, 1.0, m);
   }`;
 
-(function hero() {
+const hero = (function hero() {
   const heroEl = document.getElementById('hero');
   const canvas = document.getElementById('hero-canvas');
   const hud = Object.fromEntries([...document.querySelectorAll('[data-hud]')].map(el => [el.dataset.hud, el]));
-  const qs = new URLSearchParams(location.search);
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'high-performance' }); }
   catch (e) { hud.state.textContent = 'webgl unavailable'; return; }
@@ -1258,7 +1265,6 @@ const HERO_VS = `
   const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 200);
   camera.position.set(0, 0, 18);
   const group = new THREE.Group(); scene.add(group);
-  group.rotation.y = +qs.get('ry') || 0;                     // ?ry=1.57 → start side-on (review)
   const FORMS = ['wire hand — real & rendered', 'dandelion — Return Without Reason', 'fragments — Fragment to Augment'];
   let mat = null, ready = false;
 
@@ -1392,8 +1398,7 @@ const HERO_VS = `
   });
   addEventListener('pointercancel', () => { dragging = false; spinV = 0; });   // the browser took it as a scroll
 
-  // ?t=8 starts the cycle at 8 s; ?form=1 starts on the dandelion (review)
-  let raf = 0, last = 0, t = (+qs.get('t') || 0) + (+qs.get('form') || 0) * CYCLE, fpsT = 0, fpsN = 0, lastState = '', lastForm = -1;
+  let raf = 0, last = 0, t = 0, fpsT = 0, fpsN = 0, lastState = '', lastForm = -1;
   function frame(now) {
     raf = requestAnimationFrame(frame);
     const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now;
@@ -1432,8 +1437,8 @@ const HERO_VS = `
   };
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }).observe(heroEl);
   document.addEventListener('visibilitychange', sync);
-  window.__hero = { setCaseOpen(v) { caseOpen = v; sync(); } };
   sync();
+  return { setCaseOpen(v) { caseOpen = v; sync(); } };
 })();
 
 /* ───────────────────────────────────────────────────────────────
@@ -1581,7 +1586,7 @@ function show(id) {
     document.documentElement.classList.add('cf-open');
     mainEl.inert = true; headerEl.inert = true;
     cardVideos.forEach(v => v.pause());
-    window.__hero?.setCaseOpen(true);
+    hero?.setCaseOpen(true);
     document.getElementById('cf-close').focus({ preventScroll: true });
   }
   if (id === 'real-and-rendered') startRoom(); else room?.stop();
@@ -1596,7 +1601,7 @@ function hide() {
   setTimeout(() => { if (!currentCase) cf.hidden = true; }, reduced ? 0 : 360);
   document.documentElement.classList.remove('cf-open');
   mainEl.inert = false; headerEl.inert = false;
-  window.__hero?.setCaseOpen(false);
+  hero?.setCaseOpen(false);
   onScreen.forEach(v => v.play().catch(() => {}));
   document.title = BASE_TITLE;
   opener?.focus({ preventScroll: true }); opener = null;

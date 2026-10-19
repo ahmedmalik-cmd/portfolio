@@ -63,7 +63,7 @@ function cardHTML(p) {
   const categoryLabel = cats.join(', ');
 
   return `
-    <a class="card ${hasHover ? '' : 'no-hover'}" href="/project.html?id=${p.id}">
+    <a class="card ${hasHover ? '' : 'no-hover'}" href="/project.html?id=${encodeURIComponent(p.id)}">
       <img class="card-img primary-img" src="${p.thumbnail}" alt="${p.title}" loading="lazy">
       ${hasHover ? `<img class="card-img hover-img" src="${p.hoverImage}" alt="${p.title}" loading="lazy">` : ''}
       <div class="card-overlay">
