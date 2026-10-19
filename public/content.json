@@ -14,7 +14,7 @@
         "Installation"
       ],
       "year": "2025",
-      "description": "An interactive virtual reality installation exploring human relations with tools, and their abilitiy to extend/augment skills. Built in Unity, the piece places the viewer in a un/familiar space that is created in real time as a 3D point cloud using an Xbox kinect. It allows the user to walk around in a virtual space and observe oneself from a view that would physically be impossible, while also allowing their friends/other viewers to communicate and affect their experience in the virtual.",
+      "description": "An interactive virtual reality installation exploring human relations with tools, and their ability to extend/augment skills. Built in Unity, the piece places the viewer in an un/familiar space that is created in real time as a 3D point cloud using an Xbox Kinect. It allows the user to walk around in a virtual space and observe oneself from a view that would physically be impossible, while also allowing their friends/other viewers to communicate and affect their experience in the virtual.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/v1773157890/vr-01.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/v1773157890/vr-02.jpg",
       "images": [
@@ -37,7 +37,7 @@
         "Wood"
       ],
       "year": "2025",
-      "description": "Inspired heavily by Stan Brakhage, this project aimed to bring my obsession with augemented/holographic technologies to a more analog nature. With the restriction of only wood and cloth as materials for this project, I set to augment these film projections i.e add another dimension/depth, to take these flat 2D images into another plane. The complete installed experience allowed viewers to get into a dark room and observe the images from multiple viewing angles, while also having agency over focus to bring the image onto closer planes or further back. The work explores how projection transforms an object's presence — augmenting rather than replacing its material reality.",
+      "description": "Inspired heavily by Stan Brakhage, this project aimed to bring my obsession with augmented/holographic technologies to a more analog nature. With the restriction of only wood and cloth as materials for this project, I set to augment these film projections i.e. add another dimension/depth, to take these flat 2D images into another plane. The complete installed experience allowed viewers to get into a dark room and observe the images from multiple viewing angles, while also having agency over focus to bring the image onto closer planes or further back. The work explores how projection transforms an object's presence — augmenting rather than replacing its material reality.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/pro-02.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/pro-01.jpg",
       "images": [
@@ -57,7 +57,7 @@
         "Dollhouse"
       ],
       "year": "2023",
-      "description": "This work came together as the result of a team project, with my wonderful parter Tisa Shrestha. We were tasked to create a model based off the work of Thomas Demand; since his work is so politically and historically charged we decided to replicate the compound where Osama Bin Laden was killed. This idea came to me while looking at his work because Bin Laden was shot in the same city that I was born in, about 10-15 mins from my grandmas house. I remembered multiple memories from this event, yet none of them were fully formed. Even though there was a lot of media coverage about the news, there were not a lot of resources about the house itself. Same with all the other Demand pieces, the process started with a single image, followed by a lot of research to fill in the gaps and recreate the room. It was an amazing joint effort that would not have been possible without such an amazing friend as a partner. ",
+      "description": "This work came together as the result of a team project, with my wonderful partner Tisa Shrestha. We were tasked to create a model based off the work of Thomas Demand; since his work is so politically and historically charged we decided to replicate the compound where Osama Bin Laden was killed. This idea came to me while looking at his work because Bin Laden was shot in the same city that I was born in, about 10-15 mins from my grandma's house. I remembered multiple memories from this event, yet none of them were fully formed. Even though there was a lot of media coverage about the news, there were not a lot of resources about the house itself. Same with all the other Demand pieces, the process started with a single image, followed by a lot of research to fill in the gaps and recreate the room. It was an amazing joint effort that would not have been possible without such an amazing friend as a partner. ",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/mod-02.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/mod-01.jpg",
       "images": [
@@ -97,7 +97,7 @@
         "Reconstruction"
       ],
       "year": "2024",
-      "description": "Analog photographs used as source material for photogrammetric 3D construction of a new space through sampling. The work puts film's grain, distortion, and chemical imprecision into dialogue with the precision demands of computational reconstruction — the resulting models carry the artifacts of their medium",
+      "description": "Analog photographs used as source material for photogrammetric 3D construction of a new space through sampling. The work puts film's grain, distortion, and chemical imprecision into dialogue with the precision demands of computational reconstruction — the resulting models carry the artifacts of their medium.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/pho-04.jpg",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/pho-07.jpg",
       "images": [
@@ -138,7 +138,7 @@
         "Unity"
       ],
       "year": "2025",
-      "description": "A computer animation that explores a liminal space as a replication of the physical withing the digital.",
+      "description": "A computer animation that explores a liminal space as a replication of the physical within the digital.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/ani-05.png",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/ani-04.png",
       "images": [],
@@ -319,7 +319,7 @@
         "3D Environment"
       ],
       "year": "2023",
-      "description": "This experience was built to bring a one of the most beautiful lakes and pieces of heaven on earth in Pakistan, into VR to be viewed by anyone, anywhere and to get a chance to experience the place and its folk legends.",
+      "description": "This experience was built to bring one of the most beautiful lakes and pieces of heaven on earth in Pakistan, into VR to be viewed by anyone, anywhere and to get a chance to experience the place and its folk legends.",
       "thumbnail": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/vr-06.png",
       "hoverImage": "https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_800,c_limit/vr-07.png",
       "images": [],
