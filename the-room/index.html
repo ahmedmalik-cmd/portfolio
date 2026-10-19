@@ -35,7 +35,7 @@
   /* ── Header / nav (matches site) ────────────────────────────────────── */
   header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
     padding: 20px 48px;
     background: rgba(12,11,9,0.94); backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
@@ -50,13 +50,21 @@
     text-transform: uppercase; color: var(--muted); transition: color 0.2s;
   }
   header nav a:hover { color: var(--accent); }
-  header nav { align-items: center; }
+  header .logo { justify-self: start; }
+  header nav { justify-self: end; align-items: center; }
   .mode { display: inline-flex; border: 1px solid var(--border); }
-  header nav .mode a { padding: 7px 11px; }
-  header nav .mode a + a { border-left: 1px solid var(--border); }
-  header nav .mode a.is-on { color: var(--accent); background: rgba(184, 150, 110, 0.08); }
-  @media (max-width: 560px) { .mode .long { display: none; } }
-  @media (max-width: 420px) { header nav > a { display: none; } }
+  .mode a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); padding: 7px 12px; transition: color 0.2s, background 0.2s;
+  }
+  .mode a + a { border-left: 1px solid var(--border); }
+  .mode a:hover { color: var(--accent); }
+  .mode a.is-on { color: var(--accent); background: rgba(184, 150, 110, 0.08); }
+  @media (max-width: 600px) {
+    header { grid-template-columns: 1fr auto; }
+    header nav { display: none; }
+    .mode .long { display: none; }
+  }
 
   /* ── Layout ─────────────────────────────────────────────────────────── */
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 48px; }
@@ -223,10 +231,10 @@
 
 <header>
   <a href="/" class="logo">Ahmed J Malik</a>
+  <span class="mode" aria-label="Portfolio"><a class="is-on" href="/">Art</a><a href="/tech/">Tech<span class="long">nical</span></a></span>
   <nav>
     <a href="/#work">Work</a>
     <a href="/#about">About</a>
-    <span class="mode" aria-label="Portfolio"><a class="is-on" href="/">Art</a><a href="/tech/">Tech<span class="long">nical</span></a></span>
   </nav>
 </header>
 

@@ -43,26 +43,28 @@
   /* ── HEADER (same build as the main site) ─────────────────────── */
   header.site {
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;
     padding: 20px var(--pad);
     background: rgba(12, 11, 9, 0.94);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--hair);
   }
-  .brand { display: flex; align-items: baseline; gap: 14px; white-space: nowrap; }
-  .logo { font-family: var(--serif); font-size: 1rem; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; }
-  .logo-tag { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); }
-  .site nav { display: flex; gap: 28px; align-items: center; }
+  .logo { justify-self: start; white-space: nowrap; font-family: var(--serif); font-size: 1rem; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; }
+  .site nav { justify-self: end; display: flex; gap: 28px; align-items: center; }
   .site nav a {
     font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em;
     text-transform: uppercase; color: var(--text-3); transition: color 0.2s;
   }
   .site nav a:hover, .site nav a.is-active { color: var(--accent); }
+  /* Art | Technical — the two sides of the portfolio, centred */
   .mode { display: inline-flex; border: 1px solid var(--line); }
-  .site nav .mode a { padding: 7px 11px; color: var(--text-3); }
-  .site nav .mode a + a { border-left: 1px solid var(--line); }
-  .site nav .mode a:hover { color: var(--accent); }
-  .site nav .mode a.is-on { color: var(--accent); background: rgba(234, 95, 176, 0.08); }
+  .mode a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--text-3); padding: 7px 12px; transition: color 0.2s, background 0.2s;
+  }
+  .mode a + a { border-left: 1px solid var(--line); }
+  .mode a:hover { color: var(--accent); }
+  .mode a.is-on { color: var(--accent); background: rgba(234, 95, 176, 0.08); }
 
   /* ── HERO ─────────────────────────────────────────────────────── */
   .hero {
@@ -193,31 +195,36 @@
   .wcard:hover .wcard-open { color: var(--accent); }
   .wcard:hover .wcard-open i { transform: translateX(4px); }
 
-  /* ── CAPABILITIES ─────────────────────────────────────────────── */
-  .cap { border-top: 1px solid var(--hair); }
-  .cap-row {
-    display: grid; grid-template-columns: minmax(210px, 1fr) 1.45fr 1.45fr minmax(150px, 0.75fr);
-    gap: 32px; padding: 30px var(--pad); border-bottom: 1px solid var(--hair);
-    align-items: start; transition: background 0.25s;
+  /* ── INDEX ────────────────────────────────────────────────── */
+  .ix-filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--pad) 26px; }
+  .ix-f {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-3); border: 1px solid var(--line); padding: 9px 13px; transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
-  .cap-row:last-child { border-bottom: 0; }
-  .cap-row:hover, .cap-row:target { background: var(--surface); }
-  .cap-row--head {
-    padding-top: 14px; padding-bottom: 14px; font-family: var(--mono); font-size: 0.54rem;
-    letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-3);
+  .ix-f span { margin-left: 6px; opacity: 0.6; }
+  .ix-f:hover { color: var(--accent); border-color: var(--accent-soft); }
+  .ix-f.is-on { color: var(--accent); border-color: var(--accent-soft); background: rgba(234, 95, 176, 0.06); }
+  .ix { list-style: none; border-top: 1px solid var(--hair); }
+  .ix-row[hidden] { display: none; }
+  .ix-row a {
+    display: grid; grid-template-columns: 72px minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1.5fr) 110px;
+    gap: 24px; align-items: baseline; padding: 20px var(--pad); border-bottom: 1px solid var(--hair); transition: background 0.2s;
   }
-  .cap-row--head:hover { background: none; }
-  .cap-area { font-family: var(--serif); font-weight: 300; font-size: 1.6rem; line-height: 1.1; }
-  .cap-area .n { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 8px; }
-  .cap-what { font-size: 0.95rem; line-height: 1.6; color: var(--text-2); }
-  .cap-proof { font-size: 0.95rem; line-height: 1.6; color: var(--text); border-left: 1px solid var(--accent-soft); padding-left: 16px; }
-  .cap-where { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
-  .cap-where a {
-    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.04em; line-height: 1.5; color: var(--text);
-    border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s;
+  .ix-row a:hover { background: var(--surface); }
+  .ix-y { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text-3); }
+  .ix-todo { color: var(--accent); }
+  .ix-t { font-family: var(--serif); font-weight: 300; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.1; transition: color 0.2s; }
+  .ix-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+  .ix-s { font-size: 0.9rem; line-height: 1.5; color: var(--text-2); }
+  .ix-go { justify-self: end; white-space: nowrap; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); transition: color 0.2s; }
+  .ix-row.is-case .ix-go { color: var(--accent); }
+  .ix-row a:hover .ix-t, .ix-row a:hover .ix-go { color: var(--accent); }
+  .ix-preview {
+    position: fixed; left: 0; top: 0; z-index: 40; width: 240px; aspect-ratio: 4 / 3; pointer-events: none;
+    border: 1px solid var(--line); background: var(--surface); opacity: 0; transition: opacity 0.18s;
   }
-  .cap-where a b { font-weight: 400; color: var(--accent); }
-  .cap-where a:hover { color: var(--accent); border-color: var(--accent); }
+  .ix-preview.is-on { opacity: 1; }
+  .ix-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   /* ── CO-EXIST BAND ─────────────────────────────────────────── */
   .band { position: relative; overflow: hidden; border-bottom: 1px solid var(--hair); background: var(--surface); }
@@ -375,15 +382,11 @@
 
   /* ── RESPONSIVE ───────────────────────────────────────────────── */
   @media (max-width: 1080px) {
-    .cap-row { grid-template-columns: 1fr 1.6fr; gap: 18px 32px; }
-    .cap-row--head { display: none; }
-    .cap-row .cap-proof, .cap-where { grid-column: 2; }
   }
   @media (max-width: 900px) {
     :root { --pad: 20px; }
     header.site { padding: 16px 20px; }
     .site nav { gap: 18px; }
-    .site nav .nav-hide { display: none; }
     .hero-body { padding-bottom: 36px; }
     .hud { margin-bottom: 22px; }
     .disciplines { grid-template-columns: 1fr 1fr; }
@@ -394,11 +397,13 @@
     .wcard--feature { grid-template-columns: 1fr; }
     .wcard--feature .wcard-media { min-height: 0; aspect-ratio: 16 / 10; }
     .wcard-body, .wcard--feature .wcard-body { padding: 24px 20px 28px; }
-    .cap-row { grid-template-columns: 1fr; gap: 12px; padding: 26px 20px; }
-    .cap-row .cap-proof, .cap-where { grid-column: auto; }
     .split { grid-template-columns: 1fr; }
     .split > div { padding: 76px 20px 64px; }
     .stack-list div { grid-template-columns: 1fr; gap: 4px; }
+    .ix-filters { padding: 0 20px 20px; }
+    .ix-row a { grid-template-columns: 52px minmax(0, 1fr); gap: 6px 14px; padding: 18px 20px; }
+    .ix-k, .ix-s, .ix-go { grid-column: 2; }
+    .ix-go { justify-self: start; }
     .band img { height: 54vh; object-position: 80% 50%; }
     .band-q { bottom: 26px; font-size: 1.7rem; }
     .cf-head { grid-template-columns: 1fr; gap: 24px; padding: 44px 20px 36px; }
@@ -418,14 +423,14 @@
     .hero-shade { background: linear-gradient(0deg, rgba(12,11,9,0.94) 0%, rgba(12,11,9,0.62) 48%, rgba(12,11,9,0) 64%); }
   }
   @media (max-width: 560px) {
-    .logo-tag { display: none; }
     .mode .long { display: none; }
     .logo { font-size: 0.86rem; letter-spacing: 0.16em; }
     .site nav { gap: 14px; }
     .site nav a { font-size: 0.56rem; letter-spacing: 0.16em; }
   }
-  @media (max-width: 420px) {
-    .site nav > a { display: none; }          /* phones: logo + Art | Tech only */
+  @media (max-width: 600px) {
+    header.site { grid-template-columns: 1fr auto; }
+    .site nav { display: none; }              /* phones: logo + Art | Tech */
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -436,15 +441,12 @@
 <body>
 
 <header class="site">
-  <div class="brand">
-    <a class="logo" href="/">Ahmed J Malik</a>
-    <span class="logo-tag">/ technical</span>
-  </div>
+  <a class="logo" href="/">Ahmed J Malik</a>
+  <span class="mode" aria-label="Portfolio"><a href="/">Art</a><a class="is-on" href="/tech/" aria-current="page">Tech<span class="long">nical</span></a></span>
   <nav aria-label="Sections">
     <a href="#work">Work</a>
-    <a class="nav-hide" href="#capabilities">Capabilities</a>
+    <a href="#index">Index</a>
     <a href="#contact">Contact</a>
-    <span class="mode" aria-label="Portfolio"><a href="/">Art</a><a class="is-on" href="/tech/" aria-current="page">Tech<span class="long">nical</span></a></span>
   </nav>
 </header>
 
@@ -465,19 +467,19 @@
       <p class="hero-bio">My relationship with art began through technological interfaces — cameras, screens, the physics of game engines. Working backwards from digital to physical taught me to perceive materials differently.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#work">Selected work ↓</a>
-        <a class="btn" href="#capabilities">Capabilities</a>
+        <a class="btn" href="#index">Index</a>
         <a class="btn" href="mailto:ahmedjamalmalik1@gmail.com">Email</a>
       </div>
     </div>
     <ul class="disciplines">
-      <li><a href="#cap-realtime"><b>Real-time 3D &amp; XR <i>→</i></b><span>Live point clouds, VR and interactive systems</span></a></li>
-      <li><a href="#cap-vision"><b>Vision &amp; sensing <i>→</i></b><span>Depth, pose and recognition</span></a></li>
-      <li><a href="#cap-ai"><b>Local AI <i>→</i></b><span>Offline, multi-model pipelines</span></a></li>
-      <li><a href="#cap-av"><b>Projection &amp; film <i>→</i></b><span>Mapping, AV and generative video</span></a></li>
+      <li><a href="#index" data-filter="realtime"><b>Real-time &amp; XR <i>→</i></b><span>Unity, Unreal, VR and AR</span></a></li>
+      <li><a href="#index" data-filter="vision"><b>Vision &amp; AI <i>→</i></b><span>Depth sensing, local models, photogrammetry</span></a></li>
+      <li><a href="#index" data-filter="film"><b>Projection &amp; film <i>→</i></b><span>Mapping, AV and generative video</span></a></li>
+      <li><a href="#index" data-filter="fab"><b>Fabrication &amp; electronics <i>→</i></b><span>3D printing, CNC, circuits</span></a></li>
     </ul>
   </section>
 
-  <!-- ── 01 WORK ────────────────────────────────────────────── -->
+  <!-- ── WORK ────────────────────────────────────────────── -->
   <section class="sec" id="work">
     <div class="sec-head">
       <div>
@@ -532,60 +534,60 @@
     </div>
   </section>
 
-  <!-- ── 02 CAPABILITIES ────────────────────────────────────── -->
-  <section class="sec" id="capabilities">
+  <!-- ── INDEX ──────────────────────────────────────────────── -->
+  <section class="sec" id="index">
     <div class="sec-head">
       <div>
-        <p class="sec-label">Capabilities</p>
-        <h2 class="sec-title">What I build</h2>
+        <p class="sec-label">Index</p>
+        <h2 class="sec-title">All projects</h2>
       </div>
-      <p class="sec-note">Each row names one concrete result and links to the exact part of the system where it happened.</p>
+      <p class="sec-note">Every project with a technical side. Case files open here; the rest open on the art side.</p>
     </div>
-    <div class="cap">
-      <div class="cap-row cap-row--head" aria-hidden="true"><span>Area</span><span>What I do</span><span>Proof</span><span>Where</span></div>
-
-      <div class="cap-row" id="cap-realtime">
-        <h3 class="cap-area">Real-time 3D, XR &amp; point clouds</h3>
-        <p class="cap-what">Real-time 3D in Unity and Unreal — from VR projects to point clouds fused live from several depth sensors, with custom compute and shaders, temporal smoothing and a persistent background plate.</p>
-        <p class="cap-proof">Two Kinect v1 streams merged into one live cloud of a gallery, projected on two walls for eight days straight.</p>
-        <div class="cap-where"><a href="#real-and-rendered/fuse">real &amp; rendered <b>→ Fuse</b></a></div>
-      </div>
-
-      <div class="cap-row" id="cap-vision">
-        <h3 class="cap-area">Computer vision &amp; sensing</h3>
-        <p class="cap-what">Depth capture, two-sensor calibration, presence and per-person height tracking, face and pose tracking turned into inputs a model can read.</p>
-        <p class="cap-proof">Face mesh and pose at 2 Hz, emitted as four discrete labels — the language model went from guessing posture to reading it.</p>
-        <div class="cap-where"><a href="#real-and-rendered/perceive">real &amp; rendered <b>→ Perceive</b></a><a href="#real-and-rendered/sense">real &amp; rendered <b>→ Sense</b></a></div>
-      </div>
-
-      <div class="cap-row" id="cap-ai">
-        <h3 class="cap-area">Local AI systems</h3>
-        <p class="cap-what">Offline pipelines across machines — vision-language captioning, embeddings for recall, a brain-encoding model as a live input.</p>
-        <p class="cap-proof">Cut latency from ~12 s to ~5 s per thought with async workers; a degraded mode kept it speaking when the GPU host dropped.</p>
-        <div class="cap-where"><a href="#real-and-rendered/gpu">real &amp; rendered <b>→ GPU host</b></a></div>
-      </div>
-
-      <div class="cap-row" id="cap-behaviour">
-        <h3 class="cap-area">Model behaviour</h3>
-        <p class="cap-what">Making a model sound like a place, not an assistant — persona prompts, output filters, fixation detection, memory and a nightly self-reflection.</p>
-        <p class="cap-proof">Iterated against 982 logged outputs; refusal filtering keeps one bad night out of long-term memory.</p>
-        <div class="cap-where"><a href="#real-and-rendered/speak">real &amp; rendered <b>→ Speak</b></a><a href="#real-and-rendered/memory">real &amp; rendered <b>→ Memory</b></a></div>
-      </div>
-
-      <div class="cap-row" id="cap-av">
-        <h3 class="cap-area">Projection &amp; AV</h3>
-        <p class="cap-what">Projection mapping and multi-projector rigs — setup, calibration, live operation and strike.</p>
-        <p class="cap-proof">Ran a 20,000-lumen Panasonic PT-MZ20K end to end at AWE; three daisy-chained projectors in the thesis installation.</p>
-        <div class="cap-where"><a href="#projection-mapping">Projection mapping</a><a href="#real-and-rendered/show">real &amp; rendered <b>→ Show</b></a></div>
-      </div>
-
-      <div class="cap-row" id="cap-film">
-        <h3 class="cap-area">Generative &amp; time-based media</h3>
-        <p class="cap-what">Films built from handmade sets, slides and analog footage, extended with generative video and edited to finish.</p>
-        <p class="cap-proof"><em>Return Without Reason</em> — an analog experiment after Stan Brakhage, reanimated with generative video.</p>
-        <div class="cap-where"><a href="#physical-generated">Physical → Generated</a></div>
-      </div>
+    <div class="ix-filters" role="toolbar" aria-label="Filter projects">
+      <button type="button" class="ix-f is-on" data-filter="all" aria-pressed="true">All <span></span></button>
+      <button type="button" class="ix-f" data-filter="realtime" aria-pressed="false">Real-time &amp; XR <span></span></button>
+      <button type="button" class="ix-f" data-filter="vision" aria-pressed="false">Vision &amp; AI <span></span></button>
+      <button type="button" class="ix-f" data-filter="film" aria-pressed="false">Projection &amp; film <span></span></button>
+      <button type="button" class="ix-f" data-filter="fab" aria-pressed="false">Fabrication &amp; electronics <span></span></button>
     </div>
+    <ol class="ix">
+      <li class="ix-row is-case" data-tags="realtime vision film" data-img="/the-room/media/perceive_poster.jpg">
+        <a href="#real-and-rendered"><span class="ix-y">2026</span><span class="ix-t">real &amp; rendered</span><span class="ix-k">Installation</span><span class="ix-s">Unity · C# · Python · Kinect v1 ×2 · LLaVA · TRIBE v2 · CLIP</span><span class="ix-go">Case file →</span></a>
+      </li>
+      <li class="ix-row is-case" data-tags="realtime film" data-img="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0,w_480,c_limit/v1791832272/IMG_3818.jpg">
+        <a href="#projection-mapping"><span class="ix-y ix-todo" title="Placeholder — year to confirm">[year]</span><span class="ix-t">Projection mapping</span><span class="ix-k">Live event · Jadu × AWE</span><span class="ix-s">Unity · Panasonic PT-MZ20K · projection mapping</span><span class="ix-go">Case file →</span></a>
+      </li>
+      <li class="ix-row is-case" data-tags="film vision" data-img="/tech/media/rwr-poster-v3.jpg">
+        <a href="#physical-generated"><span class="ix-y ix-todo" title="Placeholder — year to confirm">[year]</span><span class="ix-t">Physical → Generated</span><span class="ix-k">Film series</span><span class="ix-s">Generative video · handmade sets · analog footage</span><span class="ix-go">Case file →</span></a>
+      </li>
+      <li class="ix-row" data-tags="realtime vision" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/v1773157890/vr-01.jpg">
+        <a href="/project.html?id=VirtualReality"><span class="ix-y">2025</span><span class="ix-t">VR</span><span class="ix-k">VR installation</span><span class="ix-s">Unity · Meta XR SDK · live Kinect point cloud</span><span class="ix-go">Art side →</span></a>
+      </li>
+      <li class="ix-row" data-tags="realtime film" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/ani-05.png">
+        <a href="/project.html?id=liminality"><span class="ix-y">2025</span><span class="ix-t">liminality</span><span class="ix-k">Real-time animation</span><span class="ix-s">Unity · character building · shot in-engine</span><span class="ix-go">Art side →</span></a>
+      </li>
+      <li class="ix-row" data-tags="realtime" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/ar-01.jpg">
+        <a href="/project.html?id=Augmented%20Reality%20Wall%20Piece"><span class="ix-y">2025</span><span class="ix-t">Venn-ish Diagram</span><span class="ix-k">AR wall piece</span><span class="ix-s">AR · ZapWorks</span><span class="ix-go">Art side →</span></a>
+      </li>
+      <li class="ix-row" data-tags="film fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/pro-02.jpg">
+        <a href="/project.html?id=FragToAug"><span class="ix-y">2025</span><span class="ix-t">Fragment to Augment</span><span class="ix-k">Projection installation</span><span class="ix-s">Analog film projection · wood &amp; cloth</span><span class="ix-go">Art side →</span></a>
+      </li>
+      <li class="ix-row" data-tags="fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/cnc-01.jpg">
+        <a href="/project.html?id=wood%2Fmetalshop"><span class="ix-y">2025</span><span class="ix-t">Wood &amp; Metal Shop</span><span class="ix-k">Fabrication</span><span class="ix-s">CNC · wood &amp; metal shop</span><span class="ix-go">Art side →</span></a>
+      </li>
+      <li class="ix-row" data-tags="fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/misc-01.jpg">
+        <a href="/project.html?id=misc"><span class="ix-y">2025</span><span class="ix-t">Miscellaneous</span><span class="ix-k">Electronics</span><span class="ix-s">Breadboards · soldering</span><span class="ix-go">Art side →</span></a>
+      </li>
+      <li class="ix-row" data-tags="vision" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/pho-04.jpg">
+        <a href="/project.html?id=analog-photo%20box"><span class="ix-y">2024</span><span class="ix-t">3D Reconstruction with Film</span><span class="ix-k">Photogrammetry</span><span class="ix-s">Photogrammetry from analog photographs</span><span class="ix-go">Art side →</span></a>
+      </li>
+      <li class="ix-row" data-tags="realtime" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/vr-06.png">
+        <a href="/project.html?id=game%2Fenvironment%20development%20in%20vr"><span class="ix-y">2023</span><span class="ix-t">Saif-ul-Malook</span><span class="ix-k">VR experience</span><span class="ix-s">Unreal Engine · VR</span><span class="ix-go">Art side →</span></a>
+      </li>
+      <li class="ix-row" data-tags="fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/3dp-02.jpg">
+        <a href="/project.html?id=3d-printing-modelling"><span class="ix-y">2023</span><span class="ix-t">3D Printing &amp; Modelling</span><span class="ix-k">Digital fabrication</span><span class="ix-s">Blender · 3D printing</span><span class="ix-go">Art side →</span></a>
+      </li>
+    </ol>
   </section>
 
   <!-- ── CO-EXIST ───────────────────────────────────────────── -->
@@ -1608,10 +1610,45 @@ addEventListener('hashchange', route);
 route();
 
 /* ───────────────────────────────────────────────────────────────
+   6b. Index: filter by discipline (chips, or the hero strip), and
+   preview each project's image beside the cursor.
+   ─────────────────────────────────────────────────────────────── */
+const ixRows = [...document.querySelectorAll('.ix-row')];
+const ixChips = [...document.querySelectorAll('.ix-f')];
+const tagsOf = (r) => r.dataset.tags.split(' ');
+function filterIndex(f) {
+  ixRows.forEach(r => { r.hidden = f !== 'all' && !tagsOf(r).includes(f); });
+  ixChips.forEach(b => { const on = b.dataset.filter === f; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
+}
+ixChips.forEach(b => {
+  const f = b.dataset.filter;
+  b.querySelector('span').textContent = f === 'all' ? ixRows.length : ixRows.filter(r => tagsOf(r).includes(f)).length;
+  b.addEventListener('click', () => filterIndex(f));
+});
+document.querySelectorAll('.disciplines a[data-filter]').forEach(a => a.addEventListener('click', () => filterIndex(a.dataset.filter)));
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const pv = document.createElement('div'); pv.className = 'ix-preview'; pv.setAttribute('aria-hidden', 'true');
+  const pvImg = document.createElement('img'); pvImg.alt = ''; pv.appendChild(pvImg); document.body.appendChild(pv);
+  ixRows.forEach(r => {
+    r.addEventListener('pointerenter', () => { pvImg.src = r.dataset.img; pv.classList.add('is-on'); });
+    r.addEventListener('pointerleave', () => pv.classList.remove('is-on'));
+  });
+  document.querySelector('.ix').addEventListener('pointermove', (e) => {
+    const x = e.clientX + 264 > innerWidth ? e.clientX - 264 : e.clientX + 24;
+    const y = Math.min(innerHeight - pv.offsetHeight - 16, Math.max(70, e.clientY - 90));
+    pv.style.transform = `translate(${x}px, ${y}px)`;
+  }, { passive: true });
+  // warm the thumbnails once the index is near, so the first hover isn't empty
+  new IntersectionObserver((es, io) => {
+    if (es.some(e => e.isIntersecting)) { ixRows.forEach(r => { new Image().src = r.dataset.img; }); io.disconnect(); }
+  }, { rootMargin: '600px' }).observe(document.getElementById('index'));
+}
+
+/* ───────────────────────────────────────────────────────────────
    7. Nav: highlight the section in view.
    ─────────────────────────────────────────────────────────────── */
 const navLinks = [...document.querySelectorAll('.site nav a[href^="#"]')];
-const navSections = ['work', 'capabilities', 'stack'].map(id => document.getElementById(id));
+const navSections = ['work', 'index', 'stack'].map(id => document.getElementById(id));
 let navQueued = false;
 function updateNav() {
   navQueued = false;
