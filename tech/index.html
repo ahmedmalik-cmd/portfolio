@@ -231,18 +231,17 @@
   .ix-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   /* ── CO-EXIST BAND ─────────────────────────────────────────── */
-  /* The whole photo at its own proportions, shifted so the handshake (80.55% across the frame) sits at the
-     centre; its edges fade into a blurred, darkened copy of itself instead of a hard black gap. */
-  .band { position: relative; overflow: hidden; height: min(70vh, 660px); border-bottom: 1px solid var(--hair); background: var(--bg); }
-  .band img { position: absolute; top: 0; height: 100%; max-width: none; }
-  .band-bg { left: 0; width: 100%; object-fit: cover; object-position: 80% 50%; filter: blur(44px) brightness(0.3) saturate(0.85); transform: scale(1.15); }
-  .band-photo { left: 50%; width: auto; transform: translateX(-80.55%); filter: brightness(0.8) saturate(0.92);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 80%, transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 80%, transparent 100%); }
+  /* The photo as framed, pinned to its bottom edge. .band-stage has the photo's proportions and sits exactly
+     over it, so the words stay around the hands at any size: one line above them, one below. */
+  .band { position: relative; overflow: hidden; border-bottom: 1px solid var(--hair); background: var(--bg); }
+  .band img { display: block; width: 100%; height: auto; aspect-ratio: 1700 / 860; max-height: 82vh; object-fit: cover; object-position: 50% 100%; filter: brightness(0.8) saturate(0.92); }
+  .band-stage { position: absolute; left: 0; bottom: 0; width: 100%; aspect-ratio: 1700 / 860; pointer-events: none; }
   .band-shade { position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(12,11,9,0.72) 0%, rgba(12,11,9,0) 38%), linear-gradient(0deg, rgba(12,11,9,0.5) 0%, rgba(12,11,9,0) 22%); }
-  .band-q { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 40px);
-    text-align: center; font-family: var(--serif); font-weight: 300; font-size: clamp(1.9rem, 3.8vw, 3.2rem); line-height: 1.08; color: var(--text); }
+    background: linear-gradient(180deg, rgba(12,11,9,0.55) 0%, rgba(12,11,9,0) 34%), linear-gradient(0deg, rgba(12,11,9,0.75) 0%, rgba(12,11,9,0) 20%); }
+  .band-q { position: absolute; right: 11.5%; text-align: right; font-family: var(--serif); font-weight: 300;
+    font-size: clamp(1.6rem, 3.6vw, 3.2rem); line-height: 1.08; color: var(--text); text-shadow: 0 1px 22px rgba(12, 11, 9, 0.7); }
+  .band-q--top { bottom: 70%; }        /* on the curtain, above the hands (they start 40% down) */
+  .band-q--bottom { top: 90.5%; }      /* under the fingertips */
   .band-q em { font-style: italic; color: var(--accent); white-space: nowrap; }
 
   /* ── STACK + CONTACT ──────────────────────────────────────────── */
@@ -416,8 +415,7 @@
     .ix-row { grid-template-columns: 58px minmax(0, 1fr); gap: 6px 14px; padding: 18px 20px; }
     .ix-k, .ix-s, .ix-go { grid-column: 2; }
     .ix-go { justify-self: start; }
-    .band { height: auto; aspect-ratio: 1 / 1; max-height: 70vh; }
-    .band-q { top: 20px; font-size: 1.5rem; }
+
     .cf-head { grid-template-columns: 1fr; gap: 24px; padding: 44px 20px 36px; }
     .cf-body { grid-template-columns: 1fr; }
     .cf-spec { padding: 32px 20px 8px; }
@@ -442,6 +440,10 @@
     .site nav a { font-size: 0.56rem; letter-spacing: 0.16em; }
   }
   @media (max-width: 600px) {
+    .band img { aspect-ratio: 4 / 5; max-height: none; object-position: 97% 100%; }
+    .band-stage { width: 247.1%; left: -142.7%; }       /* = the photo's drawn box at 4:5 with that position */
+    .band-q { font-size: 1.42rem; }
+    .band-q--top { max-width: 11.5em; }                /* wraps after "should" */
     header.site { grid-template-columns: 1fr auto; }
     .site nav { display: none; }              /* phones: logo + Art | Tech */
   }
@@ -639,10 +641,12 @@
   </section>
   <!-- ── CO-EXIST ───────────────────────────────────────────── -->
   <section class="band" aria-label="Co-exist, not compete">
-    <img class="band-bg" src="/tech/media/handshake-v4.jpg" alt="" aria-hidden="true" loading="lazy">
-    <img class="band-photo" src="/tech/media/handshake-v4.jpg" alt="A wax arm reaching across a table to shake a person’s hand" loading="lazy">
+    <img src="/tech/media/handshake-v5.jpg" alt="A wax arm reaching across a table to shake a person’s hand" loading="lazy">
     <div class="band-shade" aria-hidden="true"></div>
-    <p class="band-q">Human and machine should<br><em>co-exist</em>, not compete.</p>
+    <div class="band-stage">
+      <p class="band-q band-q--top">Human and machine should <em>co-exist</em>,</p>
+      <p class="band-q band-q--bottom">not compete.</p>
+    </div>
   </section>
 </main>
 
