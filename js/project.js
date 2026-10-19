@@ -38,6 +38,7 @@ async function init() {
     : null;
 
   const mediaFirst = project.mediaFirst === true;
+  const fromTech = params.get('from') === 'tech';
 
   const detail = document.getElementById('project-detail');
 
@@ -46,11 +47,11 @@ async function init() {
   const audioHTML = buildAudio(project.audioUrl, project.extraAudio);
 
   detail.innerHTML = `
-    <a class="project-back" href="/">
+    <a class="project-back" href="${fromTech ? '/tech/#capabilities' : '/'}">
       <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
         <path d="M5 1L1 5L5 9M1 5H15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      All Work
+      ${fromTech ? 'Technical' : 'All Work'}
     </a>
 
     <div class="project-header">
@@ -73,6 +74,16 @@ async function init() {
   `;
 
   buildLightbox();
+
+  // Came from /tech: step back in history so its scroll position and filter are kept
+  if (fromTech) {
+    detail.querySelector('.project-back').addEventListener('click', (e) => {
+      try {
+        const ref = new URL(document.referrer);
+        if (ref.origin === location.origin && ref.pathname.startsWith('/tech')) { e.preventDefault(); history.back(); }
+      } catch (_) {}
+    });
+  }
 
   requestAnimationFrame(() => {
     detail.classList.add('is-visible');

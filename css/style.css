@@ -63,15 +63,16 @@ nav a:hover { color: var(--accent); }
 header .logo { justify-self: start; }
 header nav { justify-self: end; align-items: center; }
 
-/* Art | Technical — the two sides of the portfolio, centred in the header */
-.mode { display: inline-flex; border: 1px solid var(--border); }
+/* Art | Technical — the two sides of the portfolio, centred in the header.
+   Same look on both sides (colours match /tech), so it reads as one switch. */
+.mode { display: inline-flex; border: 1px solid #2a2620; }
 .mode a {
-  font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--muted); padding: 7px 12px; transition: color 0.2s, background 0.2s;
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: #8f8a80; padding: 7px 12px; transition: color 0.2s, background 0.2s;
 }
-.mode a + a { border-left: 1px solid var(--border); }
-.mode a:hover { color: var(--accent); }
-.mode a.is-on { color: var(--accent); background: rgba(184, 150, 110, 0.08); }
+.mode a + a { border-left: 1px solid #2a2620; }
+.mode a:hover { color: #ea5fb0; }
+.mode a.is-on { color: #ea5fb0; background: rgba(234, 95, 176, 0.08); }
 @media (max-width: 600px) {
   header { grid-template-columns: 1fr auto; }
   header nav { display: none; }

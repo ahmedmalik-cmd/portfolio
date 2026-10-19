@@ -145,10 +145,6 @@
   }
   .sec-label span { color: var(--accent); margin-right: 10px; }
   .sec-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.3rem, 4.2vw, 3.5rem); line-height: 1; }
-  .sec-note {
-    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; line-height: 1.8;
-    color: var(--text-3); text-align: right; max-width: 36ch;
-  }
   .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
   .chips li {
     font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.06em; line-height: 1.4;
@@ -186,6 +182,7 @@
   .wcard-meta .yr { margin-left: auto; }
   .wcard-title { font-family: var(--serif); font-weight: 300; font-size: clamp(1.9rem, 2.8vw, 2.6rem); line-height: 1.05; }
   .wcard--feature .wcard-title { font-size: clamp(2.5rem, 4.2vw, 3.8rem); }
+  .wcard-alt { margin-top: 10px; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3); }
   .wcard-line { font-size: 0.97rem; line-height: 1.6; color: var(--text-2); max-width: 54ch; }
   .wcard-open {
     margin-top: auto; padding-top: 8px; font-family: var(--mono); font-size: 0.6rem;
@@ -195,7 +192,7 @@
   .wcard:hover .wcard-open { color: var(--accent); }
   .wcard:hover .wcard-open i { transform: translateX(4px); }
 
-  /* ── INDEX ────────────────────────────────────────────────── */
+  /* ── CAPABILITIES ────────────────────────────────────────────── */
   .ix-filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--pad) 26px; }
   .ix-f {
     font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
@@ -206,19 +203,25 @@
   .ix-f.is-on { color: var(--accent); border-color: var(--accent-soft); background: rgba(234, 95, 176, 0.06); }
   .ix { list-style: none; border-top: 1px solid var(--hair); }
   .ix-row[hidden] { display: none; }
-  .ix-row a {
-    display: grid; grid-template-columns: 72px minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1.5fr) 110px;
+  .ix-row {
+    position: relative; display: grid; grid-template-columns: 80px minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1.5fr) 110px;
     gap: 24px; align-items: baseline; padding: 20px var(--pad); border-bottom: 1px solid var(--hair); transition: background 0.2s;
   }
-  .ix-row a:hover { background: var(--surface); }
+  .ix-row:hover { background: var(--surface); }
+  .ix-main::after { content: ''; position: absolute; inset: 0; }
+  .ix-main:focus-visible { outline: none; }
+  .ix-main:focus-visible::after { outline: 1px solid var(--accent-soft); outline-offset: -1px; }
   .ix-y { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text-3); }
-  .ix-todo { color: var(--accent); }
-  .ix-t { font-family: var(--serif); font-weight: 300; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.1; transition: color 0.2s; }
+  .ix-t { font-family: var(--serif); font-weight: 300; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.1; }
+  .ix-main { transition: color 0.2s; }
+  .ix-also { display: block; margin-top: 7px; font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); }
+  .ix-also a { position: relative; z-index: 1; color: var(--text-2); border-bottom: 1px solid var(--line); transition: color 0.2s, border-color 0.2s; }
+  .ix-also a:hover { color: var(--accent); border-color: var(--accent); }
   .ix-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
   .ix-s { font-size: 0.9rem; line-height: 1.5; color: var(--text-2); }
   .ix-go { justify-self: end; white-space: nowrap; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); transition: color 0.2s; }
   .ix-row.is-case .ix-go { color: var(--accent); }
-  .ix-row a:hover .ix-t, .ix-row a:hover .ix-go { color: var(--accent); }
+  .ix-row:hover .ix-main, .ix-row:hover .ix-go { color: var(--accent); }
   .ix-preview {
     position: fixed; left: 0; top: 0; z-index: 40; width: 240px; aspect-ratio: 4 / 3; pointer-events: none;
     border: 1px solid var(--line); background: var(--surface); opacity: 0; transition: opacity 0.18s;
@@ -228,7 +231,7 @@
 
   /* ── CO-EXIST BAND ─────────────────────────────────────────── */
   .band { position: relative; overflow: hidden; border-bottom: 1px solid var(--hair); background: var(--surface); }
-  .band img { display: block; width: 100%; height: min(64vh, 620px); object-fit: cover; object-position: 58% 55%; filter: brightness(0.8) saturate(0.92); }
+  .band img { display: block; width: 100%; height: min(64vh, 620px); object-fit: cover; object-position: 50% 68%; filter: brightness(0.8) saturate(0.92); }
   .band-shade { position: absolute; inset: 0; pointer-events: none;
     background: linear-gradient(0deg, rgba(12,11,9,0.88) 0%, rgba(12,11,9,0) 48%), linear-gradient(90deg, rgba(12,11,9,0.5) 0%, rgba(12,11,9,0) 50%); }
   .band-q { position: absolute; left: var(--pad); bottom: 44px; max-width: 20ch; font-family: var(--serif); font-weight: 300;
@@ -261,7 +264,7 @@
   }
   .contact-links a:hover { color: var(--accent); border-color: var(--accent); }
   footer.site-foot {
-    padding: 32px var(--pad); display: flex; justify-content: space-between; gap: 16px;
+    padding: 32px var(--pad); display: flex; justify-content: space-between; align-items: center; gap: 16px;
     font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3);
   }
 
@@ -279,6 +282,8 @@
   }
   .cf-crumb { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
   .cf-crumb b { font-weight: 400; color: var(--accent); }
+  .cf-where { display: flex; align-items: center; gap: 18px; min-width: 0; }
+  .cf-crumb { overflow: hidden; text-overflow: ellipsis; }
   .cf-nav { display: flex; gap: 6px; }
   .cf-btn {
     font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -297,6 +302,7 @@
     color: var(--accent); border: 1px solid var(--accent-soft); padding: 4px 10px;
   }
   .cf-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.8rem, 6vw, 5.6rem); line-height: 0.98; }
+  .cf-alt { margin-top: 14px; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
   .cf-sub { margin-top: 16px; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); line-height: 1.9; }
   .cf-lede { font-size: clamp(1.05rem, 1.5vw, 1.28rem); font-weight: 300; line-height: 1.6; color: var(--text); }
   .cf-q { margin-top: 10px; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.8rem); line-height: 1.2; color: var(--accent); }
@@ -392,7 +398,6 @@
     .disciplines { grid-template-columns: 1fr 1fr; }
     .disciplines a, .disciplines li:first-child a { padding: 16px 20px 18px; }
     .sec-head { grid-template-columns: 1fr; padding-top: 76px; padding-bottom: 28px; }
-    .sec-note { text-align: left; }
     .work-grid { grid-template-columns: 1fr; }
     .wcard--feature { grid-template-columns: 1fr; }
     .wcard--feature .wcard-media { min-height: 0; aspect-ratio: 16 / 10; }
@@ -401,10 +406,10 @@
     .split > div { padding: 76px 20px 64px; }
     .stack-list div { grid-template-columns: 1fr; gap: 4px; }
     .ix-filters { padding: 0 20px 20px; }
-    .ix-row a { grid-template-columns: 52px minmax(0, 1fr); gap: 6px 14px; padding: 18px 20px; }
+    .ix-row { grid-template-columns: 58px minmax(0, 1fr); gap: 6px 14px; padding: 18px 20px; }
     .ix-k, .ix-s, .ix-go { grid-column: 2; }
     .ix-go { justify-self: start; }
-    .band img { height: 54vh; object-position: 80% 50%; }
+    .band img { height: 54vh; object-position: 88% 50%; }
     .band-q { bottom: 26px; font-size: 1.7rem; }
     .cf-head { grid-template-columns: 1fr; gap: 24px; padding: 44px 20px 36px; }
     .cf-body { grid-template-columns: 1fr; }
@@ -417,6 +422,7 @@
     .node-detail { padding: 22px 20px 24px; }
     .steps { grid-template-columns: 1fr 1fr; }
     .cf-btn .lbl { display: none; }
+    .cf-crumb { display: none; }
   }
   @media (max-width: 760px) {
     .hero { padding-top: 46vh; padding-top: 46svh; }
@@ -445,7 +451,7 @@
   <span class="mode" aria-label="Portfolio"><a href="/">Art</a><a class="is-on" href="/tech/" aria-current="page">Tech<span class="long">nical</span></a></span>
   <nav aria-label="Sections">
     <a href="#work">Work</a>
-    <a href="#index">Index</a>
+    <a href="#capabilities">Capabilities</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
@@ -460,22 +466,22 @@
       <div class="hud" aria-hidden="true">
         <div><span data-hud="source">wire hand — real &amp; rendered</span></div>
         <div><span data-hud="points">—</span> splats · <span class="hud-live" data-hud="state">loading</span> · <span data-hud="fps">—</span></div>
-        <div class="hud-hint">drag to spin · click to ripple</div>
+        <div class="hud-hint">reach in</div>
       </div>
       <p class="eyebrow">Artist · creative technologist</p>
       <h1>material &amp; <em>machine</em></h1>
       <p class="hero-bio">My relationship with art began through technological interfaces — cameras, screens, the physics of game engines. Working backwards from digital to physical taught me to perceive materials differently.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#work">Selected work ↓</a>
-        <a class="btn" href="#index">Index</a>
+        <a class="btn" href="#capabilities">Capabilities</a>
         <a class="btn" href="mailto:ahmedjamalmalik1@gmail.com">Email</a>
       </div>
     </div>
     <ul class="disciplines">
-      <li><a href="#index" data-filter="realtime"><b>Real-time &amp; XR <i>→</i></b><span>Unity, Unreal, VR and AR</span></a></li>
-      <li><a href="#index" data-filter="vision"><b>Vision &amp; AI <i>→</i></b><span>Depth sensing, local models, photogrammetry</span></a></li>
-      <li><a href="#index" data-filter="film"><b>Projection &amp; film <i>→</i></b><span>Mapping, AV and generative video</span></a></li>
-      <li><a href="#index" data-filter="fab"><b>Fabrication &amp; electronics <i>→</i></b><span>3D printing, CNC, circuits</span></a></li>
+      <li><a href="#capabilities" data-filter="rt"><b>Real-time 3D &amp; XR <i>→</i></b><span>Unity · Unreal · C# · Meta XR SDK</span></a></li>
+      <li><a href="#capabilities" data-filter="cv"><b>Computer vision &amp; AI <i>→</i></b><span>RGB-D sensing · pose · local VLMs</span></a></li>
+      <li><a href="#capabilities" data-filter="av"><b>Projection &amp; AV <i>→</i></b><span>Mapping · TouchDesigner · generative video</span></a></li>
+      <li><a href="#capabilities" data-filter="fab"><b>Fabrication &amp; electronics <i>→</i></b><span>CNC · 3D printing · soldering</span></a></li>
     </ul>
   </section>
 
@@ -486,7 +492,6 @@
         <p class="sec-label">Work</p>
         <h2 class="sec-title">Selected work</h2>
       </div>
-      <p class="sec-note">Three projects. Open any card for the case file — spec sheet, system, media.</p>
     </div>
     <div class="work-grid">
       <a class="wcard wcard--feature" href="#real-and-rendered">
@@ -510,10 +515,10 @@
                  data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,w_960,c_limit/v1791832272/IMG_3818.mp4"></video>
         </div>
         <div class="wcard-body">
-          <div class="wcard-meta"><span>Live event · Jadu × AWE</span></div>
+          <div class="wcard-meta"><span>Live event · Jadu × AWE</span><span class="yr">2026</span></div>
           <h3 class="wcard-title">Projection mapping</h3>
           <p class="wcard-line">Rigged, mapped, ran and struck a 20,000-lumen laser projector for Jadu’s mixer at Augmented World Expo.</p>
-          <ul class="chips"><li>Unity</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li></ul>
+          <ul class="chips"><li>Unity</li><li>TouchDesigner</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li></ul>
           <span class="wcard-open">Open case file <i>→</i></span>
         </div>
       </a>
@@ -524,9 +529,9 @@
                  data-src="/tech/media/rwr-trailer-v3.mp4"></video>
         </div>
         <div class="wcard-body">
-          <div class="wcard-meta"><span>Film · process</span></div>
-          <h3 class="wcard-title">Physical → Generated</h3>
-          <p class="wcard-line">Films that begin as handmade sets, slides and analog footage, then get reanimated with generative video. Featured: <em>Return Without Reason</em>.</p>
+          <div class="wcard-meta"><span>Film · process</span><span class="yr">2026</span></div>
+          <div><h3 class="wcard-title">Return Without Reason</h3><p class="wcard-alt">Physical → Generated</p></div>
+          <p class="wcard-line">Films that begin as handmade sets, slides and analog footage, then get reanimated with generative video.</p>
           <ul class="chips"><li>Generative video</li><li>Analog</li><li>Editing</li></ul>
           <span class="wcard-open">Open case file <i>→</i></span>
         </div>
@@ -534,67 +539,63 @@
     </div>
   </section>
 
-  <!-- ── INDEX ──────────────────────────────────────────────── -->
-  <section class="sec" id="index">
+  <!-- ── CAPABILITIES ───────────────────────────────────────── -->
+  <section class="sec" id="capabilities">
     <div class="sec-head">
       <div>
-        <p class="sec-label">Index</p>
-        <h2 class="sec-title">All projects</h2>
+        <p class="sec-label">Capabilities</p>
+        <h2 class="sec-title">What I build</h2>
       </div>
-      <p class="sec-note">Every project with a technical side. Case files open here; the rest open on the art side.</p>
     </div>
-    <div class="ix-filters" role="toolbar" aria-label="Filter projects">
+    <div class="ix-filters" role="toolbar" aria-label="Filter by discipline">
       <button type="button" class="ix-f is-on" data-filter="all" aria-pressed="true">All <span></span></button>
-      <button type="button" class="ix-f" data-filter="realtime" aria-pressed="false">Real-time &amp; XR <span></span></button>
-      <button type="button" class="ix-f" data-filter="vision" aria-pressed="false">Vision &amp; AI <span></span></button>
-      <button type="button" class="ix-f" data-filter="film" aria-pressed="false">Projection &amp; film <span></span></button>
+      <button type="button" class="ix-f" data-filter="rt" aria-pressed="false">Real-time 3D &amp; XR <span></span></button>
+      <button type="button" class="ix-f" data-filter="cv" aria-pressed="false">Computer vision &amp; AI <span></span></button>
+      <button type="button" class="ix-f" data-filter="av" aria-pressed="false">Projection &amp; AV <span></span></button>
       <button type="button" class="ix-f" data-filter="fab" aria-pressed="false">Fabrication &amp; electronics <span></span></button>
     </div>
     <ol class="ix">
-      <li class="ix-row is-case" data-tags="realtime vision film" data-img="/the-room/media/perceive_poster.jpg">
-        <a href="#real-and-rendered"><span class="ix-y">2026</span><span class="ix-t">real &amp; rendered</span><span class="ix-k">Installation</span><span class="ix-s">Unity · C# · Python · Kinect v1 ×2 · LLaVA · TRIBE v2 · CLIP</span><span class="ix-go">Case file →</span></a>
+      <li class="ix-row is-case" data-tags="rt cv av" data-img="/the-room/media/perceive_poster.jpg">
+        <span class="ix-y">2026</span>
+        <span class="ix-t"><a class="ix-main" href="#real-and-rendered">real &amp; rendered</a></span>
+        <span class="ix-k">Installation</span><span class="ix-s">Unity · C# · Python · Kinect v1 ×2 · LLaVA · TRIBE v2 · CLIP</span><span class="ix-go">Case file →</span>
       </li>
-      <li class="ix-row is-case" data-tags="realtime film" data-img="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0,w_480,c_limit/v1791832272/IMG_3818.jpg">
-        <a href="#projection-mapping"><span class="ix-y ix-todo" title="Placeholder — year to confirm">[year]</span><span class="ix-t">Projection mapping</span><span class="ix-k">Live event · Jadu × AWE</span><span class="ix-s">Unity · Panasonic PT-MZ20K · projection mapping</span><span class="ix-go">Case file →</span></a>
+      <li class="ix-row is-case" data-tags="rt av" data-img="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0,w_480,c_limit/v1791832272/IMG_3818.jpg">
+        <span class="ix-y">2026</span>
+        <span class="ix-t"><a class="ix-main" href="#projection-mapping">Projection mapping</a></span>
+        <span class="ix-k">Live event · Jadu × AWE</span><span class="ix-s">Unity · TouchDesigner · Panasonic PT-MZ20K</span><span class="ix-go">Case file →</span>
       </li>
-      <li class="ix-row is-case" data-tags="film vision" data-img="/tech/media/rwr-poster-v3.jpg">
-        <a href="#physical-generated"><span class="ix-y ix-todo" title="Placeholder — year to confirm">[year]</span><span class="ix-t">Physical → Generated</span><span class="ix-k">Film series</span><span class="ix-s">Generative video · handmade sets · analog footage</span><span class="ix-go">Case file →</span></a>
+      <li class="ix-row is-case" data-tags="cv av" data-img="/tech/media/rwr-poster-v3.jpg">
+        <span class="ix-y">2026</span>
+        <span class="ix-t"><a class="ix-main" href="#physical-generated">Return Without Reason</a><span class="ix-also">Physical → Generated</span></span>
+        <span class="ix-k">Film</span><span class="ix-s">Generative video · analog footage · handmade sets</span><span class="ix-go">Case file →</span>
       </li>
-      <li class="ix-row" data-tags="realtime vision" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/v1773157890/vr-01.jpg">
-        <a href="/project.html?id=VirtualReality"><span class="ix-y">2025</span><span class="ix-t">VR</span><span class="ix-k">VR installation</span><span class="ix-s">Unity · Meta XR SDK · live Kinect point cloud</span><span class="ix-go">Art side →</span></a>
+      <li class="ix-row" data-tags="rt cv" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/v1773157890/vr-01.jpg">
+        <span class="ix-y">2023–25</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=VirtualReality&amp;from=tech">VR</a><span class="ix-also">also <a href="/project.html?id=game%2Fenvironment%20development%20in%20vr&amp;from=tech" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/vr-06.png">Saif-ul-Malook →</a></span></span>
+        <span class="ix-k">Virtual reality</span><span class="ix-s">Unity · Meta XR SDK · Kinect point cloud · Unreal Engine</span><span class="ix-go">Art side →</span>
       </li>
-      <li class="ix-row" data-tags="realtime film" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/ani-05.png">
-        <a href="/project.html?id=liminality"><span class="ix-y">2025</span><span class="ix-t">liminality</span><span class="ix-k">Real-time animation</span><span class="ix-s">Unity · character building · shot in-engine</span><span class="ix-go">Art side →</span></a>
+      <li class="ix-row" data-tags="rt av" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/ani-05.png">
+        <span class="ix-y">2025</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=liminality&amp;from=tech">liminality</a></span>
+        <span class="ix-k">Real-time animation</span><span class="ix-s">Unity · character building · shot in-engine</span><span class="ix-go">Art side →</span>
       </li>
-      <li class="ix-row" data-tags="realtime" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/ar-01.jpg">
-        <a href="/project.html?id=Augmented%20Reality%20Wall%20Piece"><span class="ix-y">2025</span><span class="ix-t">Venn-ish Diagram</span><span class="ix-k">AR wall piece</span><span class="ix-s">AR · ZapWorks</span><span class="ix-go">Art side →</span></a>
-      </li>
-      <li class="ix-row" data-tags="film fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/pro-02.jpg">
-        <a href="/project.html?id=FragToAug"><span class="ix-y">2025</span><span class="ix-t">Fragment to Augment</span><span class="ix-k">Projection installation</span><span class="ix-s">Analog film projection · wood &amp; cloth</span><span class="ix-go">Art side →</span></a>
+      <li class="ix-row" data-tags="av fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/pro-02.jpg">
+        <span class="ix-y">2025</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=FragToAug&amp;from=tech">Fragment to Augment</a></span>
+        <span class="ix-k">Projection installation</span><span class="ix-s">Analog film projection · wood &amp; cloth</span><span class="ix-go">Art side →</span>
       </li>
       <li class="ix-row" data-tags="fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/cnc-01.jpg">
-        <a href="/project.html?id=wood%2Fmetalshop"><span class="ix-y">2025</span><span class="ix-t">Wood &amp; Metal Shop</span><span class="ix-k">Fabrication</span><span class="ix-s">CNC · wood &amp; metal shop</span><span class="ix-go">Art side →</span></a>
+        <span class="ix-y">2023–25</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=wood%2Fmetalshop&amp;from=tech">Wood &amp; Metal Shop</a><span class="ix-also">also <a href="/project.html?id=3d-printing-modelling&amp;from=tech" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/3dp-02.jpg">3D Printing &amp; Modelling →</a></span></span>
+        <span class="ix-k">Fabrication</span><span class="ix-s">CNC · 3D printing · Blender</span><span class="ix-go">Art side →</span>
       </li>
       <li class="ix-row" data-tags="fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/misc-01.jpg">
-        <a href="/project.html?id=misc"><span class="ix-y">2025</span><span class="ix-t">Miscellaneous</span><span class="ix-k">Electronics</span><span class="ix-s">Breadboards · soldering</span><span class="ix-go">Art side →</span></a>
-      </li>
-      <li class="ix-row" data-tags="vision" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/pho-04.jpg">
-        <a href="/project.html?id=analog-photo%20box"><span class="ix-y">2024</span><span class="ix-t">3D Reconstruction with Film</span><span class="ix-k">Photogrammetry</span><span class="ix-s">Photogrammetry from analog photographs</span><span class="ix-go">Art side →</span></a>
-      </li>
-      <li class="ix-row" data-tags="realtime" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/vr-06.png">
-        <a href="/project.html?id=game%2Fenvironment%20development%20in%20vr"><span class="ix-y">2023</span><span class="ix-t">Saif-ul-Malook</span><span class="ix-k">VR experience</span><span class="ix-s">Unreal Engine · VR</span><span class="ix-go">Art side →</span></a>
-      </li>
-      <li class="ix-row" data-tags="fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/3dp-02.jpg">
-        <a href="/project.html?id=3d-printing-modelling"><span class="ix-y">2023</span><span class="ix-t">3D Printing &amp; Modelling</span><span class="ix-k">Digital fabrication</span><span class="ix-s">Blender · 3D printing</span><span class="ix-go">Art side →</span></a>
+        <span class="ix-y">2025</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=misc&amp;from=tech">Miscellaneous</a></span>
+        <span class="ix-k">Electronics</span><span class="ix-s">Breadboards · soldering</span><span class="ix-go">Art side →</span>
       </li>
     </ol>
-  </section>
-
-  <!-- ── CO-EXIST ───────────────────────────────────────────── -->
-  <section class="band" aria-label="Co-exist, not compete">
-    <img src="/tech/media/handshake.jpg" alt="A wax arm reaching across a table to shake a person’s hand" loading="lazy">
-    <div class="band-shade" aria-hidden="true"></div>
-    <p class="band-q">Human and machine should <em>co-exist</em>, not compete.</p>
   </section>
 
   <!-- ── STACK + CONTACT ────────────────────────────────────── -->
@@ -605,7 +606,7 @@
         <h2 class="sec-title">Tools &amp; languages</h2>
         <dl class="stack-list">
           <div><dt>Languages</dt><dd>C · C++ · C# · Python</dd></div>
-          <div><dt>Real-time &amp; XR</dt><dd>Unity · Unreal Engine · TouchDesigner · VR</dd></div>
+          <div><dt>Real-time 3D &amp; XR</dt><dd>Unity · Unreal Engine · TouchDesigner · VR</dd></div>
           <div><dt>3D &amp; CAD</dt><dd>Blender · Rhino · SketchUp · AutoCAD · photogrammetry · 3D printing</dd></div>
           <div><dt>AI / ML</dt><dd>Ollama · LLaVA · TRIBE v2 · CLIP · MediaPipe · ml-sharp · Runway · Midjourney</dd></div>
           <div><dt>Video &amp; audio</dt><dd>Premiere Pro · DaVinci Resolve · Ableton · Pro Tools · spatial audio</dd></div>
@@ -624,23 +625,31 @@
         <div class="contact-links">
           <a href="https://www.linkedin.com/in/ahmedjmalik/" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a href="https://github.com/ahmedmalik-cmd" target="_blank" rel="noopener">GitHub ↗</a>
-          <a href="/">Art portfolio ↗</a>
-          <a href="/the-room/">real &amp; rendered — project page ↗</a>
         </div>
       </div>
     </div>
   </section>
+  <!-- ── CO-EXIST ───────────────────────────────────────────── -->
+  <section class="band" aria-label="Co-exist, not compete">
+    <img src="/tech/media/handshake-v2.jpg" alt="A wax arm reaching across a table to shake a person’s hand" loading="lazy">
+    <div class="band-shade" aria-hidden="true"></div>
+    <p class="band-q">Human and machine should <em>co-exist</em>, not compete.</p>
+  </section>
 </main>
 
 <footer class="site-foot">
-  <span>Ahmed J Malik — Technical</span>
+  <span>Ahmed J Malik</span>
+  <span class="mode" aria-label="Portfolio"><a href="/">Art</a><a class="is-on" href="/tech/">Technical</a></span>
   <span>© <span id="yr">2026</span></span>
 </footer>
 
 <!-- ── CASE FILES ─────────────────────────────────────────────── -->
 <div class="cf" id="cf" role="dialog" aria-modal="true" aria-label="Case file" hidden>
   <div class="cf-bar">
-    <span class="cf-crumb">Case file · <b id="cf-index">real &amp; rendered</b></span>
+    <div class="cf-where">
+      <button class="cf-btn cf-back" id="cf-back" type="button">← Technical</button>
+      <span class="cf-crumb">Case file · <b id="cf-index">real &amp; rendered</b></span>
+    </div>
     <div class="cf-nav">
       <button class="cf-btn" id="cf-prev" type="button" aria-label="Previous case">← <span class="lbl">Prev</span></button>
       <button class="cf-btn" id="cf-next" type="button" aria-label="Next case"><span class="lbl">Next</span> →</button>
@@ -779,7 +788,7 @@
             <div class="node-detail" data-node="gpu" hidden>
               <div class="nd-head"><span class="nd-kicker">GPU host</span><h4>TRIBE v2 + CLIP</h4><span class="nd-where">RTX 3090 on the LAN · REST</span></div>
               <div class="nd-grid">
-                <div><p class="lbl">Does</p><p>TRIBE v2 predicts cortical activation from each 2-second clip (<code>POST /predict</code>). open_clip ViT-B-32 embeds every arrival as a 512-d vector (<code>POST /embed</code>), so the room can recognise a return.</p></div>
+                <div><p class="lbl">Does</p><p>TRIBE v2 predicts cortical activation from each 2-second clip (<code>POST /predict</code>). open_clip ViT-B-32 embeds every arrival as a 512-d vector (<code>POST /embed</code>), so the room can recognize a return.</p></div>
                 <div class="fix"><p class="lbl">What broke · the fix</p><p>Raw activations sat between 0.00 and 0.01, so they’re rescaled against a rolling 10th–90th percentile (300 samples). If the host drops, the client feeds synthetic zeros and re-probes <code>/health</code> every 60 s. Recall matches at cosine 0.84.</p></div>
               </div>
               <ul class="chips"><li>TRIBE v2</li><li>open_clip</li><li>REST</li><li>RTX 3090</li></ul>
@@ -788,7 +797,7 @@
               <div class="nd-head"><span class="nd-kicker">Speak</span><h4>LLaVA via Ollama</h4><span class="nd-where">Installation PC · local, offline</span></div>
               <div class="nd-grid">
                 <div><p class="lbl">Does</p><p>Turns the assembled prompt and the current frame into one short line — a noticing, a guess, a question — every thirty seconds or so.</p></div>
-                <div class="fix"><p class="lbl">What broke · the fix</p><p>It defaulted to help-desk speech. Shaped against the logs: a first-person persona, regex filters for third-person and greeter phrasing, a fixation analyser that steers off repeated words, and a 30-second gate during long visits.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>It defaulted to help-desk speech. Shaped against the logs: a first-person persona, regex filters for third-person and greeter phrasing, a fixation analyzer that steers off repeated words, and a 30-second gate during long visits.</p></div>
               </div>
               <ul class="chips"><li>Ollama</li><li>LLaVA</li><li>Prompt assembly</li><li>Output filters</li></ul>
             </div>
@@ -830,7 +839,7 @@
               <canvas></canvas>
               <div class="viewer-status">Loading the gallery as points…</div>
             </div>
-            <figcaption>The gallery as ~90,000 gaussian splats, coloured like the live cloud. Drag to orbit, scroll to zoom.</figcaption>
+            <figcaption>The gallery as ~90,000 Gaussian splats, colored like the live cloud. Drag to orbit, scroll to zoom.</figcaption>
           </figure>
 
           <section class="cf-sec">
@@ -874,7 +883,7 @@
             <div><dt>Projector</dt><dd>Panasonic PT-MZ20K</dd></div>
             <div><dt>Light</dt><dd>20,000 lm · 3LCD laser · liquid-cooled</dd></div>
             <div><dt>Native</dt><dd>WUXGA 1920 × 1200, driven 1:1</dd></div>
-            <div><dt>Content</dt><dd>Unity</dd></div>
+            <div><dt>Content</dt><dd>Unity · TouchDesigner</dd></div>
             <div><dt>Output</dt><dd>Off-target areas masked to true black</dd></div>
             <div><dt>Rig</dt><dd>~20 kg body, two-person lift · lens transported separately</dd></div>
             <div><dt>Role</dt><dd>Setup → mapping → live operation → strike</dd></div>
@@ -883,7 +892,7 @@
         <div class="cf-main">
           <section class="cf-sec">
             <p class="cf-h">What I did</p>
-            <p class="txt">I rigged and configured the projector, drove the mapped content from Unity and aligned it to the venue on site. Output ran at the projector’s native 1920 × 1200, with everything off the target masked to true black — at 20,000 lumens, spill is real. I operated it live through the event, then struck the rig.</p>
+            <p class="txt">I rigged and configured the projector, drove the mapped content from Unity and TouchDesigner, and aligned it to the venue on site. Output ran at the projector’s native 1920 × 1200, with everything off the target masked to true black — at 20,000 lumens, spill is real. I operated it live through the event, then struck the rig.</p>
             <p class="txt"><strong>Handling.</strong> The PT-MZ20K is sealed and liquid-cooled, so breakdown means the lens and the rig, not the chassis: tool-free lens removal — top slide cover, lock lever, counter-clockwise out — the lens cased on its own, the body cased level and left to reach room temperature before power-up, to avoid condensation.</p>
           </section>
           <figure class="fig">
@@ -904,24 +913,25 @@
           </figure>
         </div>
       </div>
-      <div class="cf-end"><a class="text-link" href="#real-and-rendered">← real &amp; rendered</a><a class="text-link" href="#physical-generated">Next — Physical → Generated →</a></div>
+      <div class="cf-end"><a class="text-link" href="#real-and-rendered">← real &amp; rendered</a><a class="text-link" href="#physical-generated">Next — Return Without Reason →</a></div>
     </article>
 
-    <!-- 03 physical → generated -->
-    <article class="cf-case" data-case="physical-generated" data-title="Physical → Generated" hidden>
+    <!-- 03 return without reason (physical → generated) -->
+    <article class="cf-case" data-case="physical-generated" data-title="Return Without Reason" hidden>
       <header class="cf-head">
         <div>
           <ul class="tags"><li>Film</li><li>Generative video</li><li>Process</li></ul>
-          <h2 class="cf-title">Physical → Generated</h2>
-          <p class="cf-sub">Return Without Reason · Loop Prison (episodic series)<br>On Flick</p>
+          <h2 class="cf-title">Return Without Reason</h2>
+          <p class="cf-alt">Physical → Generated</p>
+          <p class="cf-sub">Film · 2026 · on Flick</p>
         </div>
-        <p class="cf-lede">My films start in physical material — handmade sets, slides and footage shot by hand — which I then hand to generative video to reanimate and extend, cutting the built and the synthesized back into each other.</p>
+        <p class="cf-lede">My films start in physical material — handmade sets, slides and footage shot by hand — which I then pass to generative video to reanimate and extend, cutting the built and the synthesized back into each other.</p>
       </header>
       <div class="cf-body">
         <aside class="cf-spec"><div class="cf-spec-inner">
           <p class="cf-h">Spec sheet</p>
           <dl class="spec-dl">
-            <div><dt>Featured</dt><dd>Return Without Reason · 2:30</dd></div>
+            <div><dt>Runtime</dt><dd>2:30</dd></div>
             <div><dt>Series</dt><dd>Loop Prison — Infinite Loop Prison · Loop Prison · The Dig</dd></div>
             <div><dt>Method</dt><dd>Sets · slides · analog footage → generative video → edit</dd></div>
             <div><dt>Tools</dt><dd>Generative video · Adobe Suite</dd></div>
@@ -939,12 +949,12 @@
             </div>
           </section>
           <section class="cf-sec">
-            <p class="cf-h">Featured — trailer</p>
+            <p class="cf-h">Trailer</p>
             <a class="film" href="https://flick.art/film/return-without-reason-b9c5fe" target="_blank" rel="noopener">
               <video muted loop playsinline preload="none" data-auto poster="/tech/media/rwr-poster-v3.jpg" data-src="/tech/media/rwr-trailer-v3.mp4"></video>
               <div class="film-foot"><strong>Return Without Reason</strong><span>Watch the full film on Flick ↗</span></div>
             </a>
-            <p class="txt" style="margin-top:18px">It began as an analog experiment after Stan Brakhage — until AI reanimates it. The trailer follows the same arc: analog flashes first, then the reanimated footage.</p>
+            <p class="txt" style="margin-top:18px">It began as an analog experiment after Stan Brakhage, until AI reanimated it. The trailer follows the same arc: analog flashes first, then the reanimated footage.</p>
           </section>
           <section class="cf-sec">
             <p class="cf-h">Loop Prison — episodic series</p>
@@ -1241,7 +1251,6 @@ const HERO_VS = `
   const canvas = document.getElementById('hero-canvas');
   const hud = Object.fromEntries([...document.querySelectorAll('[data-hud]')].map(el => [el.dataset.hud, el]));
   const qs = new URLSearchParams(location.search);
-  if (matchMedia('(hover: none)').matches) document.querySelector('.hud-hint').textContent = 'swipe sideways to spin · tap to ripple';
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'high-performance' }); }
   catch (e) { hud.state.textContent = 'webgl unavailable'; return; }
@@ -1254,6 +1263,7 @@ const HERO_VS = `
   const FORMS = ['wire hand — real & rendered', 'dandelion — Return Without Reason', 'fragments — Fragment to Augment'];
   let mat = null, ready = false;
 
+  const heroH1 = heroEl.querySelector('h1'), heroStrip = heroEl.querySelector('.disciplines');
   function layout() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     renderer.setSize(w, h, false);
@@ -1261,10 +1271,17 @@ const HERO_VS = `
     const visH = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
     const ppu = h / visH;                                    // css px per world unit at z = 0
     if (w / h > 1.05) {
-      // wide screens: the headline ends ~62% across, so centre the forms (≤ 7.6 wide) to its right
-      const halfW = visH / 2 * (w / h);
-      group.scale.setScalar(0.95);
-      group.position.set(Math.min(0.56 * halfW, 0.9 * halfW - 3.6), 0.7, 0);
+      // wide screens: as large as the room right of the headline allows, leaning toward it.
+      // Measured half-widths (local units): ~3.2 at the headline's height, ~4.3 overall — the fragments are widest.
+      const hr = heroEl.getBoundingClientRect();
+      const range = document.createRange(); range.selectNodeContents(heroH1);
+      const textRight = range.getBoundingClientRect().right - hr.left;
+      const top = 64, bottom = heroStrip.getBoundingClientRect().top - hr.top;
+      const s = Math.max(0.6, Math.min(1.15, (w - 44 - textRight) / (7.5 * ppu), (bottom - top - 50) / (10.5 * ppu)));
+      const lo = textRight + 28 + 3.2 * s * ppu, hi = w - 16 - 4.3 * s * ppu;
+      const cx = hi > lo ? lo + 0.25 * (hi - lo) : (lo + hi) / 2;
+      group.scale.setScalar(s);
+      group.position.set((cx - w / 2) / ppu, (h / 2 - (top + bottom) / 2) / ppu, 0);
     }
     else {
       // narrow screens: the form gets the band between the header and the headline
@@ -1277,6 +1294,7 @@ const HERO_VS = `
     if (mat) { mat.uniforms.uScale.value = renderer.domElement.height / 2; mat.uniforms.uAspect.value = w / h; }
   }
   layout(); addEventListener('resize', layout);
+  document.fonts.ready.then(layout);              // the headline's width settles once the serif loads
 
   const load = (src) => new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src; });
   Promise.all([load('/tech/media/wire-hand.jpg'), load('/tech/media/fragments.jpg')]).then(([handImg, fragImg]) => {
@@ -1285,7 +1303,7 @@ const HERO_VS = `
       buildHand(handImg, small ? 240 : 380, 10.5),
       buildDandelion(10.5, small ? 70 : 150),
       buildFragments(fragImg, small ? 250 : 375, 9),
-    ].map(s => resample(fitBox(s), N));
+    ].map((s, i) => resample(i === 2 ? fitBox(s, 10.5, 6.9) : fitBox(s), N));   // fragments run wide: a little narrower
     const scatter = new Float32Array(N * 3), rand = new Float32Array(N);
     const g = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;   // soft, no hard edge
     for (let i = 0; i < N; i++) {
@@ -1596,6 +1614,7 @@ document.addEventListener('click', (e) => {
   go(id, sub);
 });
 document.getElementById('cf-close').addEventListener('click', close);
+document.getElementById('cf-back').addEventListener('click', close);
 document.getElementById('cf-prev').addEventListener('click', () => step(-1));
 document.getElementById('cf-next').addEventListener('click', () => step(1));
 document.addEventListener('keydown', (e) => {
@@ -1610,7 +1629,7 @@ addEventListener('hashchange', route);
 route();
 
 /* ───────────────────────────────────────────────────────────────
-   6b. Index: filter by discipline (chips, or the hero strip), and
+   6b. Capabilities: filter by discipline (chips, or the hero strip), and
    preview each project's image beside the cursor.
    ─────────────────────────────────────────────────────────────── */
 const ixRows = [...document.querySelectorAll('.ix-row')];
@@ -1619,7 +1638,14 @@ const tagsOf = (r) => r.dataset.tags.split(' ');
 function filterIndex(f) {
   ixRows.forEach(r => { r.hidden = f !== 'all' && !tagsOf(r).includes(f); });
   ixChips.forEach(b => { const on = b.dataset.filter === f; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
+  try { sessionStorage.setItem('capFilter', f); } catch (e) {}
 }
+// coming back from a project page: keep the filter you left with
+try {
+  const nav = performance.getEntriesByType('navigation')[0];
+  const f = sessionStorage.getItem('capFilter');
+  if (nav && nav.type === 'back_forward' && f && ixChips.some(b => b.dataset.filter === f)) filterIndex(f);
+} catch (e) {}
 ixChips.forEach(b => {
   const f = b.dataset.filter;
   b.querySelector('span').textContent = f === 'all' ? ixRows.length : ixRows.filter(r => tagsOf(r).includes(f)).length;
@@ -1632,6 +1658,10 @@ if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
   ixRows.forEach(r => {
     r.addEventListener('pointerenter', () => { pvImg.src = r.dataset.img; pv.classList.add('is-on'); });
     r.addEventListener('pointerleave', () => pv.classList.remove('is-on'));
+    r.querySelectorAll('.ix-also a[data-img]').forEach(a => {
+      a.addEventListener('pointerenter', () => { pvImg.src = a.dataset.img; });
+      a.addEventListener('pointerleave', () => { pvImg.src = r.dataset.img; });
+    });
   });
   document.querySelector('.ix').addEventListener('pointermove', (e) => {
     const x = e.clientX + 264 > innerWidth ? e.clientX - 264 : e.clientX + 24;
@@ -1640,15 +1670,15 @@ if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
   }, { passive: true });
   // warm the thumbnails once the index is near, so the first hover isn't empty
   new IntersectionObserver((es, io) => {
-    if (es.some(e => e.isIntersecting)) { ixRows.forEach(r => { new Image().src = r.dataset.img; }); io.disconnect(); }
-  }, { rootMargin: '600px' }).observe(document.getElementById('index'));
+    if (es.some(e => e.isIntersecting)) { document.querySelectorAll('.ix [data-img]').forEach(el => { new Image().src = el.dataset.img; }); io.disconnect(); }
+  }, { rootMargin: '600px' }).observe(document.getElementById('capabilities'));
 }
 
 /* ───────────────────────────────────────────────────────────────
    7. Nav: highlight the section in view.
    ─────────────────────────────────────────────────────────────── */
 const navLinks = [...document.querySelectorAll('.site nav a[href^="#"]')];
-const navSections = ['work', 'index', 'stack'].map(id => document.getElementById(id));
+const navSections = ['work', 'capabilities', 'stack'].map(id => document.getElementById(id));
 let navQueued = false;
 function updateNav() {
   navQueued = false;
