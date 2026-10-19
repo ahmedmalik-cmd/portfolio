@@ -91,7 +91,7 @@
   h1 em { font-style: italic; color: var(--accent); }
   .hero-bio {
     font-weight: 300; font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55;
-    color: var(--text-2); max-width: 36ch;
+    color: var(--text-2); max-width: 46ch;
   }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
   .btn {
@@ -103,10 +103,10 @@
   .btn-primary { color: var(--accent); border-color: var(--accent-soft); }
   .btn-primary:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
   .hud {
-    position: absolute; z-index: 2; top: 92px; right: var(--pad); text-align: right;
+    position: absolute; z-index: 2; top: 96px; left: var(--pad); text-align: left;
     font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; line-height: 1.9;
     color: var(--text-3); text-transform: uppercase; pointer-events: none;
-    background: rgba(12, 11, 9, 0.74); border: 1px solid var(--hair); padding: 8px 12px;
+    border-left: 1px solid var(--accent-soft); padding-left: 12px;
   }
   .hud span { color: var(--text-2); }
   .hud .hud-live { color: var(--accent); }
@@ -275,6 +275,8 @@
   .cf-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.8rem, 6vw, 5.6rem); line-height: 0.98; }
   .cf-sub { margin-top: 16px; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); line-height: 1.9; }
   .cf-lede { font-size: clamp(1.05rem, 1.5vw, 1.28rem); font-weight: 300; line-height: 1.6; color: var(--text); }
+  .cf-q { margin-top: 10px; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.8rem); line-height: 1.2; color: var(--accent); }
+  .cf-lede-sm { margin-top: 16px; font-size: 0.95rem; line-height: 1.65; color: var(--text-2); }
   .cf-body { display: grid; grid-template-columns: minmax(260px, 330px) 1fr; gap: 1px; background: var(--hair); }
   .cf-spec { background: var(--bg); padding: 40px 32px 48px var(--pad); }
   .cf-spec-inner { position: sticky; top: 24px; }
@@ -300,6 +302,13 @@
     font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
     color: var(--text-3); pointer-events: none;
   }
+
+  /* thought → decision */
+  .principles { border-top: 1px solid var(--hair); }
+  .pr { display: grid; grid-template-columns: minmax(0, 0.9fr) 1.1fr; gap: 32px; padding: 22px 0; border-bottom: 1px solid var(--hair); }
+  .pr-t { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 1.3rem; line-height: 1.32; color: var(--text); }
+  .pr-t b { display: block; margin-bottom: 9px; font-family: var(--mono); font-style: normal; font-weight: 400; font-size: 0.53rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+  .pr-d { font-size: 0.95rem; line-height: 1.68; color: var(--text-2); }
 
   /* system map */
   .map-hint { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; color: var(--text-3); margin-bottom: 14px; }
@@ -377,6 +386,7 @@
     .cf-spec-inner { position: static; }
     .cf-main { padding: 32px 20px 72px; }
     .nd-grid { grid-template-columns: 1fr; gap: 18px; }
+    .pr { grid-template-columns: 1fr; gap: 10px; }
     .node-detail { padding: 22px 20px 24px; }
     .steps { grid-template-columns: 1fr 1fr; }
     .cf-btn .lbl { display: none; }
@@ -425,9 +435,9 @@
       <div>render <span data-hud="fps">—</span></div>
     </div>
     <div class="hero-body">
-      <p class="eyebrow">Technical portfolio</p>
+      <p class="eyebrow">Artist · creative technologist</p>
       <h1>material &amp; <em>machine</em></h1>
-      <p class="hero-bio">Artist and creative technologist working where physical material meets machine perception and generative media.</p>
+      <p class="hero-bio">My relationship with art began through technological interfaces — cameras, screens, the physics of game engines. Working backwards from digital to physical taught me to perceive materials differently.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#work">Selected work ↓</a>
         <a class="btn" href="#capabilities">Capabilities</a>
@@ -606,9 +616,13 @@
         <div>
           <ul class="tags"><li>Installation</li><li>Distributed system</li><li>Local AI</li></ul>
           <h2 class="cf-title">real &amp; rendered</h2>
+          <p class="cf-q">— who decides which is what?</p>
           <p class="cf-sub">Senior thesis · Bennington College<br>Usdan Gallery · 18–26 May 2026</p>
         </div>
-        <p class="cf-lede">The engineering behind the installation: two machines, three projectors and seven components that turned depth sensors into a room that talks. This file is the system view — the concept, the voice and what it said live on the project page.</p>
+        <div>
+          <p class="cf-lede">The closer I got to systems that could read and respond to human presence, the more I became interested in what they were missing.</p>
+          <p class="cf-lede-sm">This is that system, engineered: two machines, three projectors and seven components that turn depth sensors into a room that talks. The concept, the voice and what it said live on the project page.</p>
+        </div>
       </header>
       <div class="cf-body">
         <aside class="cf-spec"><div class="cf-spec-inner">
@@ -626,6 +640,32 @@
           </dl>
         </div></aside>
         <div class="cf-main">
+          <section class="cf-sec">
+            <p class="cf-h">From the question to the system</p>
+            <div class="principles">
+              <div class="pr">
+                <p class="pr-t"><b>Measure, then guess</b>What we can truly understand, we can simulate — the irreducible part is what’s left over.</p>
+                <p class="pr-d">So the room measures everything it can — depth at 30 fps, pose as discrete labels, predicted cortical activation, a 512-d signature per visitor — and still only guesses. None of the seven streams is the person; the line it speaks is a noticing, not a reading.</p>
+              </div>
+              <div class="pr">
+                <p class="pr-t"><b>Its own measure</b>We can’t expect to hold machine learning to the same metrics as ourselves.</p>
+                <p class="pr-d">A human metric — predicted brain response — went in raw and barely moved (0.00–0.01). It only meant something once it was scored against its own history: a rolling 10th–90th percentile. The machine is read by its own range, not ours.</p>
+              </div>
+              <div class="pr">
+                <p class="pr-t"><b>Co-exist, not compete</b>Human and machine presence should sit side by side, not imitate each other.</p>
+                <p class="pr-d">The room doesn’t play a person or a host. It speaks in the first person as a place — walls are skin, cameras are eyes — and greeter and assistant phrasing is filtered out of what it says.</p>
+              </div>
+              <div class="pr">
+                <p class="pr-t"><b>No outside view</b>A conscious mind can’t fully decipher itself with tools of its own making.</p>
+                <p class="pr-d">So the room reads itself: at 4 AM, with no one inside, it summarises the day and writes a note it will read tomorrow — a memory loop with nothing outside it to check against.</p>
+              </div>
+              <div class="pr">
+                <p class="pr-t"><b>Who decides</b>Real and rendered — who decides which is what?</p>
+                <p class="pr-d">Both versions are on the walls at once: the rendered room on two projectors, the room’s reading of you on the third. The visitor stands between them.</p>
+              </div>
+            </div>
+          </section>
+
           <section class="cf-sec">
             <p class="cf-h">What I built</p>
             <p class="txt">The whole pipeline, from sensor to wall: a Unity bridge that fuses two depth streams into one live point cloud; a Python perception loop that runs its workers in parallel so nothing blocks; a GPU machine on the LAN serving a brain-encoding model and an embedding server; and the prompt assembly that turns <strong>seven streams of context</strong> into one line from a local vision-language model.</p>
