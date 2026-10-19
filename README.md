@@ -1,55 +1,20 @@
-# Portfolio
+# Portfolio — ahmedjmalik.com
 
-## How to update content
+Static site on Vercel (`vercel.json`: clean URLs). No build step.
 
-All your content lives in **`public/content.json`**. Edit it directly in GitHub (click the file → pencil icon → commit).
+## Two sides, one site
+- **Art** — `/` (`index.html` + `js/main.js`) and `/project.html?id=…` (`js/project.js`), styled by `css/style.css`.
+  All art content lives in **`public/content.json`**; images and videos are hosted on Cloudinary.
+- **Technical** — `/tech/` (`tech/index.html`, self-contained: styles, the Three.js splat hero, the
+  Capabilities list and the case files). Its media is in `tech/media/`.
+- **real & rendered** — `/the-room/` (`the-room/index.html`), the thesis project page, with its own
+  media, charts, thumbnails and the gallery model (`model/room.glb`, also used by the /tech case file).
 
-### Change your name / bio / email
-Edit the `site` block at the top of `content.json`.
+The **Art | Technical** switch sits in the centre of every header. Project pages opened from /tech
+carry `&from=tech`, so their back link returns to /tech.
 
-### Edit a project title or description
-Find the project by `id` and update `title`, `description`, or `year`.
-
-### Change thumbnail or hover image
-Update `thumbnail` and `hoverImage` paths. Paths are relative to `/public/images/`.
-
-### Add a video
-Set `videoUrl` to a YouTube embed URL:
-```
-"videoUrl": "https://www.youtube.com/embed/YOUR_VIDEO_ID"
-```
-
-### Add a new project
-1. Upload your images to the right folder in `public/images/`
-2. Copy an existing project block in `content.json`, change the `id`, fill in your details
-
-### Add new images to a project
-Upload to the correct folder in `public/images/` then add the path to the `images` array.
-
-### Reorder projects
-Cut and paste the project blocks in `content.json` — the grid follows that order.
-
-## Folder structure
-```
-public/
-  content.json       ← edit this to manage all content
-  images/
-    sculpture/
-    projection/
-    model/
-    photo/
-    ceramics/
-    3dprint/
-    cnc/
-    animation/
-    ar/
-    vr/
-css/
-  style.css
-js/
-  main.js
-  project.js
-index.html
-project.html
-vercel.json
-```
+## Editing art content
+Edit `public/content.json` (GitHub → file → pencil → commit):
+- `site` — name, tagline, bio, email.
+- `projects` — each has `id`, `title`, `categories`, `year`, `description`, `thumbnail`, `hoverImage`,
+  `images`, optional `videoUrl` (YouTube embed) and `audioUrl`. The grid follows the array order.

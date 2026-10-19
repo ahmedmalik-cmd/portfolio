@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical — Ahmed J Malik</title>
+<meta name="description" content="Creative technologist building real-time systems: live point clouds, computer vision, local AI, projection and generative film.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.min.js">
+<link rel="preload" as="image" href="/tech/media/wire-hand.jpg">
+<link rel="preload" as="image" href="/tech/media/fragments.jpg">
+<style>
+  :root {
+    --bg: #0c0b09;
+    --surface: #111008;
+    --line: #2a2620;
+    --hair: #1c1a16;
+    --text: #ddd9d0;
+    --text-2: #cbc6bc;
+    --text-3: #8f8a80;
+    --accent: #ea5fb0;
+    --accent-soft: rgba(234, 95, 176, 0.38);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+    --pad: 48px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  html.cf-open { overflow: hidden; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  :focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+  code { font-family: var(--mono); font-size: 0.86em; color: var(--text); }
+
+  /* ── HEADER (same build as the main site) ─────────────────────── */
+  header.site {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;
+    padding: 20px var(--pad);
+    background: rgba(12, 11, 9, 0.94);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .logo { justify-self: start; white-space: nowrap; font-family: var(--serif); font-size: 1rem; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; }
+  .site nav { justify-self: end; display: flex; gap: 28px; align-items: center; }
+  .site nav a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--text-3); transition: color 0.2s;
+  }
+  .site nav a:hover, .site nav a.is-active { color: var(--accent); }
+  /* Art | Technical — the two sides of the portfolio, centred */
+  .mode { display: inline-flex; border: 1px solid var(--line); }
+  .mode a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--text-3); padding: 7px 12px; transition: color 0.2s, background 0.2s;
+  }
+  .mode a + a { border-left: 1px solid var(--line); }
+  .mode a:hover { color: var(--accent); }
+  .mode a.is-on { color: var(--accent); background: rgba(234, 95, 176, 0.08); }
+
+  /* ── HERO ─────────────────────────────────────────────────────── */
+  .hero {
+    position: relative; min-height: 100vh; min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-top: 96px; overflow: hidden; border-bottom: 1px solid var(--hair);
+  }
+  #hero-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
+    opacity: 0; transition: opacity 1.8s ease;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+  }
+  .hero-shade {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(12,11,9,0.8) 0%, rgba(12,11,9,0.42) 32%, rgba(12,11,9,0) 56%),
+      linear-gradient(0deg, rgba(12,11,9,0.85) 0%, rgba(12,11,9,0) 36%);
+  }
+  .hero-body { position: relative; z-index: 2; max-width: calc(880px + 2 * var(--pad)); padding: 0 var(--pad) 52px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 22px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(3.6rem, 8.2vw, 7.6rem); line-height: 0.95; letter-spacing: -0.01em;
+    margin-bottom: 26px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-bio {
+    font-weight: 300; font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55;
+    color: var(--text-2); max-width: 46ch;
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .btn {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-2); border: 1px solid var(--line); padding: 12px 18px;
+    background: rgba(12,11,9,0.5); transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .btn:hover { color: var(--accent); border-color: var(--accent); }
+  .btn-primary { color: var(--accent); border-color: var(--accent-soft); }
+  .btn-primary:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .hud {
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.12em; line-height: 1.9;
+    color: var(--text-3); text-transform: uppercase; pointer-events: none;
+    border-left: 1px solid var(--accent-soft); padding-left: 12px; margin-bottom: 30px;
+  }
+  .hud span { color: var(--text-2); }
+  .hud .hud-live { color: var(--accent); }
+  .hud .hud-hint { color: var(--text-3); opacity: 0.8; }
+  .hero { touch-action: pan-y; }        /* sideways swipes spin the form; vertical still scrolls */
+  .disciplines {
+    position: relative; z-index: 2; list-style: none;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--hair); border-top: 1px solid var(--hair);
+  }
+  .disciplines a { display: block; height: 100%; background: rgba(12,11,9,0.93); padding: 20px 28px 22px; transition: background 0.25s; }
+  .disciplines li:first-child a { padding-left: var(--pad); }
+  .disciplines a:hover { background: var(--surface); }
+  .disciplines b {
+    display: flex; justify-content: space-between; font-family: var(--mono); font-weight: 400; font-size: 0.54rem;
+    letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .disciplines b i { font-style: normal; opacity: 0; transform: translateX(-4px); transition: opacity 0.2s, transform 0.2s; }
+  .disciplines a:hover b i { opacity: 1; transform: none; }
+  .disciplines span { display: block; font-size: 0.92rem; line-height: 1.45; color: var(--text); }
+
+  /* ── SECTIONS ─────────────────────────────────────────────────── */
+  .sec { border-bottom: 1px solid var(--hair); }
+  .sec-head {
+    display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px;
+    padding: 104px var(--pad) 40px;
+  }
+  .sec-label {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--text-3); margin-bottom: 14px;
+  }
+  .sec-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.3rem, 4.2vw, 3.5rem); line-height: 1; }
+  .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips li {
+    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.06em; line-height: 1.4;
+    color: var(--text); border: 1px solid var(--line); padding: 5px 9px;
+  }
+  .text-link {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); border-bottom: 1px solid var(--accent-soft); padding-bottom: 3px;
+    transition: border-color 0.2s;
+  }
+  .text-link:hover { border-color: var(--accent); }
+
+  /* ── WORK GRID (the main site's hairline grid, made technical) ─── */
+  .work-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--hair); border-top: 1px solid var(--hair);
+  }
+  .wcard { background: var(--bg); display: flex; flex-direction: column; }
+  .wcard--feature { grid-column: 1 / -1; display: grid; grid-template-columns: 1.5fr 1fr; }
+  .wcard-media { position: relative; overflow: hidden; background: var(--surface); aspect-ratio: 16 / 10; }
+  .wcard--feature .wcard-media { aspect-ratio: auto; min-height: 460px; }
+  .wcard-media video, .wcard-media img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.8);
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s ease;
+  }
+  .wcard:hover .wcard-media video, .wcard:hover .wcard-media img { transform: scale(1.03); filter: brightness(1); }
+  .wcard-body { padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+  .wcard--feature .wcard-body { padding: 40px 44px; }
+  .wcard-meta {
+    display: flex; gap: 14px; font-family: var(--mono); font-size: 0.55rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
+  }
+  .wcard-meta .yr { margin-left: auto; }
+  .wcard-title { font-family: var(--serif); font-weight: 300; font-size: clamp(1.9rem, 2.8vw, 2.6rem); line-height: 1.05; }
+  .wcard--feature .wcard-title { font-size: clamp(2.5rem, 4.2vw, 3.8rem); }
+  .wcard-alt { margin-top: 10px; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3); }
+  .wcard-line { font-size: 0.97rem; line-height: 1.6; color: var(--text-2); max-width: 54ch; }
+  .wcard-open {
+    margin-top: auto; padding-top: 8px; font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3); transition: color 0.2s;
+  }
+  .wcard-open i { font-style: normal; display: inline-block; transition: transform 0.2s; }
+  .wcard:hover .wcard-open { color: var(--accent); }
+  .wcard:hover .wcard-open i { transform: translateX(4px); }
+
+  /* ── CAPABILITIES ────────────────────────────────────────────── */
+  .ix-filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--pad) 26px; }
+  .ix-f {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-3); border: 1px solid var(--line); padding: 9px 13px; transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .ix-f span { margin-left: 6px; opacity: 0.6; }
+  .ix-f:hover { color: var(--accent); border-color: var(--accent-soft); }
+  .ix-f.is-on { color: var(--accent); border-color: var(--accent-soft); background: rgba(234, 95, 176, 0.06); }
+  .ix { list-style: none; border-top: 1px solid var(--hair); }
+  .ix-row[hidden] { display: none; }
+  .ix-row {
+    position: relative; display: grid; grid-template-columns: 80px minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1.5fr) 110px;
+    gap: 24px; align-items: baseline; padding: 20px var(--pad); border-bottom: 1px solid var(--hair); transition: background 0.2s;
+  }
+  .ix-row:hover { background: var(--surface); }
+  .ix-main::after { content: ''; position: absolute; inset: 0; }
+  .ix-main:focus-visible { outline: none; }
+  .ix-main:focus-visible::after { outline: 1px solid var(--accent-soft); outline-offset: -1px; }
+  .ix-y { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text-3); }
+  .ix-t { font-family: var(--serif); font-weight: 300; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.1; }
+  .ix-main { transition: color 0.2s; }
+  .ix-also { display: block; margin-top: 7px; font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); }
+  .ix-also a { position: relative; z-index: 1; color: var(--text-2); border-bottom: 1px solid var(--line); transition: color 0.2s, border-color 0.2s; }
+  .ix-also a:hover { color: var(--accent); border-color: var(--accent); }
+  .ix-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+  .ix-s { font-size: 0.9rem; line-height: 1.5; color: var(--text-2); }
+  .ix-go { justify-self: end; white-space: nowrap; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); transition: color 0.2s; }
+  .ix-row.is-case .ix-go { color: var(--accent); }
+  .ix-row:hover .ix-main, .ix-row:hover .ix-go { color: var(--accent); }
+  .ix-preview {
+    position: fixed; left: 0; top: 0; z-index: 40; width: 240px; aspect-ratio: 4 / 3; pointer-events: none;
+    border: 1px solid var(--line); background: var(--surface); opacity: 0; transition: opacity 0.18s;
+  }
+  .ix-preview.is-on { opacity: 1; }
+  .ix-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ── CO-EXIST BAND ─────────────────────────────────────────── */
+  /* The photo as framed, pinned to its bottom edge. .band-stage has the photo's proportions and sits exactly
+     over it, so the words stay around the hands at any size: one line above them, one below. */
+  .band { position: relative; overflow: hidden; border-bottom: 1px solid var(--hair); background: var(--bg); }
+  .band img { display: block; width: 100%; height: auto; aspect-ratio: 1860 / 940; max-height: 82vh; object-fit: cover; object-position: 50% 100%; filter: brightness(0.8) saturate(0.92); }
+  .band-stage { position: absolute; left: 0; bottom: 0; width: 100%; aspect-ratio: 1860 / 940; pointer-events: none; }
+  .band-shade { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(12,11,9,0.55) 0%, rgba(12,11,9,0) 34%), linear-gradient(0deg, rgba(12,11,9,0.75) 0%, rgba(12,11,9,0) 20%),
+      linear-gradient(90deg, rgba(12,11,9,0.55) 0%, rgba(12,11,9,0) 16%); }     /* quiets the studio clutter at the left edge */
+  /* one sentence in three places on the photo: the opening on the curtain above the arm, "co-exist," on the
+     back of the wax hand, "not compete." under the fingertips (positions are fractions of the photo) */
+  .band-q { position: absolute; inset: 0; margin: 0; font-family: var(--serif); font-weight: 300;
+    font-size: clamp(1.6rem, 3.6vw, 3.2rem); line-height: 1.08; color: var(--text); text-shadow: 0 1px 22px rgba(12, 11, 9, 0.7); }
+  .band-q > * { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; }
+  .bq-top { left: 43%; top: 24.7%; }
+  .bq-mid { left: 73.5%; top: 61.5%; font-size: 1.22em; font-style: italic; color: var(--accent); padding: 0.3em 0.7em;   /* a soft dark halo so it reads on the pale hands */
+    background: radial-gradient(closest-side, rgba(12, 11, 9, 0.72), rgba(12, 11, 9, 0.42) 55%, rgba(12, 11, 9, 0));
+    text-shadow: 0 0 2px rgba(12, 11, 9, 0.85), 0 1px 10px rgba(12, 11, 9, 0.9); }
+  .bq-low { left: 70%; top: 92.3%; }
+
+  /* ── STACK + CONTACT ──────────────────────────────────────────── */
+  .split { display: grid; grid-template-columns: 1.25fr 1fr; gap: 1px; background: var(--hair); }
+  .split > div { background: var(--bg); padding: 104px var(--pad) 92px; }
+  .stack-list { margin-top: 30px; }
+  .stack-list div { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
+  .stack-list dt {
+    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--text-3); padding-top: 4px;
+  }
+  .stack-list dd { font-size: 0.98rem; color: var(--text); }
+  .edu { margin-top: 40px; }
+  .edu p:not(.sec-label) { font-size: 0.95rem; line-height: 1.6; color: var(--text-2); max-width: 56ch; }
+  .edu strong { font-weight: 500; color: var(--text); }
+  .contact-mail {
+    display: inline-block; margin-top: 30px; font-family: var(--serif); font-weight: 300;
+    font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.15; color: var(--text);
+    border-bottom: 1px solid var(--line); transition: color 0.2s, border-color 0.2s; overflow-wrap: anywhere;
+  }
+  .contact-mail:hover { color: var(--accent); border-color: var(--accent); }
+  .contact-links { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; margin-top: 32px; }
+  .contact-links a {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-2); border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-links a:hover { color: var(--accent); border-color: var(--accent); }
+  footer.site-foot {
+    padding: 32px var(--pad); display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3);
+  }
+
+  /* ── CASE FILE OVERLAY ────────────────────────────────────────── */
+  .cf {
+    position: fixed; inset: 0; z-index: 80; background: var(--bg);
+    display: flex; flex-direction: column;
+    opacity: 0; transform: translateY(14px); transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .cf[hidden] { display: none; }
+  .cf.is-in { opacity: 1; transform: none; }
+  .cf-bar {
+    flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 14px var(--pad); border-bottom: 1px solid var(--hair);
+  }
+  .cf-crumb { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+  .cf-crumb b { font-weight: 400; color: var(--accent); }
+  .cf-where { display: flex; align-items: center; gap: 18px; min-width: 0; }
+  .cf-crumb { overflow: hidden; text-overflow: ellipsis; }
+  .cf-nav { display: flex; gap: 6px; }
+  .cf-btn {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-2); border: 1px solid var(--line); padding: 9px 13px; transition: color 0.2s, border-color 0.2s;
+  }
+  .cf-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .cf-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
+  .cf-case[hidden] { display: none; }
+  .cf-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end;
+    padding: 72px var(--pad) 48px; border-bottom: 1px solid var(--hair);
+  }
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .tags li {
+    font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent-soft); padding: 4px 10px;
+  }
+  .cf-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.8rem, 6vw, 5.6rem); line-height: 0.98; }
+  .cf-alt { margin-top: 14px; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+  .cf-sub { margin-top: 16px; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); line-height: 1.9; }
+  .cf-lede { font-size: clamp(1.05rem, 1.5vw, 1.28rem); font-weight: 300; line-height: 1.6; color: var(--text); }
+  .cf-q { margin-top: 10px; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.8rem); line-height: 1.2; color: var(--accent); }
+  .cf-lede-sm { margin-top: 16px; font-size: 0.95rem; line-height: 1.65; color: var(--text-2); }
+  .cf-body { display: grid; grid-template-columns: minmax(260px, 330px) 1fr; gap: 1px; background: var(--hair); }
+  .cf-spec { background: var(--bg); padding: 40px 32px 48px var(--pad); }
+  .cf-spec-inner { position: sticky; top: 24px; }
+  .spec-dl div { padding: 12px 0; border-bottom: 1px solid var(--hair); }
+  .spec-dl div:first-child { padding-top: 0; }
+  .spec-dl dt { font-family: var(--mono); font-size: 0.53rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
+  .spec-dl dd { font-size: 0.9rem; line-height: 1.5; color: var(--text); }
+  .cf-main { background: var(--bg); padding: 40px var(--pad) 96px; min-width: 0; }
+  .cf-sec { margin-bottom: 56px; }
+  .cf-h { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-3); margin-bottom: 18px; }
+  .cf-h::before { content: ''; display: inline-block; width: 18px; height: 1px; background: var(--accent); vertical-align: middle; margin-right: 12px; }
+  .cf-main p.txt { font-size: 1rem; line-height: 1.72; color: var(--text-2); max-width: 68ch; }
+  .cf-main p.txt + p.txt { margin-top: 14px; }
+  .cf-main p.txt strong { font-weight: 500; color: var(--text); }
+  .fig { margin: 0 0 56px; }
+  .fig video, .fig img { width: 100%; background: var(--surface); border: 1px solid var(--hair); }
+  .fig-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .fig-2 video { aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 40%; }   /* phone footage, shot vertical */
+  .fig figcaption { margin-top: 12px; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; line-height: 1.7; color: var(--text-3); }
+  .viewer { position: relative; aspect-ratio: 16 / 10; border: 1px solid var(--hair); background: var(--surface); overflow: hidden; cursor: grab; touch-action: none; }
+  .viewer:active { cursor: grabbing; }
+  .viewer canvas { display: block; width: 100%; height: 100%; }
+  .viewer-status {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-3); pointer-events: none;
+  }
+
+  /* thought → decision */
+  .principles { border-top: 1px solid var(--hair); }
+  .pr { display: grid; grid-template-columns: minmax(0, 0.9fr) 1.1fr; gap: 32px; padding: 22px 0; border-bottom: 1px solid var(--hair); }
+  .pr-t { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 1.3rem; line-height: 1.32; color: var(--text); }
+  .pr-t b { display: block; margin-bottom: 9px; font-family: var(--mono); font-style: normal; font-weight: 400; font-size: 0.53rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+  .pr-d { font-size: 0.95rem; line-height: 1.68; color: var(--text-2); }
+
+  /* system map */
+  .map-hint { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; color: var(--text-3); margin-bottom: 14px; }
+  .diagram { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .diagram svg { display: block; width: 100%; min-width: 760px; height: auto; }
+  .d-box { fill: #111008; stroke: #2e2a23; transition: fill 0.2s, stroke 0.2s; }
+  .d-stage { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2.2px; fill: #ea5fb0; }
+  .d-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; fill: #ddd9d0; }
+  .d-sub { font-family: 'Space Mono', monospace; font-size: 9.5px; fill: #8f8a80; }
+  .d-label { font-family: 'Space Mono', monospace; font-size: 9px; fill: #8f8a80; letter-spacing: 0.5px; }
+  .d-line { stroke: #ea5fb0; stroke-width: 1; fill: none; opacity: 0.75; }
+  .d-dash { stroke: #ea5fb0; stroke-width: 1; fill: none; opacity: 0.55; stroke-dasharray: 3 4; }
+  .d-arrow { fill: #ea5fb0; opacity: 0.85; }
+  .node { cursor: pointer; outline: none; }
+  .node:hover .d-box { stroke: rgba(234, 95, 176, 0.6); }
+  .node.is-on .d-box { stroke: #ea5fb0; fill: #1a1217; }
+  .node:focus-visible .d-box { stroke: #ea5fb0; stroke-width: 2; }
+  .node-detail { margin-top: 1px; border: 1px solid var(--hair); background: var(--surface); padding: 26px 28px 28px; }
+  .node-detail[hidden] { display: none; }
+  .nd-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; margin-bottom: 18px; }
+  .nd-kicker { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); }
+  .nd-head h4 { font-family: var(--serif); font-weight: 300; font-size: 1.9rem; line-height: 1.05; }
+  .nd-where { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+  .nd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 20px; }
+  .nd-grid .lbl { font-family: var(--mono); font-size: 0.53rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; }
+  .nd-grid p:not(.lbl) { font-size: 0.93rem; line-height: 1.65; color: var(--text-2); }
+  .nd-grid .fix p:not(.lbl) { color: var(--text); }
+
+  /* films + process */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); }
+  .step { background: var(--bg); padding: 20px 20px 24px; }
+  .step b { display: block; font-family: var(--mono); font-weight: 400; font-size: 0.55rem; letter-spacing: 0.22em; color: var(--accent); margin-bottom: 10px; }
+  .step h4 { font-family: var(--serif); font-weight: 300; font-size: 1.45rem; margin-bottom: 6px; }
+  .step p { font-size: 0.86rem; line-height: 1.55; color: var(--text-2); }
+  .film { display: block; border: 1px solid var(--hair); background: var(--surface); transition: border-color 0.2s; }
+  .film:hover { border-color: var(--accent); }
+  .film video { border: 0; width: 100%; }
+  .film-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 20px; }
+  .film-foot strong { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: 1.5rem; }
+  .film-foot span { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+  .series { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 18px; }
+  .series a { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; color: var(--text); border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s; }
+  .series a:hover { color: var(--accent); border-color: var(--accent); }
+  .cf-end { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 26px var(--pad); border-top: 1px solid var(--hair); }
+
+  /* ── RESPONSIVE ───────────────────────────────────────────────── */
+  @media (max-width: 1080px) {
+  }
+  @media (max-width: 900px) {
+    :root { --pad: 20px; }
+    header.site { padding: 16px 20px; }
+    .site nav { gap: 18px; }
+    .hero-body { padding-bottom: 36px; }
+    .hud { margin-bottom: 22px; }
+    .disciplines { grid-template-columns: 1fr 1fr; }
+    .disciplines a, .disciplines li:first-child a { padding: 16px 20px 18px; }
+    .sec-head { grid-template-columns: 1fr; padding-top: 76px; padding-bottom: 28px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .wcard--feature { grid-template-columns: 1fr; }
+    .wcard--feature .wcard-media { min-height: 0; aspect-ratio: 16 / 10; }
+    .wcard-body, .wcard--feature .wcard-body { padding: 24px 20px 28px; }
+    .split { grid-template-columns: 1fr; }
+    .split > div { padding: 76px 20px 64px; }
+    .stack-list div { grid-template-columns: 1fr; gap: 4px; }
+    .ix-filters { padding: 0 20px 20px; }
+    .ix-row { grid-template-columns: 58px minmax(0, 1fr); gap: 6px 14px; padding: 18px 20px; }
+    .ix-k, .ix-s, .ix-go { grid-column: 2; }
+    .ix-go { justify-self: start; }
+
+    .cf-head { grid-template-columns: 1fr; gap: 24px; padding: 44px 20px 36px; }
+    .cf-body { grid-template-columns: 1fr; }
+    .cf-spec { padding: 32px 20px 8px; }
+    .cf-spec-inner { position: static; }
+    .cf-main { padding: 32px 20px 72px; }
+    .nd-grid { grid-template-columns: 1fr; gap: 18px; }
+    .fig-2 { grid-template-columns: 1fr; }
+    .pr { grid-template-columns: 1fr; gap: 10px; }
+    .node-detail { padding: 22px 20px 24px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .cf-btn .lbl { display: none; }
+    .cf-crumb { display: none; }
+  }
+  @media (max-width: 760px) {
+    .hero { padding-top: 46vh; padding-top: 46svh; }
+    .hero-shade { background: linear-gradient(0deg, rgba(12,11,9,0.94) 0%, rgba(12,11,9,0.62) 48%, rgba(12,11,9,0) 64%); }
+  }
+  @media (max-width: 560px) {
+    .mode .long { display: none; }
+    .logo { font-size: 0.86rem; letter-spacing: 0.16em; }
+    .site nav { gap: 14px; }
+    .site nav a { font-size: 0.56rem; letter-spacing: 0.16em; }
+  }
+  @media (max-width: 600px) {
+    .band img { aspect-ratio: 4 / 5; max-height: none; object-position: 95.3% 100%; }
+    .band-stage { width: 247.4%; left: -140.5%; }       /* = the photo's drawn box at 4:5 with that position (hands centred) */
+    .bq-top { left: 76.2%; }                           /* the arm's upper part is off-screen here, so keep it in view */
+    .band-q { font-size: 1.42rem; }
+    header.site { grid-template-columns: 1fr auto; }
+    .site nav { display: none; }              /* phones: logo + Art | Tech */
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .cf { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a class="logo" href="/">Ahmed J Malik</a>
+  <span class="mode" aria-label="Portfolio"><a href="/">Art</a><a class="is-on" href="/tech/" aria-current="page">Tech<span class="long">nical</span></a></span>
+  <nav aria-label="Sections">
+    <a href="#work">Work</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-body">
+      <div class="hud" aria-hidden="true">
+        <div><span data-hud="source">wire hand — real &amp; rendered</span></div>
+        <div><span data-hud="points">—</span> splats · <span class="hud-live" data-hud="state">loading</span> · <span data-hud="fps">—</span></div>
+        <div class="hud-hint">reach in</div>
+      </div>
+      <p class="eyebrow">Artist · creative technologist</p>
+      <h1>material &amp; <em>machine</em></h1>
+      <p class="hero-bio">My relationship with art began through technological interfaces — cameras, screens, the physics of game engines. Working backwards from digital to physical taught me to perceive materials differently.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#work">Selected work ↓</a>
+        <a class="btn" href="#capabilities">Capabilities</a>
+        <a class="btn" href="mailto:ahmedjamalmalik1@gmail.com">Email</a>
+      </div>
+    </div>
+    <ul class="disciplines">
+      <li><a href="#capabilities" data-filter="rt"><b>Real-time 3D &amp; XR <i>→</i></b><span>Unity · Unreal · C# · Meta XR SDK</span></a></li>
+      <li><a href="#capabilities" data-filter="cv"><b>Computer vision &amp; AI <i>→</i></b><span>RGB-D sensing · pose · local VLMs</span></a></li>
+      <li><a href="#capabilities" data-filter="av"><b>Projection &amp; AV <i>→</i></b><span>Mapping · TouchDesigner · generative video</span></a></li>
+      <li><a href="#capabilities" data-filter="fab"><b>Fabrication &amp; electronics <i>→</i></b><span>CNC · 3D printing · soldering</span></a></li>
+    </ul>
+  </section>
+
+  <!-- ── WORK ────────────────────────────────────────────── -->
+  <section class="sec" id="work">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label">Work</p>
+        <h2 class="sec-title">Selected work</h2>
+      </div>
+    </div>
+    <div class="work-grid">
+      <a class="wcard wcard--feature" href="#real-and-rendered">
+        <div class="wcard-media">
+          <video muted loop playsinline preload="none" poster="/the-room/media/perceive_poster.jpg"
+                 data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-perceive.mp4"></video>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-meta"><span>Installation · senior thesis</span><span class="yr">2026</span></div>
+          <h3 class="wcard-title">real &amp; rendered</h3>
+          <p class="wcard-line">A gallery that sees its visitors as live point clouds and talks about them — a distributed system of depth sensors, a brain-encoding model, visual memory and a local vision-language model, running for eight days.</p>
+          <ul class="chips"><li>Unity</li><li>Python</li><li>Kinect v1 ×2</li><li>LLaVA</li><li>TRIBE v2</li><li>CLIP</li></ul>
+          <span class="wcard-open">Open case file <i>→</i></span>
+        </div>
+      </a>
+
+      <a class="wcard" href="#projection-mapping">
+        <div class="wcard-media">
+          <video muted loop playsinline preload="none"
+                 poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0,w_960,c_limit/v1791832272/IMG_3818.jpg"
+                 data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,w_960,c_limit/v1791832272/IMG_3818.mp4"></video>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-meta"><span>Live event · Jadu × AWE</span><span class="yr">2026</span></div>
+          <h3 class="wcard-title">Projection mapping</h3>
+          <p class="wcard-line">Single-handedly transported, rigged, mapped, ran and struck a 20,000-lumen laser projector for Jadu’s mixer at Augmented World Expo.</p>
+          <ul class="chips"><li>Unity</li><li>TouchDesigner</li><li>Panasonic PT-MZ20K</li><li>Projection mapping</li></ul>
+          <span class="wcard-open">Open case file <i>→</i></span>
+        </div>
+      </a>
+
+      <a class="wcard" href="#physical-generated">
+        <div class="wcard-media">
+          <video muted loop playsinline preload="none" poster="/tech/media/rwr-poster-v3.jpg"
+                 data-src="/tech/media/rwr-trailer-v3.mp4"></video>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-meta"><span>Film · process</span><span class="yr">2026</span></div>
+          <div><h3 class="wcard-title">Return Without Reason</h3><p class="wcard-alt">Physical → Generated</p></div>
+          <p class="wcard-line">Films that begin as handmade sets, slides and analog footage, then get reanimated with generative video.</p>
+          <ul class="chips"><li>Generative video</li><li>Analog</li><li>Editing</li></ul>
+          <span class="wcard-open">Open case file <i>→</i></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── CAPABILITIES ───────────────────────────────────────── -->
+  <section class="sec" id="capabilities">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label">Capabilities</p>
+        <h2 class="sec-title">How I build</h2>
+      </div>
+    </div>
+    <div class="ix-filters" role="toolbar" aria-label="Filter by discipline">
+      <button type="button" class="ix-f is-on" data-filter="all" aria-pressed="true">All <span></span></button>
+      <button type="button" class="ix-f" data-filter="rt" aria-pressed="false">Real-time 3D &amp; XR <span></span></button>
+      <button type="button" class="ix-f" data-filter="cv" aria-pressed="false">Computer vision &amp; AI <span></span></button>
+      <button type="button" class="ix-f" data-filter="av" aria-pressed="false">Projection &amp; AV <span></span></button>
+      <button type="button" class="ix-f" data-filter="fab" aria-pressed="false">Fabrication &amp; electronics <span></span></button>
+    </div>
+    <ol class="ix">
+      <li class="ix-row is-case" data-tags="rt cv av" data-img="/the-room/media/perceive_poster.jpg">
+        <span class="ix-y">2026</span>
+        <span class="ix-t"><a class="ix-main" href="#real-and-rendered">real &amp; rendered</a></span>
+        <span class="ix-k">Installation</span><span class="ix-s">Unity · C# · Python · Kinect v1 ×2 · LLaVA · TRIBE v2 · CLIP</span><span class="ix-go">Case file →</span>
+      </li>
+      <li class="ix-row is-case" data-tags="rt av" data-img="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0,w_480,c_limit/v1791832272/IMG_3818.jpg">
+        <span class="ix-y">2026</span>
+        <span class="ix-t"><a class="ix-main" href="#projection-mapping">Projection mapping</a></span>
+        <span class="ix-k">Live event · Jadu × AWE</span><span class="ix-s">Unity · TouchDesigner · Panasonic PT-MZ20K</span><span class="ix-go">Case file →</span>
+      </li>
+      <li class="ix-row is-case" data-tags="cv av" data-img="/tech/media/rwr-poster-v3.jpg">
+        <span class="ix-y">2026</span>
+        <span class="ix-t"><a class="ix-main" href="#physical-generated">Return Without Reason</a><span class="ix-also">Physical → Generated</span></span>
+        <span class="ix-k">Film</span><span class="ix-s">Generative video · analog footage · handmade sets</span><span class="ix-go">Case file →</span>
+      </li>
+      <li class="ix-row" data-tags="rt cv" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/v1773157890/vr-01.jpg">
+        <span class="ix-y">2023–25</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=VirtualReality&amp;from=tech">Welcome to the Machine</a><span class="ix-also">also <a href="/project.html?id=game%2Fenvironment%20development%20in%20vr&amp;from=tech" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/vr-06.png">Saif-ul-Malook →</a></span></span>
+        <span class="ix-k">VR installation</span><span class="ix-s">Unity · Meta XR SDK · Kinect point cloud · Unreal Engine</span><span class="ix-go">Art side →</span>
+      </li>
+      <li class="ix-row" data-tags="rt av" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/ani-05.png">
+        <span class="ix-y">2025</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=liminality&amp;from=tech">liminality</a></span>
+        <span class="ix-k">Real-time animation</span><span class="ix-s">Unity · character building · shot in-engine</span><span class="ix-go">Art side →</span>
+      </li>
+      <li class="ix-row" data-tags="av fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/pro-02.jpg">
+        <span class="ix-y">2025</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=FragToAug&amp;from=tech">Fragment to Augment</a></span>
+        <span class="ix-k">Projection installation</span><span class="ix-s">Analog film projection · wood &amp; cloth</span><span class="ix-go">Art side →</span>
+      </li>
+      <li class="ix-row" data-tags="fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/cnc-01.jpg">
+        <span class="ix-y">2023–25</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=wood%2Fmetalshop&amp;from=tech">Wood &amp; Metal Shop</a><span class="ix-also">also <a href="/project.html?id=3d-printing-modelling&amp;from=tech" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/3dp-02.jpg">3D Printing &amp; Modelling →</a></span></span>
+        <span class="ix-k">Fabrication</span><span class="ix-s">CNC · 3D printing · Blender</span><span class="ix-go">Art side →</span>
+      </li>
+      <li class="ix-row" data-tags="fab" data-img="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,w_480,c_limit/misc-01.jpg">
+        <span class="ix-y">2025</span>
+        <span class="ix-t"><a class="ix-main" href="/project.html?id=misc&amp;from=tech">Miscellaneous</a></span>
+        <span class="ix-k">Electronics</span><span class="ix-s">Breadboards · soldering</span><span class="ix-go">Art side →</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ── STACK + CONTACT ────────────────────────────────────── -->
+  <section class="sec" id="stack">
+    <div class="split">
+      <div>
+        <p class="sec-label">Stack</p>
+        <h2 class="sec-title">Tools &amp; languages</h2>
+        <dl class="stack-list">
+          <div><dt>Languages</dt><dd>C · C++ · C# · Python</dd></div>
+          <div><dt>Real-time 3D &amp; XR</dt><dd>Unity · Unreal Engine · TouchDesigner · Meta XR SDK · ZapWorks (AR)</dd></div>
+          <div><dt>3D &amp; CAD</dt><dd>Blender · Rhino · SketchUp · AutoCAD · photogrammetry</dd></div>
+          <div><dt>AI / ML</dt><dd>Ollama · LLaVA · TRIBE v2 · CLIP · MediaPipe · ml-sharp · Runway · Midjourney</dd></div>
+          <div><dt>Fabrication &amp; electronics</dt><dd>CNC · 3D printing · wood &amp; metal shop · soldering · breadboarding</dd></div>
+          <div><dt>Hardware &amp; AV</dt><dd>Kinect v1 · Panasonic PT-MZ20K · multi-projector rigs · MIDI / OSC</dd></div>
+          <div><dt>Video &amp; audio</dt><dd>Premiere Pro · DaVinci Resolve · Ableton · Pro Tools · FL Studio · Audacity · spatial audio</dd></div>
+          <div><dt>Design &amp; GIS</dt><dd>Figma · Adobe Suite · QGIS</dd></div>
+        </dl>
+        <div class="edu">
+          <p class="sec-label" style="margin-bottom:10px">Education</p>
+          <p><strong>Bennington College</strong> — BA, December 2026. Visual arts, interactive technology, virtual environments &amp; simulation; computer science (secondary).</p>
+        </div>
+      </div>
+      <div id="contact">
+        <p class="sec-label">Contact</p>
+        <h2 class="sec-title">Get in touch</h2>
+        <a class="contact-mail" href="mailto:ahmedjamalmalik1@gmail.com">ahmedjamalmalik1@gmail.com</a>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/ahmedjmalik/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/ahmedmalik-cmd" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ── CO-EXIST ───────────────────────────────────────────── -->
+  <section class="band" aria-label="Co-exist, not compete">
+    <img src="/tech/media/handshake-v6.jpg" alt="A wax arm reaching across a table to shake a person’s hand" loading="lazy">
+    <div class="band-shade" aria-hidden="true"></div>
+    <div class="band-stage">
+      <p class="band-q"><span class="bq-top">Human and machine should</span> <em class="bq-mid">co-exist,</em> <span class="bq-low">not compete.</span></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <span>Ahmed J Malik</span>
+  <span class="mode" aria-label="Portfolio"><a href="/">Art</a><a class="is-on" href="/tech/">Technical</a></span>
+  <span>© <span id="yr">2026</span></span>
+</footer>
+
+<!-- ── CASE FILES ─────────────────────────────────────────────── -->
+<div class="cf" id="cf" role="dialog" aria-modal="true" aria-label="Case file" hidden>
+  <div class="cf-bar">
+    <div class="cf-where">
+      <button class="cf-btn cf-back" id="cf-back" type="button">← Technical</button>
+      <span class="cf-crumb">Case file · <b id="cf-index">real &amp; rendered</b></span>
+    </div>
+    <div class="cf-nav">
+      <button class="cf-btn" id="cf-prev" type="button" aria-label="Previous case">← <span class="lbl">Prev</span></button>
+      <button class="cf-btn" id="cf-next" type="button" aria-label="Next case"><span class="lbl">Next</span> →</button>
+      <button class="cf-btn" id="cf-close" type="button" aria-label="Close case file">Close ✕</button>
+    </div>
+  </div>
+  <div class="cf-scroll" id="cf-scroll">
+
+    <!-- 01 real & rendered -->
+    <article class="cf-case" data-case="real-and-rendered" data-title="real &amp; rendered" hidden>
+      <header class="cf-head">
+        <div>
+          <ul class="tags"><li>Installation</li><li>Distributed system</li><li>Local AI</li></ul>
+          <h2 class="cf-title">real &amp; rendered</h2>
+          <p class="cf-q">— who decides which is what?</p>
+          <p class="cf-sub">Senior thesis · Bennington College<br>Usdan Gallery · 18–26 May 2026</p>
+        </div>
+        <div>
+          <p class="cf-lede">The closer I got to systems that could read and respond to human presence, the more I became interested in what they were missing.</p>
+          <p class="cf-lede-sm">The system view — sensors to wall in seven components. The concept and the voice live on the project page.</p>
+        </div>
+      </header>
+      <div class="cf-body">
+        <aside class="cf-spec"><div class="cf-spec-inner">
+          <p class="cf-h">Spec sheet</p>
+          <dl class="spec-dl">
+            <div><dt>Runtime</dt><dd>8 days, continuous, in public</dd></div>
+            <div><dt>Sensors</dt><dd>2 × Kinect v1 · depth + RGB, 640 × 480 @ 30 fps</dd></div>
+            <div><dt>Point cloud</dt><dd>~140,000 points per frame · Unity · custom compute + shader</dd></div>
+            <div><dt>Compute</dt><dd>Installation PC + RTX 3090 on the LAN · REST: <code>/predict</code>, <code>/embed</code> · fully local</dd></div>
+            <div><dt>Models</dt><dd>LLaVA via Ollama (local) · TRIBE v2 · open_clip ViT-B-32 · MediaPipe Face Mesh + Pose</dd></div>
+            <div><dt>Latency</dt><dd>~5 s per thought, down from ~12 s</dd></div>
+            <div><dt>Display</dt><dd>3 projectors — 2 × point cloud, 1 × captions</dd></div>
+          </dl>
+        </div></aside>
+        <div class="cf-main">
+          <section class="cf-sec explorer" id="explorer">
+            <p class="cf-h">System map</p>
+            <p class="map-hint">Select a component — what it does, where it runs, what broke and the fix.</p>
+            <div class="diagram">
+              <svg viewBox="0 0 1000 340" role="group" aria-label="real &amp; rendered system map">
+                <path class="d-dash" d="M297 86 V46 H903 V79"/><polygon class="d-arrow" points="903,86 899,78 907,78"/>
+                <text class="d-label" x="600" y="38" text-anchor="middle">merged point cloud → projectors A + B</text>
+
+                <g class="node" data-node="sense" tabindex="0" role="button" aria-label="Sense: two Kinect v1 sensors">
+                  <rect class="d-box" x="10" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="24" y="108">SENSE</text>
+                  <text class="d-title" x="24" y="132">2 × Kinect v1</text>
+                  <text class="d-sub" x="24" y="154">depth + RGB · 30 fps</text>
+                  <text class="d-sub" x="24" y="170">opposing corners</text>
+                </g>
+                <g class="node" data-node="fuse" tabindex="0" role="button" aria-label="Fuse: Unity bridge">
+                  <rect class="d-box" x="212" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="226" y="108">FUSE</text>
+                  <text class="d-title" x="226" y="132">Unity bridge</text>
+                  <text class="d-sub" x="226" y="154">merge · ICP · smooth</text>
+                  <text class="d-sub" x="226" y="170">plate · presence</text>
+                </g>
+                <g class="node" data-node="perceive" tabindex="0" role="button" aria-label="Perceive: perception loop">
+                  <rect class="d-box" x="414" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="428" y="108">PERCEIVE</text>
+                  <text class="d-title" x="428" y="132">Perception loop</text>
+                  <text class="d-sub" x="428" y="154">clips · pose · recall</text>
+                  <text class="d-sub" x="428" y="170">7 context streams</text>
+                </g>
+                <g class="node" data-node="speak" tabindex="0" role="button" aria-label="Speak: LLaVA via Ollama">
+                  <rect class="d-box" x="616" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="630" y="108">SPEAK</text>
+                  <text class="d-title" x="630" y="132">LLaVA via Ollama</text>
+                  <text class="d-sub" x="630" y="154">local · one line</text>
+                  <text class="d-sub" x="630" y="170">persona · filters</text>
+                </g>
+                <g class="node" data-node="show" tabindex="0" role="button" aria-label="Show: three projectors">
+                  <rect class="d-box" x="818" y="86" width="170" height="104"/>
+                  <text class="d-stage" x="832" y="108">SHOW</text>
+                  <text class="d-title" x="832" y="132">3 projectors</text>
+                  <text class="d-sub" x="832" y="154">A + B · point cloud</text>
+                  <text class="d-sub" x="832" y="170">C · captions</text>
+                </g>
+                <g class="node" data-node="gpu" tabindex="0" role="button" aria-label="GPU host: TRIBE v2 and CLIP">
+                  <rect class="d-box" x="414" y="242" width="170" height="90"/>
+                  <text class="d-stage" x="428" y="264">GPU HOST</text>
+                  <text class="d-title" x="428" y="288">TRIBE v2 + CLIP</text>
+                  <text class="d-sub" x="428" y="310">RTX 3090 · LAN · REST</text>
+                </g>
+                <g class="node" data-node="memory" tabindex="0" role="button" aria-label="Memory: JSON on disk">
+                  <rect class="d-box" x="616" y="242" width="170" height="90"/>
+                  <text class="d-stage" x="630" y="264">MEMORY</text>
+                  <text class="d-title" x="630" y="288">JSON on disk</text>
+                  <text class="d-sub" x="630" y="310">04:00 reflection</text>
+                </g>
+
+                <path class="d-line" d="M180 138 H205"/><polygon class="d-arrow" points="212,138 204,134 204,142"/>
+                <path class="d-line" d="M382 138 H407"/><polygon class="d-arrow" points="414,138 406,134 406,142"/>
+                <path class="d-line" d="M584 138 H609"/><polygon class="d-arrow" points="616,138 608,134 608,142"/>
+                <path class="d-line" d="M786 138 H811"/><polygon class="d-arrow" points="818,138 810,134 810,142"/>
+                <text class="d-label" x="398" y="128" text-anchor="middle">RGB</text>
+                <text class="d-label" x="600" y="128" text-anchor="middle">prompt</text>
+                <text class="d-label" x="802" y="128" text-anchor="middle">line</text>
+
+                <path class="d-line" d="M478 190 V235"/><polygon class="d-arrow" points="478,242 474,234 482,234"/>
+                <path class="d-dash" d="M520 242 V197"/><polygon class="d-arrow" points="520,190 516,198 524,198"/>
+                <text class="d-label" x="470" y="220" text-anchor="end">clip · frame</text>
+                <text class="d-label" x="528" y="220">scores · vector</text>
+                <path class="d-line" d="M680 190 V235"/><polygon class="d-arrow" points="680,242 676,234 684,234"/>
+                <path class="d-dash" d="M722 242 V197"/><polygon class="d-arrow" points="722,190 718,198 726,198"/>
+                <text class="d-label" x="672" y="220" text-anchor="end">write</text>
+                <text class="d-label" x="730" y="220">inject</text>
+              </svg>
+            </div>
+
+            <div class="node-detail" data-node="sense" hidden>
+              <div class="nd-head"><span class="nd-kicker">Sense</span><h4>2 × Kinect v1</h4><span class="nd-where">Hardware · opposing corners, ~3 m apart</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Depth + RGB at 640 × 480, 30 fps each, angled inward and slightly down so the two views overlap across the room.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>The sensor frames are aligned by ICP. A “place sensors from blueprint” shortcut snapped both back to rough positions mid-run and tore a seam through the cloud — now flagged as destructive; the saved calibration is reloaded instead.</p></div>
+              </div>
+              <ul class="chips"><li>Kinect v1</li><li>Depth + RGB</li><li>ICP calibration</li></ul>
+            </div>
+            <div class="node-detail" data-node="fuse" hidden>
+              <div class="nd-head"><span class="nd-kicker">Fuse</span><h4>Unity bridge</h4><span class="nd-where">Installation PC · Unity / C#</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Merges both clouds, smooths depth over time, fills brief dropouts from a persistent background plate, detects presence and per-person heights, and writes <code>presence.json</code> for the perception loop.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>The plate kept restoring depth captured at an old 4 m range after the range was raised to 8 m, slicing the far wall off. It now resets itself whenever min or max depth changes.</p></div>
+              </div>
+              <ul class="chips"><li>Unity</li><li>C#</li><li>Compute shader</li><li>BridgePointCloudManager.cs</li></ul>
+            </div>
+            <div class="node-detail" data-node="perceive" hidden>
+              <div class="nd-head"><span class="nd-kicker">Perceive</span><h4>Perception loop</h4><span class="nd-where">Installation PC · Python</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Pulls the merged RGB stream and runs workers in parallel — 2-second clips at 8 fps for the brain model, single frames for MediaPipe pose (2 Hz) and recall — then assembles seven streams of context into one prompt.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>It started serial — capture, brain, language model, caption — about 12 s per thought. A single-slot clip producer and an async brain worker let the language model read the freshest result instead of waiting: about 5 s.</p></div>
+              </div>
+              <ul class="chips"><li>Python</li><li>Threading</li><li>MediaPipe</li><li>tribe_kinect_client.py</li></ul>
+            </div>
+            <div class="node-detail" data-node="gpu" hidden>
+              <div class="nd-head"><span class="nd-kicker">GPU host</span><h4>TRIBE v2 + CLIP</h4><span class="nd-where">RTX 3090 on the LAN · REST</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>TRIBE v2 predicts cortical activation from each 2-second clip (<code>POST /predict</code>). open_clip ViT-B-32 embeds every arrival as a 512-d vector (<code>POST /embed</code>), so the room can recognize a return.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>Raw activations sat between 0.00 and 0.01, so they’re rescaled against a rolling 10th–90th percentile (300 samples). If the host drops, the client feeds synthetic zeros and re-probes <code>/health</code> every 60 s. Recall matches at cosine 0.84.</p></div>
+              </div>
+              <ul class="chips"><li>TRIBE v2</li><li>open_clip</li><li>REST</li><li>RTX 3090</li></ul>
+            </div>
+            <div class="node-detail" data-node="speak" hidden>
+              <div class="nd-head"><span class="nd-kicker">Speak</span><h4>LLaVA via Ollama</h4><span class="nd-where">Installation PC · local, offline</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Turns the assembled prompt and the current frame into one short line — a noticing, a guess, a question — every thirty seconds or so.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>It defaulted to help-desk speech. Shaped against the logs: a first-person persona, regex filters for third-person and greeter phrasing, a fixation analyzer that steers off repeated words, and a 30-second gate during long visits.</p></div>
+              </div>
+              <ul class="chips"><li>Ollama</li><li>LLaVA</li><li>Prompt assembly</li><li>Output filters</li></ul>
+            </div>
+            <div class="node-detail" data-node="show" hidden>
+              <div class="nd-head"><span class="nd-kicker">Show</span><h4>3 projectors</h4><span class="nd-where">Daisy-chained extended displays</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Two project the merged point cloud, calibrated in-piece; the third shows the room’s line on black, over a top-down view of the cloud.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>The caption canvas was depth-tested against the cloud, so points drew over the text. It moved to a screen-space overlay with a backing band and outlined glyphs, under one CanvasGroup so the fades still animate together.</p></div>
+              </div>
+              <ul class="chips"><li>Unity</li><li>Multi-display</li><li>CaptionProjector.cs</li></ul>
+            </div>
+            <div class="node-detail" data-node="memory" hidden>
+              <div class="nd-head"><span class="nd-kicker">Memory</span><h4>JSON on disk</h4><span class="nd-where">room_memory.json · visits.json · Episodes/</span></div>
+              <div class="nd-grid">
+                <div><p class="lbl">Does</p><p>Keeps every thought and every visit — arrival, duration, CLIP signature, thumbnail — plus a reflection written at 4 AM with the room empty, which is injected into the next day’s prompt.</p></div>
+                <div class="fix"><p class="lbl">What broke · the fix</p><p>One night the reflection came back as a chatbot refusal and was stored as memory. Replies with refusal patterns are now discarded before saving, and filtered again at injection.</p></div>
+              </div>
+              <ul class="chips"><li>JSON</li><li>Nightly reflection</li><li>Memory injection</li></ul>
+            </div>
+          </section>
+
+          <figure class="fig">
+            <video muted loop playsinline preload="none" controls data-auto
+                   data-poster="/the-room/media/perceive_poster.jpg"
+                   data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/room-perceive.mp4"></video>
+            <figcaption>The running system — a visitor inside the live point cloud, with the bridge’s HUD.</figcaption>
+          </figure>
+
+          <figure class="fig">
+            <div class="fig-2">
+              <video muted loop playsinline preload="none" data-auto data-poster="/tech/media/hand-orbit.jpg" data-src="/tech/media/hand-orbit.mp4"></video>
+              <video muted loop playsinline preload="none" data-auto data-poster="/tech/media/projection-wall.jpg" data-src="/tech/media/projection-wall.mp4"></video>
+            </div>
+            <figcaption>In the room — the wire hand on its plinth (the form in this page’s hero), and the merged cloud on the wall under its ceiling projector.</figcaption>
+          </figure>
+
+          <figure class="fig">
+            <div class="viewer" id="room-viewer">
+              <canvas></canvas>
+              <div class="viewer-status">Loading the gallery as points…</div>
+            </div>
+            <figcaption>The gallery as ~90,000 Gaussian splats, colored like the live cloud. Drag to orbit, scroll to zoom.</figcaption>
+          </figure>
+
+          <section class="cf-sec">
+            <p class="cf-h">Why it’s built this way</p>
+            <div class="principles">
+              <div class="pr">
+                <p class="pr-t"><b>Measure, then guess</b>What we can understand, we can simulate.</p>
+                <p class="pr-d">It measures everything it can — depth, pose, brain response, a visual signature — and still only guesses. The line it speaks is a noticing, not a reading.</p>
+              </div>
+              <div class="pr">
+                <p class="pr-t"><b>Its own measure</b>Machines can’t be held to our metrics.</p>
+                <p class="pr-d">The brain signal only meant something once it was scored against its own history — a rolling 10th–90th percentile, not a human scale.</p>
+              </div>
+              <div class="pr">
+                <p class="pr-t"><b>Who decides</b>Real and rendered — who decides which is what?</p>
+                <p class="pr-d">The rendered room on two walls, its reading of you on the third. The visitor stands between them.</p>
+              </div>
+            </div>
+          </section>
+
+          <a class="text-link" href="/the-room/">The concept, the voice and what it said — on the project page →</a>
+        </div>
+      </div>
+      <div class="cf-end"><a class="text-link" href="#work">← All work</a><a class="text-link" href="#projection-mapping">Next — Projection mapping →</a></div>
+    </article>
+
+    <!-- 02 projection mapping -->
+    <article class="cf-case" data-case="projection-mapping" data-title="Projection mapping" hidden>
+      <header class="cf-head">
+        <div>
+          <ul class="tags"><li>Live event</li><li>Projection mapping</li><li>AV</li></ul>
+          <h2 class="cf-title">Projection mapping</h2>
+          <p class="cf-sub">Jadu × AWE — Augmented World Expo<br>Mixer · volunteer projection &amp; AV</p>
+        </div>
+        <p class="cf-lede">Volunteering with Jadu, an AR company, I ran the projection for their mixer at Augmented World Expo on my own, end to end — transporting, assembling and rigging a 20,000-lumen laser projector, mapping and running it live, then disassembling and packing it.</p>
+      </header>
+      <div class="cf-body">
+        <aside class="cf-spec"><div class="cf-spec-inner">
+          <p class="cf-h">Spec sheet</p>
+          <dl class="spec-dl">
+            <div><dt>Projector</dt><dd>Panasonic PT-MZ20K</dd></div>
+            <div><dt>Light</dt><dd>20,000 lm · 3LCD laser · liquid-cooled</dd></div>
+            <div><dt>Native</dt><dd>WUXGA 1920 × 1200, driven 1:1</dd></div>
+            <div><dt>Content</dt><dd>Unity · TouchDesigner</dd></div>
+            <div><dt>Output</dt><dd>Off-target areas masked to true black</dd></div>
+            <div><dt>Rig</dt><dd>~20 kg body · lens transported separately</dd></div>
+            <div><dt>Role</dt><dd>Solo · transport → setup → mapping → live operation → strike</dd></div>
+          </dl>
+        </div></aside>
+        <div class="cf-main">
+          <section class="cf-sec">
+            <p class="cf-h">What I did</p>
+            <p class="txt">I rigged and configured the projector, drove the mapped content from Unity and TouchDesigner, and aligned it to the venue on site. Output ran at the projector’s native 1920 × 1200, with everything off the target masked to true black — at 20,000 lumens, spill is real. I operated it live through the event, then struck the rig.</p>
+            <p class="txt"><strong>Handling.</strong> All of the physical work was mine alone — transport, assembly, rigging, disassembly and packing. The PT-MZ20K is sealed and liquid-cooled, so breakdown means the lens and the rig, not the chassis: tool-free lens removal (top slide cover, lock lever, counter-clockwise out), the lens cased on its own, and the body cased level and left to reach room temperature before power-up, to avoid condensation.</p>
+          </section>
+          <figure class="fig">
+            <video muted loop playsinline preload="none" controls data-auto
+                   data-poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832272/IMG_3818.jpg"
+                   data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832272/IMG_3818.mp4"></video>
+            <figcaption>The projection running live at the venue.</figcaption>
+          </figure>
+          <figure class="fig">
+            <video muted loop playsinline preload="none" controls data-auto
+                   data-poster="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto,so_0/v1791832279/IMG_3819.jpg"
+                   data-src="https://res.cloudinary.com/dai8e5gww/video/upload/f_auto,q_auto/v1791832279/IMG_3819.mp4"></video>
+            <figcaption>A second pass of the mapped content.</figcaption>
+          </figure>
+          <figure class="fig">
+            <img src="https://res.cloudinary.com/dai8e5gww/image/upload/f_auto,q_auto,c_fill,g_auto,z_1.4,ar_16:9,w_1400/v1791832360/IMG_3798.jpg" alt="Dialing in the projection map on site" loading="lazy">
+            <figcaption>Dialing in the map on site.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="cf-end"><a class="text-link" href="#real-and-rendered">← real &amp; rendered</a><a class="text-link" href="#physical-generated">Next — Return Without Reason →</a></div>
+    </article>
+
+    <!-- 03 return without reason (physical → generated) -->
+    <article class="cf-case" data-case="physical-generated" data-title="Return Without Reason" hidden>
+      <header class="cf-head">
+        <div>
+          <ul class="tags"><li>Film</li><li>Generative video</li><li>Process</li></ul>
+          <h2 class="cf-title">Return Without Reason</h2>
+          <p class="cf-alt">Physical → Generated</p>
+          <p class="cf-sub">Film · 2026 · on Flick</p>
+        </div>
+        <p class="cf-lede">My films start in physical material — handmade sets, slides and footage shot by hand — which I then pass to generative video to reanimate and extend, cutting the built and the synthesized back into each other.</p>
+      </header>
+      <div class="cf-body">
+        <aside class="cf-spec"><div class="cf-spec-inner">
+          <p class="cf-h">Spec sheet</p>
+          <dl class="spec-dl">
+            <div><dt>Runtime</dt><dd>2:30</dd></div>
+            <div><dt>Series</dt><dd>Loop Prison (episodic)</dd></div>
+            <div><dt>Method</dt><dd>Sets · slides · analog footage → generative video → edit</dd></div>
+            <div><dt>Tools</dt><dd>Generative video · Adobe Suite</dd></div>
+            <div><dt>Watch</dt><dd>flick.art</dd></div>
+          </dl>
+        </div></aside>
+        <div class="cf-main">
+          <section class="cf-sec">
+            <p class="cf-h">Process</p>
+            <div class="steps">
+              <div class="step"><h4>Build</h4><p>Handmade sets and slides.</p></div>
+              <div class="step"><h4>Shoot</h4><p>Analog, hand-held footage of the physical work.</p></div>
+              <div class="step"><h4>Generate</h4><p>Generative video reanimates and extends the footage.</p></div>
+              <div class="step"><h4>Cut</h4><p>The built and the synthesized, edited back together.</p></div>
+            </div>
+          </section>
+          <section class="cf-sec">
+            <p class="cf-h">Trailer</p>
+            <a class="film" href="https://flick.art/film/return-without-reason-b9c5fe" target="_blank" rel="noopener">
+              <video muted loop playsinline preload="none" data-auto data-poster="/tech/media/rwr-poster-v3.jpg" data-src="/tech/media/rwr-trailer-v3.mp4"></video>
+              <div class="film-foot"><strong>Return Without Reason</strong><span>Watch the full film on Flick ↗</span></div>
+            </a>
+            <p class="txt" style="margin-top:18px">It began as an analog experiment after Stan Brakhage, until AI reanimated it. The trailer follows the same arc: analog flashes first, then the reanimated footage.</p>
+          </section>
+          <section class="cf-sec">
+            <p class="cf-h">Loop Prison — episodic series</p>
+            <p class="txt">The same method, carried across episodes.</p>
+            <div class="series">
+              <a href="https://flick.art/film/infinite-loop-prison-2cba93" target="_blank" rel="noopener">Watch on Flick ↗</a>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="cf-end"><a class="text-link" href="#projection-mapping">← Projection mapping</a><a class="text-link" href="#real-and-rendered">Back to the first — real &amp; rendered →</a></div>
+    </article>
+
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.min.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+THREE.ColorManagement.enabled = false;   // colours below are authored in display space
+
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const narrow = () => innerWidth < 760;
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const PINK = new THREE.Color(0xea5fb0);
+const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+
+/* Gaussian splat fragment: soft round falloff instead of square points. */
+const SPLAT_FS = `
+  varying vec3 vColor; varying float vAlpha;
+  void main() {
+    vec2 c = gl_PointCoord - 0.5;
+    float r2 = dot(c, c);
+    if (r2 > 0.25) discard;
+    gl_FragColor = vec4(vColor, exp(-r2 * 10.0) * vAlpha);
+  }`;
+
+/* ───────────────────────────────────────────────────────────────
+   1. The wire hand → a volumetric point cloud with a hand's anatomy.
+   Edges keep the wire structure. Each row of the closed silhouette
+   becomes an elliptical cross-section whose depth depends on what
+   it is: round fingers, a flat palm, an oval forearm — plus a slight
+   forward curl of the fingers. (Uniform "inflation" made it bulbous.)
+   ─────────────────────────────────────────────────────────────── */
+function buildHand(img, SW, height) {
+  const SH = Math.round(SW * img.height / img.width), k = SW / img.width, N = SW * SH;
+  const sc = SW / 340;                                  // tuning below was done at SW = 340
+  const cv = document.createElement('canvas'); cv.width = SW; cv.height = SH;
+  const cx = cv.getContext('2d', { willReadFrequently: true });
+  cx.drawImage(img, 0, 0, SW, SH);
+  const d = cx.getImageData(0, 0, SW, SH).data;
+  const L = new Float32Array(N);
+  for (let i = 0; i < N; i++) L[i] = 0.299 * d[i*4] + 0.587 * d[i*4+1] + 0.114 * d[i*4+2];
+
+  // in source-image px: above the table edge keep the hand's column (drops wall cables);
+  // below it, only the forearm's own outline (drops the table edge and the hole)
+  const band = [[490,278,496],[560,300,498],[620,331,502],[680,363,508],[740,388,519],[800,409,534],[822,413,537]];
+  const bandAt = (oy) => {
+    if (oy < 490) return [95, 600];
+    for (let j = 0; j < band.length - 1; j++) {
+      const a = band[j], b = band[j+1];
+      if (oy < b[0]) { const u = (oy - a[0]) / (b[0] - a[0]); return [a[1] + (b[1]-a[1])*u, a[2] + (b[2]-a[2])*u]; }
+    }
+    return null;
+  };
+  const E = new Uint8Array(N);
+  let minX = SW, maxX = 0, minY = SH, maxY = 0;
+  for (let y = 0; y < SH - 1; y++) for (let x = 0; x < SW - 1; x++) {
+    const i = y * SW + x;
+    if (Math.abs(L[i] - L[i+1]) + Math.abs(L[i] - L[i+SW]) < 11) continue;
+    const oy = y / k, ox = x / k, b = bandAt(oy);
+    if (!b || ox < b[0] || ox > b[1]) continue;
+    if (oy >= 660) {           // inside the hole: rust wraps or bright wire only, not the mesh
+      const R = d[i*4], G = d[i*4+1], B = d[i*4+2], sat = Math.max(R,G,B) - Math.min(R,G,B);
+      if (!((sat > 22 && R > B + 10) || L[i] > 125)) continue;
+    }
+    E[i] = 1;
+    if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y;
+  }
+
+  // closed silhouette = dilate(3) then erode(2), separable
+  const morph = (src, r, erode) => {
+    const tmp = new Uint8Array(N), out = new Uint8Array(N);
+    for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
+      let v = erode ? 1 : 0;
+      for (let dx = -r; dx <= r; dx++) { const xx = x + dx, s = (xx < 0 || xx >= SW) ? 0 : src[y*SW + xx]; if (erode ? !s : s) { v = erode ? 0 : 1; break; } }
+      tmp[y*SW + x] = v;
+    }
+    for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
+      let v = erode ? 1 : 0;
+      for (let dy = -r; dy <= r; dy++) { const yy = y + dy, s = (yy < 0 || yy >= SH) ? 0 : tmp[yy*SW + x]; if (erode ? !s : s) { v = erode ? 0 : 1; break; } }
+      out[y*SW + x] = v;
+    }
+    return out;
+  };
+  const M = morph(morph(E, 3, false), 2, true);
+
+  // per-row runs of the silhouette: centre + half-width for every pixel
+  const runC = new Float32Array(N), runR = new Float32Array(N);
+  for (let y = 0; y < SH; y++) {
+    let x = 0;
+    while (x < SW) {
+      if (!M[y*SW + x]) { x++; continue; }
+      let x1 = x; while (x1 < SW && M[y*SW + x1]) x1++;
+      const c = (x + x1 - 1) / 2, r = Math.max(1, (x1 - x) / 2);
+      for (let q = x; q < x1; q++) { runC[y*SW + q] = c; runR[y*SW + q] = r; }
+      x = x1;
+    }
+  }
+
+  const wpp = height / (maxY - minY);
+  const ccx = (minX + maxX) / 2, ccy = (minY + maxY) / 2;
+  const palmTop = 330 * k, palmEnd = 400 * k, armStart = 470 * k;   // source px → sample px
+  const pos = [], col = [], tmp = new THREE.Color();
+  for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
+    const i = y*SW + x; if (!E[i] || !runR[i]) continue;
+    const r = runR[i], u = Math.max(-1, Math.min(1, (x - runC[i]) / r));
+    const finger = 1 - smooth(9 * sc, 20 * sc, r);                 // narrow runs are fingers
+    const wide = 0.38 + (0.6 - 0.38) * smooth(palmEnd, armStart, y); // flat palm → oval forearm
+    const flat = wide + (0.95 - wide) * finger;
+    const h = Math.max(flat * r * Math.sqrt(1 - u * u), 0.9 * sc) * wpp;
+    const curl = y < palmTop ? 0.55 * Math.pow((palmTop - y) / (palmTop - minY), 2) : 0;
+    const px = (x - ccx) * wpp, py = (ccy - y) * wpp;
+    tmp.setRGB(Math.min(1, d[i*4]/255*1.3), Math.min(1, d[i*4+1]/255*1.3), Math.min(1, d[i*4+2]/255*1.3)).lerp(PINK, 0.35);
+    for (let rep = 0; rep < 2; rep++) {
+      // 65% on the surface, 35% through the interior → one solid volume
+      const z = Math.random() < 0.65 ? (Math.random() < 0.5 ? -1 : 1) * h * (0.9 + 0.1 * Math.random())
+                                     : (Math.random() * 2 - 1) * h;
+      pos.push(px + (Math.random() - 0.5) * wpp, py + (Math.random() - 0.5) * wpp, z + curl);
+      col.push(tmp.r, tmp.g, tmp.b);
+    }
+  }
+  return { pos: new Float32Array(pos), col: new Float32Array(col), n: pos.length / 3 };
+}
+
+/* ───────────────────────────────────────────────────────────────
+   2a. Two more forms from the work, so the hero can travel between
+   them: a dandelion clock (each seed shaped like the one floating
+   through Return Without Reason) and the hanging fragments of
+   Fragment to Augment, each piece hung at its own depth.
+   ─────────────────────────────────────────────────────────────── */
+function buildDandelion(height, seeds) {
+  const pos = [], col = [];
+  const P = (x, y, z, c) => { pos.push(x, y, z); col.push(c.r, c.g, c.b); };
+  const cream  = new THREE.Color(0.97, 0.95, 0.92).lerp(PINK, 0.32);
+  const beak   = new THREE.Color(0.80, 0.77, 0.74).lerp(PINK, 0.2);
+  const achene = new THREE.Color(0.52, 0.40, 0.30).lerp(PINK, 0.2);
+  const stalk  = new THREE.Color(0.64, 0.63, 0.56).lerp(PINK, 0.25);
+  const R = 3.3, ga = Math.PI * (3 - Math.sqrt(5));
+  const v = new THREE.Vector3(), u = new THREE.Vector3(), w = new THREE.Vector3(), f = new THREE.Vector3();
+  for (let s = 0; s < seeds; s++) {
+    const y = 1 - 2 * (s + 0.5) / seeds;
+    if (y < -0.7) continue;                                  // leave room for the stalk
+    const r = Math.sqrt(1 - y * y), th = ga * s;             // fibonacci sphere
+    v.set(Math.cos(th) * r, y, Math.sin(th) * r).normalize();
+    u.set(0, 1, 0); if (Math.abs(v.y) > 0.9) u.set(1, 0, 0);
+    u.cross(v).normalize(); w.copy(v).cross(u).normalize();
+    for (let i = 0; i < 22; i++) { const t = 0.3 + Math.random() * 0.3; P(v.x*t + (Math.random()-0.5)*0.07, v.y*t + (Math.random()-0.5)*0.07, v.z*t + (Math.random()-0.5)*0.07, achene); }
+    for (let i = 0; i < 40; i++) { const t = 0.6 + Math.random() * (R * 0.74 - 0.6); P(v.x*t + (Math.random()-0.5)*0.02, v.y*t + (Math.random()-0.5)*0.02, v.z*t + (Math.random()-0.5)*0.02, beak); }
+    const tip = R * 0.74;
+    for (let fl = 0; fl < 24; fl++) {                        // the parachute: filaments fanning from the tip
+      const a = (30 + Math.random() * 50) * Math.PI / 180, ph = Math.random() * Math.PI * 2;
+      f.copy(v).multiplyScalar(Math.cos(a)).addScaledVector(u, Math.sin(a) * Math.cos(ph)).addScaledVector(w, Math.sin(a) * Math.sin(ph)).normalize();
+      const len = R * (0.24 + Math.random() * 0.06);
+      for (let i = 0; i < 12; i++) { const t = (i + Math.random()) / 12 * len; P(v.x*tip + f.x*t, v.y*tip + f.y*t - t*t*0.05, v.z*tip + f.z*t, cream); }
+    }
+  }
+  for (let i = 0; i < 900; i++) {                            // receptacle
+    v.set(Math.random()*2 - 1, Math.random()*2 - 1, Math.random()*2 - 1);
+    if (v.length() > 1) { i--; continue; }
+    v.multiplyScalar(0.32); P(v.x, v.y, v.z, achene);
+  }
+  const SL = height - R - 0.4;
+  for (let i = 0; i < 1600; i++) { const t = Math.random(); P(Math.sin(t * 2.2) * 0.35 + (Math.random()-0.5)*0.12, -0.3 - t * SL, (Math.random()-0.5)*0.12, stalk); }
+  return { pos: new Float32Array(pos), col: new Float32Array(col), n: pos.length / 3 };
+}
+
+function buildFragments(img, SW, height) {
+  const SH = Math.round(SW * img.height / img.width), N = SW * SH;
+  const cv = document.createElement('canvas'); cv.width = SW; cv.height = SH;
+  const cx = cv.getContext('2d', { willReadFrequently: true });
+  cx.drawImage(img, 0, 0, SW, SH);
+  const d = cx.getImageData(0, 0, SW, SH).data;
+  const M = new Uint8Array(N);
+  for (let i = 0; i < N; i++) M[i] = (0.299*d[i*4] + 0.587*d[i*4+1] + 0.114*d[i*4+2]) > 85 ? 1 : 0;   // lit wood on black
+  const lab = new Int32Array(N).fill(-1), stack = new Int32Array(N), comps = [];
+  for (let i = 0; i < N; i++) {                              // connected components = individual pieces
+    if (!M[i] || lab[i] >= 0) continue;
+    const id = comps.length; let sp = 0, n = 0, minx = SW, maxx = 0, miny = SH, maxy = 0, sx = 0, sy = 0;
+    stack[sp++] = i; lab[i] = id;
+    while (sp) {
+      const p = stack[--sp], px = p % SW, py = (p / SW) | 0;
+      n++; sx += px; sy += py;
+      if (px < minx) minx = px; if (px > maxx) maxx = px; if (py < miny) miny = py; if (py > maxy) maxy = py;
+      if (px > 0 && M[p-1] && lab[p-1] < 0) { lab[p-1] = id; stack[sp++] = p - 1; }
+      if (px < SW-1 && M[p+1] && lab[p+1] < 0) { lab[p+1] = id; stack[sp++] = p + 1; }
+      if (py > 0 && M[p-SW] && lab[p-SW] < 0) { lab[p-SW] = id; stack[sp++] = p - SW; }
+      if (py < SH-1 && M[p+SW] && lab[p+SW] < 0) { lab[p+SW] = id; stack[sp++] = p + SW; }
+    }
+    const bw = maxx - minx + 1, bh = maxy - miny + 1;
+    comps.push({ n, cx: sx / n, cy: sy / n,
+      // drop the frame's beams: they run off the left edge, or are long and thin
+      keep: n >= 8 && minx > 1 && bw < SW * 0.6 && !(bw > SW * 0.22 && (n / (bw * bh) < 0.35 || bw / bh > 3.5)),
+      z: (Math.random() * 2 - 1) * 2.6, a: (Math.random() * 2 - 1) * 0.9, b: (Math.random() * 2 - 1) * 0.5 });
+  }
+  let minX = SW, maxX = 0, minY = SH, maxY = 0;
+  for (let i = 0; i < N; i++) { const l = lab[i]; if (l < 0 || !comps[l].keep) continue; const x = i % SW, y = (i / SW) | 0; if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y; }
+  const wpp = Math.min(height / (maxY - minY), 7.6 / (maxX - minX)), ccx = (minX + maxX) / 2, ccy = (minY + maxY) / 2;
+  const pos = [], col = [], t = new THREE.Color();
+  for (let i = 0; i < N; i++) {
+    const l = lab[i]; if (l < 0 || !comps[l].keep) continue;
+    const x = i % SW, y = (i / SW) | 0, c = comps[l];
+    const z = c.z + c.a * (x - c.cx) * wpp + c.b * (y - c.cy) * wpp * 0.6;   // each piece: its own depth and tilt
+    t.setRGB(Math.min(1, d[i*4]/255*1.2), Math.min(1, d[i*4+1]/255*1.2), Math.min(1, d[i*4+2]/255*1.2)).lerp(PINK, 0.3);
+    pos.push((x - ccx) * wpp + (Math.random()-0.5) * wpp, (ccy - y) * wpp + (Math.random()-0.5) * wpp, z + (Math.random()-0.5) * 0.05);
+    col.push(t.r, t.g, t.b);
+  }
+  return { pos: new Float32Array(pos), col: new Float32Array(col), n: pos.length / 3 };
+}
+
+// centre a form and fit it inside the same box as the others
+function fitBox(s, H = 10.5, W = 7.6) {
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity, z0 = Infinity, z1 = -Infinity;
+  for (let i = 0; i < s.pos.length; i += 3) {
+    const x = s.pos[i], y = s.pos[i+1], z = s.pos[i+2];
+    if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; if (z < z0) z0 = z; if (z > z1) z1 = z;
+  }
+  const k = Math.min(H / (y1 - y0), W / (x1 - x0)), mx = (x0 + x1) / 2, my = (y0 + y1) / 2, mz = (z0 + z1) / 2;
+  for (let i = 0; i < s.pos.length; i += 3) { s.pos[i] = (s.pos[i] - mx) * k; s.pos[i+1] = (s.pos[i+1] - my) * k; s.pos[i+2] = (s.pos[i+2] - mz) * k; }
+  return s;
+}
+
+// every form gets exactly N splats so they can share one buffer and morph through the ball
+function resample(s, N) {
+  const idx = new Uint32Array(s.n); for (let i = 0; i < s.n; i++) idx[i] = i;
+  for (let i = s.n - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; const tmp = idx[i]; idx[i] = idx[j]; idx[j] = tmp; }
+  const pos = new Float32Array(N * 3), col = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    const extra = i >= s.n, j = extra ? idx[(Math.random() * s.n) | 0] : idx[i], jit = extra ? 0.03 : 0;
+    pos[i*3] = s.pos[j*3] + (Math.random()-0.5) * jit; pos[i*3+1] = s.pos[j*3+1] + (Math.random()-0.5) * jit; pos[i*3+2] = s.pos[j*3+2] + (Math.random()-0.5) * jit;
+    col[i*3] = s.col[j*3]; col[i*3+1] = s.col[j*3+1]; col[i*3+2] = s.col[j*3+2];
+  }
+  return { pos, col, n: N };
+}
+
+/* ───────────────────────────────────────────────────────────────
+   2b. Hero: an ambiguous ball of splats resolves into a form, holds
+   while it turns, dissolves back into the ball, and becomes the next:
+   hand → dandelion → fragments. Points lean away from a cursor or a
+   finger; a click or tap sends a ripple through them; drag or swipe
+   sideways to spin the form.
+   ─────────────────────────────────────────────────────────────── */
+const HERO_VS = `
+  attribute vec3 aColor; attribute vec3 aP1; attribute vec3 aC1; attribute vec3 aP2; attribute vec3 aC2;
+  attribute vec3 aScatter; attribute float aRand;
+  uniform float uTime, uMix, uSize, uScale, uPush, uAspect, uPulse;
+  uniform vec2 uMouse, uPulseAt; uniform vec3 uPink, uW;
+  varying vec3 vColor; varying float vAlpha;
+  void main() {
+    float m = clamp(uMix * 1.6 - aRand * 0.6, 0.0, 1.0);
+    m = m * m * (3.0 - 2.0 * m);
+    vec3 target = position * uW.x + aP1 * uW.y + aP2 * uW.z;
+    vec3 tcol   = aColor   * uW.x + aC1 * uW.y + aC2 * uW.z;
+    float tt = uTime * 0.32 + aRand * 6.2831;
+    vec3 drift = vec3(sin(tt * 1.3 + aScatter.y * 0.35), cos(tt * 1.07 + aScatter.x * 0.3), sin(tt * 0.83 + aScatter.z * 0.45));
+    vec3 p = mix(aScatter + drift * 1.1, target + drift * 0.012, m);
+    vec4 mv = modelViewMatrix * vec4(p, 1.0);
+    vec4 clip = projectionMatrix * mv;
+    vec2 ndc = clip.xy / clip.w;
+    vec2 dv = (ndc - uMouse) * vec2(uAspect, 1.0);
+    float dist = length(dv);
+    float push = uPush * (1.0 - smoothstep(0.0, 0.32, dist)) * 0.09;
+    vec2 pv = (ndc - uPulseAt) * vec2(uAspect, 1.0);          // ripple: a ring expanding from the tap
+    float pd = length(pv);
+    float ring = uPulse * exp(-pow((pd - (1.0 - uPulse) * 1.1) * 7.0, 2.0)) * 0.16;
+    clip.xy += (dv / max(dist, 0.0001)) * vec2(1.0 / uAspect, 1.0) * push * clip.w;
+    clip.xy += (pv / max(pd, 0.0001)) * vec2(1.0 / uAspect, 1.0) * ring * clip.w;
+    gl_Position = clip;
+    gl_PointSize = uSize * mix(1.7, 1.0, m) * (1.0 + ring * 1.2) * uScale / -mv.z;
+    vColor = mix(mix(tcol, uPink, 0.55), tcol, m) + ring * 0.12;
+    vAlpha = mix(0.42, 1.0, m);
+  }`;
+
+const hero = (function hero() {
+  const heroEl = document.getElementById('hero');
+  const canvas = document.getElementById('hero-canvas');
+  const hud = Object.fromEntries([...document.querySelectorAll('[data-hud]')].map(el => [el.dataset.hud, el]));
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'high-performance' }); }
+  catch (e) { hud.state.textContent = 'webgl unavailable'; return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio, narrow() ? 1.25 : 1.5));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 200);
+  camera.position.set(0, 0, 18);
+  const group = new THREE.Group(); scene.add(group);
+  const FORMS = ['wire hand — real & rendered', 'dandelion — Return Without Reason', 'fragments — Fragment to Augment'];
+  let mat = null, ready = false;
+
+  const heroH1 = heroEl.querySelector('h1'), heroStrip = heroEl.querySelector('.disciplines');
+  function layout() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+    const visH = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const ppu = h / visH;                                    // css px per world unit at z = 0
+    if (w / h > 1.05) {
+      // wide screens: as large as the room right of the headline allows, leaning toward it.
+      // Measured half-widths (local units): ~3.2 at the headline's height, ~4.3 overall — the fragments are widest.
+      const hr = heroEl.getBoundingClientRect();
+      const range = document.createRange(); range.selectNodeContents(heroH1);
+      const textRight = range.getBoundingClientRect().right - hr.left;
+      const top = 64, bottom = heroStrip.getBoundingClientRect().top - hr.top;
+      const s = Math.max(0.6, Math.min(1.15, (w - 44 - textRight) / (7.5 * ppu), (bottom - top - 50) / (10.5 * ppu)));
+      const lo = textRight + 28 + 3.2 * s * ppu, hi = w - 16 - 4.3 * s * ppu;
+      const cx = hi > lo ? lo + 0.25 * (hi - lo) : (lo + hi) / 2;
+      group.scale.setScalar(s);
+      group.position.set((cx - w / 2) / ppu, (h / 2 - (top + bottom) / 2) / ppu, 0);
+    }
+    else {
+      // narrow screens: the form gets the band between the header and the headline
+      const top = 64;
+      const bodyTop = document.querySelector('.hero-body').getBoundingClientRect().top - heroEl.getBoundingClientRect().top;
+      const space = Math.max(160, bodyTop - top);
+      group.scale.setScalar(Math.min(0.72, (0.86 * space) / (10.5 * ppu)));
+      group.position.set(0, visH / 2 - (top + space / 2) / ppu, 0);
+    }
+    if (mat) { mat.uniforms.uScale.value = renderer.domElement.height / 2; mat.uniforms.uAspect.value = w / h; }
+  }
+  layout(); addEventListener('resize', layout);
+  document.fonts.ready.then(layout);              // the headline's width settles once the serif loads
+
+  const load = (src) => new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src; });
+  Promise.all([load('/tech/media/wire-hand.jpg'), load('/tech/media/fragments.jpg')]).then(([handImg, fragImg]) => {
+    const small = narrow(), N = small ? 20000 : 48000;
+    const forms = [
+      buildHand(handImg, small ? 240 : 380, 10.5),
+      buildDandelion(10.5, small ? 70 : 150),
+      buildFragments(fragImg, small ? 250 : 375, 9),
+    ].map((s, i) => resample(i === 2 ? fitBox(s, 10.5, 6.9) : fitBox(s), N));   // fragments run wide: a little narrower
+    const scatter = new Float32Array(N * 3), rand = new Float32Array(N);
+    const g = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;   // soft, no hard edge
+    for (let i = 0; i < N; i++) {
+      scatter[i*3]   = forms[0].pos[i*3]   * 1.5 + g() * 12 - 2.5;
+      scatter[i*3+1] = forms[0].pos[i*3+1] * 1.5 + g() * 7.5 + 0.6;
+      scatter[i*3+2] = forms[0].pos[i*3+2] * 1.5 + g() * 6;
+      rand[i] = Math.random();
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(forms[0].pos, 3));
+    geo.setAttribute('aColor', new THREE.BufferAttribute(forms[0].col, 3));
+    geo.setAttribute('aP1', new THREE.BufferAttribute(forms[1].pos, 3));
+    geo.setAttribute('aC1', new THREE.BufferAttribute(forms[1].col, 3));
+    geo.setAttribute('aP2', new THREE.BufferAttribute(forms[2].pos, 3));
+    geo.setAttribute('aC2', new THREE.BufferAttribute(forms[2].col, 3));
+    geo.setAttribute('aScatter', new THREE.BufferAttribute(scatter, 3));
+    geo.setAttribute('aRand', new THREE.BufferAttribute(rand, 1));
+    geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 40);   // scattered state is wide: never cull
+    mat = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0 }, uMix: { value: reduced ? 1 : 0 }, uSize: { value: small ? 0.12 : 0.105 },
+        uScale: { value: 1 }, uPush: { value: 0 }, uAspect: { value: 1 }, uPulse: { value: 0 },
+        uMouse: { value: new THREE.Vector2(9, 9) }, uPulseAt: { value: new THREE.Vector2(9, 9) },
+        uPink: { value: PINK }, uW: { value: new THREE.Vector3(1, 0, 0) },
+      },
+      vertexShader: HERO_VS, fragmentShader: SPLAT_FS, transparent: true, depthWrite: false,
+    });
+    group.add(new THREE.Points(geo, mat));
+    layout();
+    ready = true;
+    hud.points.textContent = N.toLocaleString();
+    requestAnimationFrame(() => { canvas.style.opacity = '1'; });
+  }).catch((e) => { console.error(e); hud.state.textContent = 'could not load'; });
+
+  // one form ≈ 15 s: ball (crossfading to the next form) → resolve → hold → dissolve
+  const CYCLE = 12.2, NEB = 1.5, RES = 4.9, HOLD = 9.4;
+  const ease = (u) => u < 0.5 ? 4*u*u*u : 1 - Math.pow(-2*u + 2, 3) / 2;
+  const phase = (t) => {
+    const k = Math.floor(t / CYCLE), c = t - k * CYCLE, cur = ((k % 3) + 3) % 3, prev = (cur + 2) % 3;
+    if (c < NEB)  return { state: 'nebula', mix: 0, cur, prev, blend: smooth(0, 1, c / NEB) };
+    if (c < RES)  return { state: 'resolving', mix: ease((c - NEB) / (RES - NEB)), cur, prev, blend: 1 };
+    if (c < HOLD) return { state: 'resolved', mix: 1, cur, prev, blend: 1 };
+    return { state: 'dissolving', mix: 1 - ease((c - HOLD) / (CYCLE - HOLD)), cur, prev, blend: 1 };
+  };
+
+  // presence: a cursor or a finger (touch keeps working while the page scrolls).
+  // Handlers only record the point; the frame maps it once, against a fresh hero rect.
+  const mouse = new THREE.Vector2(9, 9), pointer = { x: -1, y: -1 };
+  let inHero = false, presentUntil = 0;
+  const toNdc = (x, y, out, r) => {
+    out.set((x - r.left) / r.width * 2 - 1, -((y - r.top) / r.height * 2 - 1));
+    return y >= r.top && y <= r.bottom;
+  };
+  const note = (x, y, hold) => { pointer.x = x; pointer.y = y; presentUntil = performance.now() + hold; };
+  addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') note(e.clientX, e.clientY, 2500); }, { passive: true });
+  heroEl.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') presentUntil = 0; });
+  const onTouch = (e) => { const tch = e.touches[0]; if (tch) note(tch.clientX, tch.clientY, 450); };
+  heroEl.addEventListener('touchstart', onTouch, { passive: true });
+  heroEl.addEventListener('touchmove', onTouch, { passive: true });
+
+  // click / tap → ripple; drag / sideways swipe → spin. Drag is eased in per frame and the fling
+  // speed is time-based, smoothed and capped, so one bunched-up touch event can't send it whirling.
+  // On touch the ripple waits for a real tap, so starting a scroll on the hero doesn't set one off.
+  const pulseAt = new THREE.Vector2(9, 9), MAX_SPIN = 2.5;
+  let pulse = 0, dragging = false, dragType = '', startX = 0, startY = 0, startT = 0, lastX = 0, lastT = 0, spinV = 0, pendingSpin = 0;
+  const ripple = (x, y) => { toNdc(x, y, pulseAt, heroEl.getBoundingClientRect()); pulse = 1; };
+  heroEl.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('a, button')) return;
+    dragging = true; dragType = e.pointerType; spinV = 0;
+    startX = lastX = e.clientX; startY = e.clientY; startT = lastT = e.timeStamp;
+    if (dragType === 'mouse') ripple(e.clientX, e.clientY);
+  });
+  addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const d = (e.clientX - lastX) * (dragType === 'mouse' ? 0.006 : 0.004);
+    const secs = Math.max(8, e.timeStamp - lastT) / 1000;
+    lastX = e.clientX; lastT = e.timeStamp;
+    pendingSpin += d;
+    spinV += (THREE.MathUtils.clamp(d / secs, -MAX_SPIN, MAX_SPIN) - spinV) * 0.4;
+  }, { passive: true });
+  addEventListener('pointerup', (e) => {
+    if (!dragging) return;
+    dragging = false;
+    if (e.timeStamp - lastT > 90) spinV = 0;                       // held still before letting go: no fling
+    const tap = Math.hypot(e.clientX - startX, e.clientY - startY) < 12 && e.timeStamp - startT < 400;
+    if (dragType !== 'mouse' && tap) ripple(e.clientX, e.clientY);
+  });
+  addEventListener('pointercancel', () => { dragging = false; spinV = 0; });   // the browser took it as a scroll
+
+  let raf = 0, last = 0, t = 0, fpsT = 0, fpsN = 0, lastState = '', lastForm = -1;
+  function frame(now) {
+    raf = requestAnimationFrame(frame);
+    const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now;
+    if (!ready) return;
+    t += dt;
+    const u = mat.uniforms;
+    const ph = reduced ? { state: 'resolved', mix: 1, cur: 0, prev: 0, blend: 1 } : phase(t);
+    const w = [0, 0, 0]; w[ph.prev] += 1 - ph.blend; w[ph.cur] += ph.blend;
+    u.uW.value.set(w[0], w[1], w[2]);
+    u.uTime.value = reduced ? 0 : t;
+    u.uMix.value = ph.mix;
+    inHero = toNdc(pointer.x, pointer.y, mouse, heroEl.getBoundingClientRect());
+    const present = inHero && now < presentUntil && !reduced;
+    u.uPush.value += ((present ? 1 : 0) - u.uPush.value) * Math.min(1, dt * 7);
+    u.uMouse.value.copy(mouse);
+    pulse = Math.max(0, pulse - dt / 1.3);
+    u.uPulse.value = pulse; u.uPulseAt.value.copy(pulseAt);
+    const step = pendingSpin * Math.min(1, dt * 22);
+    group.rotation.y += step; pendingSpin -= step;
+    if (!dragging) {
+      if (!reduced) group.rotation.y += dt * 0.16;
+      group.rotation.y += spinV * dt; spinV *= Math.pow(0.05, dt);
+    }
+    group.rotation.x += ((present ? -mouse.y * 0.12 : 0) - group.rotation.x) * Math.min(1, dt * 2);
+    renderer.render(scene, camera);
+    fpsT += dt; fpsN++;
+    if (fpsT > 0.5) { hud.fps.textContent = Math.round(fpsN / fpsT) + ' fps'; fpsT = 0; fpsN = 0; }
+    if (ph.state !== lastState) { hud.state.textContent = ph.state; lastState = ph.state; }
+    if (ph.cur !== lastForm) { hud.source.textContent = FORMS[ph.cur]; lastForm = ph.cur; }
+  }
+  let visible = true, caseOpen = false;
+  const sync = () => {
+    const run = visible && !caseOpen && !document.hidden;
+    if (run && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+    if (!run && raf) { cancelAnimationFrame(raf); raf = 0; }
+  };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }).observe(heroEl);
+  document.addEventListener('visibilitychange', sync);
+  sync();
+  return { setCaseOpen(v) { caseOpen = v; sync(); } };
+})();
+
+/* ───────────────────────────────────────────────────────────────
+   3. Work-card videos: load and play only while on screen.
+   ─────────────────────────────────────────────────────────────── */
+// phones get Cloudinary video capped at 960 px wide — sharp at that size, a fraction of the bytes
+const smallScreen = matchMedia('(max-width: 700px)').matches;
+const videoSrc = (v) => {
+  const u = v.dataset.src;
+  return smallScreen && u.includes('res.cloudinary.com') && !/[,/]w_\d+/.test(u) ? u.replace('/f_auto,q_auto/', '/f_auto,q_auto,w_960,c_limit/') : u;
+};
+const cardVideos = [...document.querySelectorAll('.wcard video')];
+const onScreen = new Set();
+const cardIO = new IntersectionObserver((ents) => {
+  for (const e of ents) {
+    const v = e.target;
+    if (e.isIntersecting) {
+      onScreen.add(v);
+      if (!v.src && v.dataset.src) v.src = videoSrc(v);
+      if (!document.documentElement.classList.contains('cf-open')) v.play().catch(() => {});
+    } else { onScreen.delete(v); v.pause(); }
+  }
+}, { rootMargin: '150px 0px', threshold: 0.2 });
+cardVideos.forEach(v => cardIO.observe(v));
+
+/* ───────────────────────────────────────────────────────────────
+   4. The gallery as gaussian splats (case file 01, on demand).
+   ─────────────────────────────────────────────────────────────── */
+const ROOM_VS = `
+  attribute vec3 aColor; uniform float uSize, uScale;
+  varying vec3 vColor; varying float vAlpha;
+  void main() {
+    vec4 mv = modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * mv;
+    gl_PointSize = uSize * uScale / -mv.z;
+    vColor = aColor; vAlpha = 0.88;
+  }`;
+let room = null, roomLoading = false;
+async function startRoom() {
+  if (room) { room.start(); return; }
+  if (roomLoading) return; roomLoading = true;
+  const frameEl = document.getElementById('room-viewer');
+  const status = frameEl.querySelector('.viewer-status'), cv = frameEl.querySelector('canvas');
+  try {
+    const [{ GLTFLoader }, { OrbitControls }] = await Promise.all([
+      import('three/addons/loaders/GLTFLoader.js'), import('three/addons/controls/OrbitControls.js')]);
+    const r = new THREE.WebGLRenderer({ canvas: cv, antialias: false });
+    r.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    const sc = new THREE.Scene(); sc.background = new THREE.Color(0x111008);
+    const cam = new THREE.PerspectiveCamera(50, 1, 0.01, 200);
+    const ctl = new OrbitControls(cam, cv);
+    ctl.enableDamping = true; ctl.dampingFactor = 0.08; ctl.autoRotate = !reduced; ctl.autoRotateSpeed = 0.55;
+    const gltf = await new GLTFLoader().loadAsync('/the-room/model/room.glb');
+    const chunks = [];
+    gltf.scene.updateWorldMatrix(true, true);
+    gltf.scene.traverse(o => { if (o.isMesh && o.geometry?.attributes.position) { const g = o.geometry.clone(); g.applyMatrix4(o.matrixWorld); chunks.push(g.attributes.position.array); } });
+    const total = chunks.reduce((n, a) => n + a.length, 0), P = new Float32Array(total);
+    let off = 0; chunks.forEach(a => { P.set(a, off); off += a.length; });
+    let lo = Infinity, hi = -Infinity;
+    for (let i = 1; i < P.length; i += 3) { if (P[i] < lo) lo = P[i]; if (P[i] > hi) hi = P[i]; }
+    const C = new Float32Array(P.length), low = new THREE.Color(0xff2fb0), high = new THREE.Color(0xf7d6ea), c = new THREE.Color();
+    for (let i = 0; i < P.length; i += 3) { c.copy(low).lerp(high, Math.pow((P[i+1] - lo) / ((hi - lo) || 1), 0.8)); C[i] = c.r; C[i+1] = c.g; C[i+2] = c.b; }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(P, 3));
+    geo.setAttribute('aColor', new THREE.BufferAttribute(C, 3));
+    const m = new THREE.ShaderMaterial({ uniforms: { uSize: { value: 0.045 }, uScale: { value: 1 } },
+      vertexShader: ROOM_VS, fragmentShader: SPLAT_FS, transparent: true, depthWrite: false });
+    const pts = new THREE.Points(geo, m); sc.add(pts);
+    const box = new THREE.Box3().setFromObject(pts), ctr = box.getCenter(new THREE.Vector3());
+    const rad = Math.max(...box.getSize(new THREE.Vector3()).toArray()) || 1;
+    ctl.target.copy(ctr);
+    cam.position.set(ctr.x + rad * 0.9, ctr.y + rad * 0.5, ctr.z + rad * 0.9);
+    const size = () => { const w = frameEl.clientWidth, h = frameEl.clientHeight; if (!w || !h) return; r.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); m.uniforms.uScale.value = r.domElement.height / 2; };
+    size(); addEventListener('resize', size);
+    let id = 0;
+    const loop = () => { id = requestAnimationFrame(loop); ctl.update(); r.render(sc, cam); };
+    room = { start() { if (!id) { size(); loop(); } }, stop() { cancelAnimationFrame(id); id = 0; } };
+    status.remove();
+    if (currentCase === 'real-and-rendered') room.start();
+  } catch (e) {
+    console.error(e);
+    status.textContent = 'Could not load the point cloud';
+  } finally { roomLoading = false; }
+}
+
+/* ───────────────────────────────────────────────────────────────
+   5. System map (case file 01): select a component.
+   ─────────────────────────────────────────────────────────────── */
+const NODES = ['sense', 'fuse', 'perceive', 'gpu', 'speak', 'show', 'memory'];
+const cfScroll = document.getElementById('cf-scroll');
+function selectNode(id, scroll) {
+  if (!NODES.includes(id)) return;
+  document.querySelectorAll('.explorer .node').forEach(n => {
+    const on = n.dataset.node === id;
+    n.classList.toggle('is-on', on); n.setAttribute('aria-pressed', on);
+  });
+  document.querySelectorAll('.explorer .node-detail').forEach(p => { p.hidden = p.dataset.node !== id; });
+  // on narrow screens the map scrolls sideways — bring the selected component into view
+  const dg = document.querySelector('.explorer .diagram');
+  const box = document.querySelector(`.explorer .node[data-node="${id}"] rect`);
+  if (dg && box && dg.scrollWidth > dg.clientWidth + 1) {
+    const s = dg.querySelector('svg').clientWidth / 1000;
+    dg.scrollLeft = (+box.getAttribute('x') + +box.getAttribute('width') / 2) * s - dg.clientWidth / 2;
+  }
+  if (scroll) requestAnimationFrame(() => {
+    const ex = document.getElementById('explorer');
+    cfScroll.scrollTop += ex.getBoundingClientRect().top - cfScroll.getBoundingClientRect().top - 24;
+  });
+}
+const pickNode = (id) => {
+  selectNode(id);
+  history.replaceState(history.state, '', '#real-and-rendered/' + id);   // the URL is the shareable view
+};
+document.querySelectorAll('.explorer .node').forEach(n => {
+  n.addEventListener('click', () => pickNode(n.dataset.node));
+  n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickNode(n.dataset.node); } });
+});
+selectNode('perceive');
+
+/* ───────────────────────────────────────────────────────────────
+   6. Case files: hash-routed overlay (#real-and-rendered,
+   #real-and-rendered/fuse …) — shareable links, back button closes,
+   ← → to move between cases.
+   ─────────────────────────────────────────────────────────────── */
+const CASES = ['real-and-rendered', 'projection-mapping', 'physical-generated'];
+const BASE_TITLE = document.title;
+const cf = document.getElementById('cf');
+const cfIndex = document.getElementById('cf-index');
+const mainEl = document.getElementById('main'), headerEl = document.querySelector('header.site');
+let currentCase = null, opener = null;
+const parse = (h) => { const [id, sub] = decodeURIComponent(h.replace(/^#/, '')).split('/'); return { id, sub }; };
+
+const caseIO = new IntersectionObserver((ents) => {
+  for (const { target: v, isIntersecting } of ents) {
+    if (isIntersecting) { if (!v.src && v.dataset.src) v.src = videoSrc(v); if ('auto' in v.dataset) v.play().catch(() => {}); }
+    else v.pause();
+  }
+}, { root: document.getElementById('cf-scroll'), rootMargin: '200px 0px', threshold: 0.15 });
+
+function show(id) {
+  const wasOpen = !!currentCase;
+  if (currentCase === id) return;
+  currentCase = id;
+  cf.querySelectorAll('.cf-case').forEach(a => {
+    const on = a.dataset.case === id;
+    a.hidden = !on;
+    a.querySelectorAll('video').forEach(v => {
+      if (on) { if (!v.getAttribute('poster') && v.dataset.poster) v.poster = v.dataset.poster; caseIO.observe(v); }
+      else { caseIO.unobserve(v); v.pause(); }
+    });
+    if (on) document.title = a.dataset.title.replace('&amp;', '&') + ' — Ahmed J Malik';
+  });
+  cfIndex.textContent = cf.querySelector(`.cf-case[data-case="${id}"]`).dataset.title.replace('&amp;', '&');
+  cfScroll.scrollTop = 0;
+  if (!wasOpen) {
+    cf.hidden = false;
+    requestAnimationFrame(() => cf.classList.add('is-in'));
+    document.documentElement.classList.add('cf-open');
+    mainEl.inert = true; headerEl.inert = true;
+    cardVideos.forEach(v => v.pause());
+    hero?.setCaseOpen(true);
+    document.getElementById('cf-close').focus({ preventScroll: true });
+  }
+  if (id === 'real-and-rendered') startRoom(); else room?.stop();
+}
+
+function hide() {
+  if (!currentCase) return;
+  currentCase = null;
+  cf.classList.remove('is-in');
+  cf.querySelectorAll('video').forEach(v => { caseIO.unobserve(v); v.pause(); });
+  room?.stop();
+  setTimeout(() => { if (!currentCase) cf.hidden = true; }, reduced ? 0 : 360);
+  document.documentElement.classList.remove('cf-open');
+  mainEl.inert = false; headerEl.inert = false;
+  hero?.setCaseOpen(false);
+  onScreen.forEach(v => v.play().catch(() => {}));
+  document.title = BASE_TITLE;
+  opener?.focus({ preventScroll: true }); opener = null;
+}
+
+function route() {
+  const { id, sub } = parse(location.hash);
+  if (CASES.includes(id)) { show(id); if (sub) selectNode(sub, true); }
+  else hide();
+}
+function go(id, sub) {
+  const h = '#' + id + (sub ? '/' + sub : '');
+  if (currentCase) history.replaceState({ cf: true }, '', h);
+  else history.pushState({ cf: true }, '', h);
+  show(id);
+  if (sub) selectNode(sub, true);
+}
+function close() {
+  if (history.state && history.state.cf) history.back();
+  else { history.replaceState(null, '', location.pathname + location.search); hide(); }
+}
+const step = (dir) => go(CASES[(CASES.indexOf(currentCase) + dir + CASES.length) % CASES.length]);
+
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const { id, sub } = parse(a.getAttribute('href'));
+  if (!CASES.includes(id)) return;
+  e.preventDefault();
+  if (!currentCase) opener = a;
+  go(id, sub);
+});
+document.getElementById('cf-close').addEventListener('click', close);
+document.getElementById('cf-back').addEventListener('click', close);
+document.getElementById('cf-prev').addEventListener('click', () => step(-1));
+document.getElementById('cf-next').addEventListener('click', () => step(1));
+document.addEventListener('keydown', (e) => {
+  if (!currentCase) return;
+  if (e.key === 'Escape') { e.preventDefault(); close(); }
+  else if (e.target.closest('.node')) return;          // arrows don't hijack the map
+  else if (e.key === 'ArrowRight') step(1);
+  else if (e.key === 'ArrowLeft') step(-1);
+});
+addEventListener('popstate', route);
+addEventListener('hashchange', route);
+route();
+
+/* ───────────────────────────────────────────────────────────────
+   6b. Capabilities: filter by discipline (chips, or the hero strip), and
+   preview each project's image beside the cursor.
+   ─────────────────────────────────────────────────────────────── */
+const ixRows = [...document.querySelectorAll('.ix-row')];
+const ixChips = [...document.querySelectorAll('.ix-f')];
+const tagsOf = (r) => r.dataset.tags.split(' ');
+function filterIndex(f) {
+  ixRows.forEach(r => { r.hidden = f !== 'all' && !tagsOf(r).includes(f); });
+  ixChips.forEach(b => { const on = b.dataset.filter === f; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
+  try { sessionStorage.setItem('capFilter', f); } catch (e) {}
+}
+// coming back from a project page: keep the filter you left with
+try {
+  const nav = performance.getEntriesByType('navigation')[0];
+  const f = sessionStorage.getItem('capFilter');
+  if (nav && nav.type === 'back_forward' && f && ixChips.some(b => b.dataset.filter === f)) filterIndex(f);
+} catch (e) {}
+ixChips.forEach(b => {
+  const f = b.dataset.filter;
+  b.querySelector('span').textContent = f === 'all' ? ixRows.length : ixRows.filter(r => tagsOf(r).includes(f)).length;
+  b.addEventListener('click', () => filterIndex(f));
+});
+document.querySelectorAll('.disciplines a[data-filter]').forEach(a => a.addEventListener('click', () => filterIndex(a.dataset.filter)));
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const pv = document.createElement('div'); pv.className = 'ix-preview'; pv.setAttribute('aria-hidden', 'true');
+  const pvImg = document.createElement('img'); pvImg.alt = ''; pv.appendChild(pvImg); document.body.appendChild(pv);
+  ixRows.forEach(r => {
+    r.addEventListener('pointerenter', () => { pvImg.src = r.dataset.img; pv.classList.add('is-on'); });
+    r.addEventListener('pointerleave', () => pv.classList.remove('is-on'));
+    r.querySelectorAll('.ix-also a[data-img]').forEach(a => {
+      a.addEventListener('pointerenter', () => { pvImg.src = a.dataset.img; });
+      a.addEventListener('pointerleave', () => { pvImg.src = r.dataset.img; });
+    });
+  });
+  document.querySelector('.ix').addEventListener('pointermove', (e) => {
+    const x = e.clientX + 264 > innerWidth ? e.clientX - 264 : e.clientX + 24;
+    const y = Math.min(innerHeight - pv.offsetHeight - 16, Math.max(70, e.clientY - 90));
+    pv.style.transform = `translate(${x}px, ${y}px)`;
+  }, { passive: true });
+  // warm the thumbnails once the index is near, so the first hover isn't empty
+  new IntersectionObserver((es, io) => {
+    if (es.some(e => e.isIntersecting)) { document.querySelectorAll('.ix [data-img]').forEach(el => { new Image().src = el.dataset.img; }); io.disconnect(); }
+  }, { rootMargin: '600px' }).observe(document.getElementById('capabilities'));
+}
+
+/* ───────────────────────────────────────────────────────────────
+   7. Nav: highlight the section in view.
+   ─────────────────────────────────────────────────────────────── */
+const navLinks = [...document.querySelectorAll('.site nav a[href^="#"]')];
+const navSections = ['work', 'capabilities', 'stack'].map(id => document.getElementById(id));
+let navQueued = false;
+function updateNav() {
+  navQueued = false;
+  let active = null;
+  for (const s of navSections) if (s.getBoundingClientRect().top <= innerHeight * 0.4) active = s.id;
+  if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) active = 'stack';
+  const id = active === 'stack' ? 'contact' : active;
+  navLinks.forEach(l => l.classList.toggle('is-active', !!id && l.getAttribute('href') === '#' + id));
+}
+addEventListener('scroll', () => { if (!navQueued) { navQueued = true; requestAnimationFrame(updateNav); } }, { passive: true });
+updateNav();
+</script>
+</body>
+</html>
