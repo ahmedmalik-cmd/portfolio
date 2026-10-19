@@ -60,6 +60,15 @@ nav a {
 }
 nav a:hover { color: var(--accent); }
 
+/* Art | Technical — the two sides of the portfolio */
+nav { align-items: center; }
+.mode { display: inline-flex; border: 1px solid var(--border); }
+nav .mode a { padding: 7px 11px; }
+nav .mode a + a { border-left: 1px solid var(--border); }
+nav .mode a.is-on { color: var(--accent); background: rgba(184, 150, 110, 0.08); }
+@media (max-width: 560px) { .mode .long { display: none; } }
+@media (max-width: 420px) { nav > a { display: none; } }
+
 /* ── HERO ─────────────────────────────────────────────────────────────────── */
 .hero {
   min-height: 100vh;

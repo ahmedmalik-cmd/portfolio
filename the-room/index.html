@@ -50,6 +50,13 @@
     text-transform: uppercase; color: var(--muted); transition: color 0.2s;
   }
   header nav a:hover { color: var(--accent); }
+  header nav { align-items: center; }
+  .mode { display: inline-flex; border: 1px solid var(--border); }
+  header nav .mode a { padding: 7px 11px; }
+  header nav .mode a + a { border-left: 1px solid var(--border); }
+  header nav .mode a.is-on { color: var(--accent); background: rgba(184, 150, 110, 0.08); }
+  @media (max-width: 560px) { .mode .long { display: none; } }
+  @media (max-width: 420px) { header nav > a { display: none; } }
 
   /* ── Layout ─────────────────────────────────────────────────────────── */
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 48px; }
@@ -219,6 +226,7 @@
   <nav>
     <a href="/#work">Work</a>
     <a href="/#about">About</a>
+    <span class="mode" aria-label="Portfolio"><a class="is-on" href="/">Art</a><a href="/tech/">Tech<span class="long">nical</span></a></span>
   </nav>
 </header>
 
