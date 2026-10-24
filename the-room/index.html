@@ -23,7 +23,7 @@
     --mono:  'Space Mono', monospace;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body {
     background: var(--bg); color: var(--text);
     font-family: var(--mono); font-size: 13px; line-height: 1.6;
@@ -40,10 +40,13 @@
     background: rgba(12,11,9,0.94); backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
+  /* The name in the header is identical on every page of both sides (size, weight, rendering) */
   .logo {
     font-family: var(--serif); font-size: 1rem; font-weight: 300;
     letter-spacing: 0.22em; color: var(--text); text-transform: uppercase;
+    white-space: nowrap; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
   }
+  @media (max-width: 360px) { .logo { font-size: 0.9rem; letter-spacing: 0.18em; } }
   header nav { display: flex; gap: 32px; }
   header nav a {
     font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em;
